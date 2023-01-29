@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Hover
-    Event: 300
+    Event: 500
     filterSettings:
       RenderQueueType: 1
       LayerMask:

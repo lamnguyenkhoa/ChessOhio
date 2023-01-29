@@ -5,6 +5,10 @@ public class Chessboard : MonoBehaviour
 {
     [Header("Art Assets")]
     [SerializeField] private Material tileMaterial;
+    [SerializeField] private float tileSize = 1.0f;
+    [SerializeField] private float yOffset = 0.2f;
+    [SerializeField] private Vector3 boardCenter = Vector3.zero;
+
 
     //LOGIC
     private const int TILE_COUNT_X = 8;
@@ -12,10 +16,11 @@ public class Chessboard : MonoBehaviour
     private GameObject[,] tiles;
     private Camera currentCamera;
     private Vector2Int currentHover;
+    private Vector3 bounds;
 
     private void Awake()
     {
-        GenerateAllTiles(1, TILE_COUNT_X, TILE_COUNT_Y);
+        GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
     }
 
     private void Update()
@@ -61,8 +66,9 @@ public class Chessboard : MonoBehaviour
     // Generate the board
     private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY)
     {
+        yOffset += transform.position.y;
+        bounds = new Vector3((tileCountX / 2) * tileSize, 0, (tileCountX / 2) * tileSize) + boardCenter;
         tiles = new GameObject[tileCountX, tileCountY];
-
         for (int x = 0; x < tileCountX; x++)
         {
             for (int y = 0; y < tileCountY; y++)
@@ -82,10 +88,10 @@ public class Chessboard : MonoBehaviour
         tileObject.AddComponent<MeshRenderer>().material = tileMaterial;
 
         Vector3[] vertices = new Vector3[4];
-        vertices[0] = new Vector3(x * tileSize, 0, y * tileSize);
-        vertices[1] = new Vector3(x * tileSize, 0, (y + 1) * tileSize);
-        vertices[2] = new Vector3((x + 1) * tileSize, 0, y * tileSize);
-        vertices[3] = new Vector3((x + 1) * tileSize, 0, (y + 1) * tileSize);
+        vertices[0] = new Vector3(x * tileSize, yOffset, y * tileSize) - bounds;
+        vertices[1] = new Vector3(x * tileSize, yOffset, (y + 1) * tileSize) - bounds;
+        vertices[2] = new Vector3((x + 1) * tileSize, yOffset, y * tileSize) - bounds;
+        vertices[3] = new Vector3((x + 1) * tileSize, yOffset, (y + 1) * tileSize) - bounds;
 
         int[] triangles = new int[] { 0, 1, 2, 1, 3, 2 };
 
