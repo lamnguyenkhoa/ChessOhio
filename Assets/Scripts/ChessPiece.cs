@@ -24,7 +24,7 @@ public class ChessPiece : MonoBehaviour
     public int currentX;
     public int currentY;
 
-    public Vector3 desiredPosition;
+    private Vector3 desiredPosition;
     private Vector3 desiredScale = Vector3.one;
 
     private void Update()

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Chessboard : MonoBehaviour
@@ -9,6 +10,10 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private float tileSize = 1.0f;
     [SerializeField] private float yOffset = 0.2f;
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
+    [SerializeField] private float deathSize = 0.5f;
+    [SerializeField] private float deathSpacing = 0.7f;
+
+
 
     [Header("Prefabs & Materials")]
     [SerializeField] private GameObject[] prefabs;
@@ -17,7 +22,9 @@ public class Chessboard : MonoBehaviour
 
     // LOGIC
     private ChessPiece[,] chessPieces;
-    public ChessPiece currentlyDragging;
+    private ChessPiece currentlyDragging;
+    private List<ChessPiece> deadWhites = new List<ChessPiece>();
+    private List<ChessPiece> deadBlacks = new List<ChessPiece>();
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
     private GameObject[,] tiles;
@@ -247,6 +254,28 @@ public class Chessboard : MonoBehaviour
             if (cp.team == otherCp.team)
             {
                 return false;
+            }
+            else
+            {
+                if ((int)otherCp.team == 0)
+                {
+                    deadWhites.Add(otherCp);
+                    otherCp.SetScale(Vector3.one * deathSize);
+                    otherCp.SetPosition(new Vector3(TILE_COUNT_X * tileSize, yOffset, -1 * tileSize)
+                        - bounds
+                        + new Vector3(tileSize / 2, 0, tileSize / 2)
+                        + (Vector3.forward * deathSpacing) * deadWhites.Count);
+                }
+                else
+                {
+                    deadBlacks.Add(otherCp);
+                    otherCp.SetScale(Vector3.one * deathSize);
+                    otherCp.SetPosition(new Vector3(-1 * tileSize, yOffset, TILE_COUNT_X * tileSize)
+                        - bounds
+                        + new Vector3(tileSize / 2, 0, tileSize / 2)
+                        + (Vector3.back * deathSpacing) * deadBlacks.Count);
+                }
+
             }
         }
 
