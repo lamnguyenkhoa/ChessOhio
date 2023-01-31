@@ -17,6 +17,7 @@ public class Chessboard : MonoBehaviour
 
     // LOGIC
     private ChessPiece[,] chessPieces;
+    public ChessPiece currentlyDragging;
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
     private GameObject[,] tiles;
@@ -60,6 +61,33 @@ public class Chessboard : MonoBehaviour
                 tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
                 currentHover = hitPosition;
             }
+
+            // If we press left click
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (chessPieces[hitPosition.x, hitPosition.y] != null)
+                {
+                    // Is it our turn?
+                    if (true)
+                    {
+                        currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
+                    }
+                }
+            }
+
+            // If we release left click
+            if (currentlyDragging != null && Input.GetMouseButtonUp(0))
+            {
+                Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
+
+                bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
+                if (!validMove)
+                {
+                    currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
+                }
+                currentlyDragging = null;
+
+            }
         }
         else
         {
@@ -68,8 +96,16 @@ public class Chessboard : MonoBehaviour
                 tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
                 currentHover = -Vector2Int.one;
             }
+
+            if (currentlyDragging && Input.GetMouseButtonUp(0))
+            {
+                currentlyDragging.SetPosition(GetTileCenter(currentlyDragging.currentX, currentlyDragging.currentY));
+                currentlyDragging = null;
+            }
         }
     }
+
+
 
     // Generate the board
     private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY)
@@ -176,7 +212,7 @@ public class Chessboard : MonoBehaviour
     {
         chessPieces[x, y].currentX = x;
         chessPieces[x, y].currentY = y;
-        chessPieces[x, y].transform.position = GetTileCenter(x, y);
+        chessPieces[x, y].SetPosition(GetTileCenter(x, y), instant);
     }
 
     private Vector3 GetTileCenter(int x, int y)
@@ -198,5 +234,27 @@ public class Chessboard : MonoBehaviour
             }
         }
         return -Vector2Int.one; // Invalid
+    }
+
+    private bool MoveTo(ChessPiece cp, int x, int y)
+    {
+        Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
+
+        // Is there another piece on the target position
+        if (chessPieces[x, y] != null)
+        {
+            ChessPiece otherCp = chessPieces[x, y];
+            if (cp.team == otherCp.team)
+            {
+                return false;
+            }
+        }
+
+        chessPieces[x, y] = cp;
+        chessPieces[previousPosition.x, previousPosition.y] = null;
+
+        PositionSinglePiece(x, y);
+
+        return true;
     }
 }

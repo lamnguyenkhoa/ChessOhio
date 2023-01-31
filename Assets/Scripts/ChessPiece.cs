@@ -24,17 +24,31 @@ public class ChessPiece : MonoBehaviour
     public int currentX;
     public int currentY;
 
-    private Vector3 desiredPosition;
-    private Vector3 desiredScale;
+    public Vector3 desiredPosition;
+    private Vector3 desiredScale = Vector3.one;
 
-
-    void Start()
+    private void Update()
     {
-
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
+        transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
     }
 
-    void Update()
+    public virtual void SetPosition(Vector3 position, bool instant = false)
     {
-
+        desiredPosition = position;
+        if (instant)
+        {
+            transform.position = desiredPosition;
+        }
     }
+
+    public virtual void SetScale(Vector3 scale, bool instant = false)
+    {
+        desiredScale = scale;
+        if (instant)
+        {
+            transform.localScale = desiredScale;
+        }
+    }
+
 }
