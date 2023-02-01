@@ -24,8 +24,8 @@ public class Chessboard : MonoBehaviour
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
     private List<ChessPiece> deadWhites = new List<ChessPiece>();
     private List<ChessPiece> deadBlacks = new List<ChessPiece>();
-    private const int TILE_COUNT_X = 8;
-    private const int TILE_COUNT_Y = 8;
+    public const int TILE_COUNT_X = 8;
+    public const int TILE_COUNT_Y = 8;
     private GameObject[,] tiles;
     private Camera currentCamera;
     private Vector2Int currentHover;

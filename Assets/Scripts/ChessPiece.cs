@@ -37,11 +37,6 @@ public class ChessPiece : MonoBehaviour
     public virtual List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
-        availableMoves.Add(new Vector2Int(3, 3));
-        availableMoves.Add(new Vector2Int(3, 4));
-        availableMoves.Add(new Vector2Int(4, 3));
-        availableMoves.Add(new Vector2Int(4, 4));
-
         return availableMoves;
     }
 
@@ -61,6 +56,14 @@ public class ChessPiece : MonoBehaviour
         {
             transform.localScale = desiredScale;
         }
+    }
+
+    public virtual bool WithinBoundary(int dirX, int dirY)
+    {
+        return currentY + dirY <= 7 &&
+            currentY + dirY >= 0 &&
+            currentX + dirX <= 7 &&
+            currentX + dirX >= 0;
     }
 
 }
