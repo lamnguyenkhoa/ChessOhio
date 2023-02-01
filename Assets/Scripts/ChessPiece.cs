@@ -58,7 +58,13 @@ public class ChessPiece : MonoBehaviour
         }
     }
 
-    public virtual bool WithinBoundary(int dirX, int dirY)
+    /// <summary>
+    /// Check if after move dirX and dirY, is tile still within boundary
+    /// </summary>
+    /// <param name="dirX"></param>
+    /// <param name="dirY"></param>
+    /// <returns></returns>
+    public virtual bool WithinBoundaryAfterMove(int dirX, int dirY)
     {
         return currentY + dirY <= 7 &&
             currentY + dirY >= 0 &&

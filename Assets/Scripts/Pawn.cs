@@ -13,14 +13,14 @@ public class Pawn : ChessPiece
         int direction = (team == PieceTeam.WHITE) ? 1 : -1;
 
         // One in front
-        if (WithinBoundary(0, direction) &&
+        if (WithinBoundaryAfterMove(0, direction) &&
             board[currentX, currentY + direction] == null)
         {
             availableMoves.Add(new Vector2Int(currentX, currentY + direction));
         }
 
         // Two in front
-        if (WithinBoundary(0, direction * 2) &&
+        if (WithinBoundaryAfterMove(0, direction * 2) &&
             board[currentX, currentY + direction] == null)
         {
             if (team == PieceTeam.WHITE && currentY == WHITE_PAWN_Y_START &&
@@ -39,7 +39,7 @@ public class Pawn : ChessPiece
         }
 
         // Diagonal (Kill move)
-        if (WithinBoundary(0, direction))
+        if (WithinBoundaryAfterMove(0, direction))
         {
             if (currentX != tileCountX - 1)
             {

@@ -21,7 +21,7 @@ public class Knight : ChessPiece
         int x, y;
         for (int i = 0; i < offset.Length; i++)
         {
-            if (WithinBoundary(offset[i].x, offset[i].y))
+            if (WithinBoundaryAfterMove(offset[i].x, offset[i].y))
             {
                 x = currentX + offset[i].x;
                 y = currentY + offset[i].y;
