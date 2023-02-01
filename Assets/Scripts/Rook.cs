@@ -7,75 +7,37 @@ public class Rook : ChessPiece
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
 
-        // Down
-        for (int i = currentY - 1; i >= 0; i--)
+        Vector2Int[] directions = {
+            new Vector2Int(0, 1),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, 0),
+            new Vector2Int(-1, 0),
+        };
+
+        int x, y, dirX, dirY;
+
+        for (int i = 0; i < directions.Length; i++)
         {
-            if (board[currentX, i] == null)
+            dirX = directions[i].x;
+            dirY = directions[i].y;
+            while (WithinBoundaryAfterMove(dirX, dirY))
             {
-                availableMoves.Add(new Vector2Int(currentX, i));
-            }
-
-            if (board[currentX, i] != null)
-            {
-                if (board[currentX, i].team != team)
+                x = currentX + dirX;
+                y = currentY + dirY;
+                if (board[x, y] == null)
                 {
-                    availableMoves.Add(new Vector2Int(currentX, i));
+                    availableMoves.Add(new Vector2Int(x, y));
                 }
-                break;
-            }
-        }
-
-        // Up
-        for (int i = currentY + 1; i <= tileCountY - 1; i++)
-        {
-            if (board[currentX, i] == null)
-            {
-                availableMoves.Add(new Vector2Int(currentX, i));
-            }
-
-            if (board[currentX, i] != null)
-            {
-                if (board[currentX, i].team != team)
+                if (board[x, y] != null)
                 {
-                    availableMoves.Add(new Vector2Int(currentX, i));
+                    if (board[x, y].team != team)
+                    {
+                        availableMoves.Add(new Vector2Int(x, y));
+                    }
+                    break;
                 }
-                break;
-            }
-        }
-
-        // Right
-        for (int i = currentX + 1; i <= tileCountX - 1; i++)
-        {
-            if (board[i, currentY] == null)
-            {
-                availableMoves.Add(new Vector2Int(i, currentY));
-            }
-
-            if (board[i, currentY] != null)
-            {
-                if (board[i, currentY].team != team)
-                {
-                    availableMoves.Add(new Vector2Int(i, currentY));
-                }
-                break;
-            }
-        }
-
-        // Left
-        for (int i = currentX - 1; i >= 0; i--)
-        {
-            if (board[i, currentY] == null)
-            {
-                availableMoves.Add(new Vector2Int(i, currentY));
-            }
-
-            if (board[i, currentY] != null)
-            {
-                if (board[i, currentY].team != team)
-                {
-                    availableMoves.Add(new Vector2Int(i, currentY));
-                }
-                break;
+                dirX += directions[i].x;
+                dirY += directions[i].y;
             }
         }
 
