@@ -77,4 +77,9 @@ public class ChessPiece : MonoBehaviour
             currentX + dirX >= 0;
     }
 
+    public virtual SpecialMove GetSpecialMove(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
+    {
+        return SpecialMove.NONE;
+    }
+
 }
