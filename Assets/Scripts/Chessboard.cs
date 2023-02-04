@@ -250,6 +250,12 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Move the piece in chessPieces[x,y] to actual position on the physical chess board.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="instant"></param>
     private void PositionSinglePiece(int x, int y, bool instant = false)
     {
         chessPieces[x, y].currentX = x;
@@ -336,22 +342,48 @@ public class Chessboard : MonoBehaviour
     // Special moves
     private void ProcessSpecialMove()
     {
-        if (specialMove == SpecialMove.EN_PASSANT)
-        {
-            Vector2Int[] myLastMove = moveList[moveList.Count - 1];
-            Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
-            ChessPiece myPawn = chessPieces[myLastMove[1].x, myLastMove[1].y];
-            ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
+        Vector2Int[] lastMove = moveList[moveList.Count - 1];
 
-            if (myPawn.currentX == enemyPawn.currentX)
-            {
-                if (myPawn.currentY == enemyPawn.currentY - 1 ||
-                    myPawn.currentY == enemyPawn.currentY + 1)
+        switch (specialMove)
+        {
+            case SpecialMove.EN_PASSANT:
+                Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
+                ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+                ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
+
+                if (myPawn.currentX == enemyPawn.currentX)
                 {
-                    AddToDeadList(enemyPawn);
-                    chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
+                    if (myPawn.currentY == enemyPawn.currentY - 1 ||
+                        myPawn.currentY == enemyPawn.currentY + 1)
+                    {
+                        AddToDeadList(enemyPawn);
+                        chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
+                    }
                 }
-            }
+                break;
+            case SpecialMove.CASTLING:
+                // TODO: Take account the board size can grow
+                int ourY = lastMove[1].y;
+                // Left rook castling (king moved to the left)
+                if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
+                {
+                    // Move left rook from x = 0 to x = 3
+                    ChessPiece rook = chessPieces[0, ourY];
+                    chessPieces[3, ourY] = rook;
+                    PositionSinglePiece(3, ourY);
+                    chessPieces[0, ourY] = null;
+                }
+                // Right rook castling
+                if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
+                {
+                    // Move right rook from x = 7 to x = 5
+                    ChessPiece rook = chessPieces[7, ourY];
+                    chessPieces[5, ourY] = rook;
+                    PositionSinglePiece(5, ourY);
+                    chessPieces[7, ourY] = null;
+                }
+                break;
+            default: break;
         }
     }
 
@@ -417,6 +449,7 @@ public class Chessboard : MonoBehaviour
         PositionSinglePiece(x, y);
 
         isWhiteTurn = !isWhiteTurn;
+
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
         ProcessSpecialMove();
