@@ -65,6 +65,11 @@ public class Pawn : ChessPiece
         List<SpecialMove> specialMoves = new List<SpecialMove>();
         int direction = (team == PieceTeam.WHITE) ? 1 : -1;
 
+        // Promotion
+        if ((team == PieceTeam.WHITE && currentY == 6 || (team == PieceTeam.BLACK && currentY == 1)))
+            specialMoves.Add(SpecialMove.PROMOTION);
+
+        // En passant
         if (EnPassant(ref board, ref moveList, ref availableMoves))
         {
             specialMoves.Add(SpecialMove.EN_PASSANT);

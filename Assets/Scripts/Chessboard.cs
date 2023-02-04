@@ -345,49 +345,64 @@ public class Chessboard : MonoBehaviour
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         foreach (SpecialMove specialMove in specialMoves)
         {
-            switch (specialMove)
+            // Use switch-case will make the code indent very far to the right
+            // and I can't collapse the case.
+            if (specialMove == SpecialMove.EN_PASSANT)
             {
-                case SpecialMove.EN_PASSANT:
-                    Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
-                    ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
-                    ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
+                Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
+                ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+                ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
 
-                    if (myPawn.currentX == enemyPawn.currentX)
+                if (myPawn.currentX == enemyPawn.currentX)
+                {
+                    if (myPawn.currentY == enemyPawn.currentY - 1 ||
+                        myPawn.currentY == enemyPawn.currentY + 1)
                     {
-                        if (myPawn.currentY == enemyPawn.currentY - 1 ||
-                            myPawn.currentY == enemyPawn.currentY + 1)
-                        {
-                            AddToDeadList(enemyPawn);
-                            chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
-                        }
+                        AddToDeadList(enemyPawn);
+                        chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
                     }
-                    break;
-                case SpecialMove.CASTLING:
-                    // TODO: Take account the board size can grow
+                }
+            }
+            if (specialMove == SpecialMove.CASTLING)
+            {  // TODO: Take account the board size can grow
+                int ourY = lastMove[1].y;
+                // Left rook castling (king moved to the left)
+                if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
+                {
+                    // Move left rook from x = 0 to x = 3
+                    ChessPiece rook = chessPieces[0, ourY];
+                    chessPieces[3, ourY] = rook;
+                    PositionSinglePiece(3, ourY);
+                    chessPieces[0, ourY] = null;
+                }
+                // Right rook castling
+                if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
+                {
+                    // Move right rook from x = 7 to x = 5
+                    ChessPiece rook = chessPieces[7, ourY];
+                    chessPieces[5, ourY] = rook;
+                    PositionSinglePiece(5, ourY);
+                    chessPieces[7, ourY] = null;
+                }
+            }
+            if (specialMove == SpecialMove.PROMOTION)
+            {
+                // TODO: Add a UI allow to choose which piece the pawn
+                // promoto to. Currently only promote to Queen.
+                ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+                if (targetPawn.type == PieceType.PAWN)
+                {
                     int ourY = lastMove[1].y;
-                    // Left rook castling (king moved to the left)
-                    if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
+                    if (ourY == 0 || ourY == 7)
                     {
-                        // Move left rook from x = 0 to x = 3
-                        ChessPiece rook = chessPieces[0, ourY];
-                        chessPieces[3, ourY] = rook;
-                        PositionSinglePiece(3, ourY);
-                        chessPieces[0, ourY] = null;
+                        ChessPiece newQueen = SpawnSinglePiece(PieceType.QUEEN, targetPawn.team);
+                        Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
+                        chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
+                        PositionSinglePiece(lastMove[1].x, lastMove[1].y, true);
                     }
-                    // Right rook castling
-                    if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
-                    {
-                        // Move right rook from x = 7 to x = 5
-                        ChessPiece rook = chessPieces[7, ourY];
-                        chessPieces[5, ourY] = rook;
-                        PositionSinglePiece(5, ourY);
-                        chessPieces[7, ourY] = null;
-                    }
-                    break;
-                default: break;
+                }
             }
         }
-
     }
 
 
