@@ -42,7 +42,7 @@ public class Chessboard : MonoBehaviour
     private Vector2Int currentHover;
     private Vector3 bounds;
     private bool isWhiteTurn;
-    private SpecialMove specialMove;
+    private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
 
@@ -100,7 +100,7 @@ public class Chessboard : MonoBehaviour
                         // A list of basic movement of this piece
                         availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
                         // Get a list of special move
-                        specialMove = currentlyDragging.GetSpecialMove(ref chessPieces, ref moveList, ref availableMoves);
+                        specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
                         HighlightTiles();
                     }
                 }
@@ -299,6 +299,7 @@ public class Chessboard : MonoBehaviour
         // Fields reset
         currentlyDragging = null;
         availableMoves.Clear();
+        specialMoves.Clear();
         moveList.Clear();
 
         // UI
@@ -338,53 +339,55 @@ public class Chessboard : MonoBehaviour
     }
 
 
-
     // Special moves
-    private void ProcessSpecialMove()
+    private void ProcessSpecialMoves()
     {
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
-
-        switch (specialMove)
+        foreach (SpecialMove specialMove in specialMoves)
         {
-            case SpecialMove.EN_PASSANT:
-                Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
-                ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
-                ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
+            switch (specialMove)
+            {
+                case SpecialMove.EN_PASSANT:
+                    Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
+                    ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+                    ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
 
-                if (myPawn.currentX == enemyPawn.currentX)
-                {
-                    if (myPawn.currentY == enemyPawn.currentY - 1 ||
-                        myPawn.currentY == enemyPawn.currentY + 1)
+                    if (myPawn.currentX == enemyPawn.currentX)
                     {
-                        AddToDeadList(enemyPawn);
-                        chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
+                        if (myPawn.currentY == enemyPawn.currentY - 1 ||
+                            myPawn.currentY == enemyPawn.currentY + 1)
+                        {
+                            AddToDeadList(enemyPawn);
+                            chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
+                        }
                     }
-                }
-                break;
-            case SpecialMove.CASTLING:
-                // TODO: Take account the board size can grow
-                int ourY = lastMove[1].y;
-                // Left rook castling (king moved to the left)
-                if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
-                {
-                    // Move left rook from x = 0 to x = 3
-                    ChessPiece rook = chessPieces[0, ourY];
-                    chessPieces[3, ourY] = rook;
-                    PositionSinglePiece(3, ourY);
-                    chessPieces[0, ourY] = null;
-                }
-                // Right rook castling
-                if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
-                {
-                    // Move right rook from x = 7 to x = 5
-                    ChessPiece rook = chessPieces[7, ourY];
-                    chessPieces[5, ourY] = rook;
-                    PositionSinglePiece(5, ourY);
-                    chessPieces[7, ourY] = null;
-                }
-                break;
-            default: break;
+                    break;
+                case SpecialMove.CASTLING:
+                    // TODO: Take account the board size can grow
+                    int ourY = lastMove[1].y;
+                    // Left rook castling (king moved to the left)
+                    if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
+                    {
+                        // Move left rook from x = 0 to x = 3
+                        ChessPiece rook = chessPieces[0, ourY];
+                        chessPieces[3, ourY] = rook;
+                        PositionSinglePiece(3, ourY);
+                        chessPieces[0, ourY] = null;
+                    }
+                    // Right rook castling
+                    if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
+                    {
+                        // Move right rook from x = 7 to x = 5
+                        ChessPiece rook = chessPieces[7, ourY];
+                        chessPieces[5, ourY] = rook;
+                        PositionSinglePiece(5, ourY);
+                        chessPieces[7, ourY] = null;
+                    }
+                    break;
+                default: break;
+            }
         }
+
     }
 
 
@@ -452,7 +455,7 @@ public class Chessboard : MonoBehaviour
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
-        ProcessSpecialMove();
+        ProcessSpecialMoves();
 
         return true;
     }

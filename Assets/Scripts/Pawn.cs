@@ -60,10 +60,22 @@ public class Pawn : ChessPiece
         return availableMoves;
     }
 
-    public override SpecialMove GetSpecialMove(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
+    public override List<SpecialMove> GetSpecialMoves(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
+    {
+        List<SpecialMove> specialMoves = new List<SpecialMove>();
+        int direction = (team == PieceTeam.WHITE) ? 1 : -1;
+
+        if (EnPassant(ref board, ref moveList, ref availableMoves))
+        {
+            specialMoves.Add(SpecialMove.EN_PASSANT);
+        };
+
+        return specialMoves;
+    }
+
+    private bool EnPassant(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
     {
         int direction = (team == PieceTeam.WHITE) ? 1 : -1;
-        // En Passant
         if (moveList.Count > 0)
         {
             Vector2Int[] lastMove = moveList[moveList.Count - 1];
@@ -78,19 +90,18 @@ public class Pawn : ChessPiece
                             if (lastMove[1].x == currentX - 1) // Landed left
                             {
                                 availableMoves.Add(new Vector2Int(currentX - 1, currentY + direction));
-                                return SpecialMove.EN_PASSANT;
+                                return true;
                             }
                             if (lastMove[1].x == currentX + 1) // Landed right
                             {
                                 availableMoves.Add(new Vector2Int(currentX + 1, currentY + direction));
-                                return SpecialMove.EN_PASSANT;
+                                return true;
                             }
                         }
                     }
                 }
             }
         }
-
-        return SpecialMove.NONE;
+        return false;
     }
 }

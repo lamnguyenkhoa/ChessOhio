@@ -36,10 +36,10 @@ public class King : ChessPiece
         return availableMoves;
     }
 
-    public override SpecialMove GetSpecialMove(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
+    public override List<SpecialMove> GetSpecialMoves(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
     {
         // Check for castling
-        SpecialMove specialMove = SpecialMove.NONE;
+        List<SpecialMove> specialMoves = new List<SpecialMove>();
         const int R_ROOK_X = Chessboard.TILE_COUNT_Y - 1;
         const int L_ROOK_X = 0;
         const int KING_X = 4;
@@ -63,7 +63,8 @@ public class King : ChessPiece
                 if (spaceBetweenIsEmpty)
                 {
                     availableMoves.Add(new Vector2Int(KING_X - 2, ourY));
-                    specialMove = SpecialMove.CASTLING;
+                    specialMoves.Add(SpecialMove.CASTLING);
+
                 }
             }
             if (rightRookMove == null && board[R_ROOK_X, ourY].type == PieceType.ROOK && board[R_ROOK_X, ourY].team == team)
@@ -76,11 +77,10 @@ public class King : ChessPiece
                 if (spaceBetweenIsEmpty)
                 {
                     availableMoves.Add(new Vector2Int(KING_X + 2, ourY));
-                    specialMove = SpecialMove.CASTLING;
+                    specialMoves.Add(SpecialMove.CASTLING);
                 }
             }
         }
-
-        return specialMove;
+        return specialMoves;
     }
 }
