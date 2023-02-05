@@ -814,26 +814,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620497342}
-  - component: {fileID: 620497341}
+  - component: {fileID: 620497344}
+  - component: {fileID: 620497343}
   m_Layer: 0
-  m_Name: HelloWorldManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &620497341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 620497340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbeae0ff4ad44b446aa69e617e6cbadc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &620497342
 Transform:
   m_ObjectHideFlags: 0
@@ -849,6 +838,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &620497343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620497340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 56591322
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &620497344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620497340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1aace9f6cb727447ad224701a36030f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostConnected:
+    m_InternalValue: 0
+  clientConnected:
+    m_InternalValue: 0
 --- !u!1 &983066032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1418,14 @@ MonoBehaviour:
     NetworkTransport: {fileID: 2108986758}
     PlayerPrefab: {fileID: 2179241746696931082, guid: 41503d337f8a4a74db3f45e50e95b445,
       type: 3}
-    NetworkPrefabs: []
+    NetworkPrefabs:
+    - Override: 0
+      Prefab: {fileID: 458981325156245816, guid: 9b78615588766c2458c8d5f38680389c,
+        type: 3}
+      SourcePrefabToOverride: {fileID: 458981325156245816, guid: 9b78615588766c2458c8d5f38680389c,
+        type: 3}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
@@ -1435,6 +1463,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1997442313, guid: 143a4c61323517a4c806a3655383c1cf, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2231470676
+      objectReference: {fileID: 0}
     - target: {fileID: 2132279431526984074, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: m_Name
@@ -1445,16 +1477,6 @@ PrefabInstance:
       propertyPath: victoryScreen
       value: 
       objectReference: {fileID: 520614264}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: teamMaterials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8cce469f981856741831c5286f64217d, type: 2}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: teamMaterials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 43524790f2dd84e49a0ee88542666d25, type: 2}
     - target: {fileID: 2132279431527156416, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: m_RootOrder

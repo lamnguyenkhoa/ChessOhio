@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 public enum SpecialMove
@@ -11,7 +11,7 @@ public enum SpecialMove
     PROMOTION = 3
 }
 
-public class Chessboard : MonoBehaviour
+public class Chessboard : NetworkBehaviour
 {
     [Header("Art Assets")]
     [SerializeField] private Material tileMaterial;
@@ -45,17 +45,33 @@ public class Chessboard : MonoBehaviour
     private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
+    public bool isLocalGame = false;
+    public bool gameStarted = false;
 
     private void Awake()
     {
         isWhiteTurn = true;
+        if (isLocalGame)
+        {
+            StartGame();
+        }
+    }
 
+    public void StartGame()
+    {
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
+        gameStarted = true;
+
     }
+
     private void Update()
     {
+        if (!gameStarted)
+        {
+            return;
+        }
         if (!currentCamera)
         {
             currentCamera = Camera.main;
@@ -199,28 +215,28 @@ public class Chessboard : MonoBehaviour
         chessPieces = new ChessPiece[TILE_COUNT_X, TILE_COUNT_Y];
 
         //White team
-        chessPieces[0, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
-        chessPieces[1, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
-        chessPieces[2, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
-        chessPieces[3, 0] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.WHITE);
-        chessPieces[4, 0] = SpawnSinglePiece(PieceType.KING, PieceTeam.WHITE);
-        chessPieces[5, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
-        chessPieces[6, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
-        chessPieces[7, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
+        // chessPieces[0, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
+        // chessPieces[1, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
+        // chessPieces[2, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
+        // chessPieces[3, 0] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.WHITE);
+        // chessPieces[4, 0] = SpawnSinglePiece(PieceType.KING, PieceTeam.WHITE);
+        // chessPieces[5, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
+        // chessPieces[6, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
+        // chessPieces[7, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
         for (int i = 0; i < TILE_COUNT_X; i++)
         {
             chessPieces[i, 1] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.WHITE);
         }
 
         // Black team
-        chessPieces[0, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
-        chessPieces[1, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
-        chessPieces[2, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
-        chessPieces[3, 7] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.BLACK);
-        chessPieces[4, 7] = SpawnSinglePiece(PieceType.KING, PieceTeam.BLACK);
-        chessPieces[5, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
-        chessPieces[6, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
-        chessPieces[7, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
+        // chessPieces[0, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
+        // chessPieces[1, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
+        // chessPieces[2, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
+        // chessPieces[3, 7] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.BLACK);
+        // chessPieces[4, 7] = SpawnSinglePiece(PieceType.KING, PieceTeam.BLACK);
+        // chessPieces[5, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
+        // chessPieces[6, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
+        // chessPieces[7, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
         for (int i = 0; i < TILE_COUNT_X; i++)
         {
             chessPieces[i, 6] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.BLACK);
@@ -228,7 +244,9 @@ public class Chessboard : MonoBehaviour
     }
     private ChessPiece SpawnSinglePiece(PieceType type, PieceTeam team)
     {
-        ChessPiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPiece>();
+        GameObject gameObject = Instantiate(prefabs[(int)type - 1], transform);
+        ChessPiece cp = gameObject.GetComponent<ChessPiece>();
+        gameObject.GetComponent<NetworkObject>().Spawn();
         cp.type = type;
         cp.team = team;
         cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
