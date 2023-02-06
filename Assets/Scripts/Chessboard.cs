@@ -41,29 +41,28 @@ public class Chessboard : NetworkBehaviour
     private Camera currentCamera;
     private Vector2Int currentHover;
     private Vector3 bounds;
-    private bool isWhiteTurn;
+    private bool isWhiteTurn = true;
     private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
     public bool isLocalGame = false;
     public bool gameStarted = false;
 
-    private void Awake()
-    {
-        isWhiteTurn = true;
-        if (isLocalGame)
-        {
-            StartGame();
-        }
-    }
-
-    public void StartGame()
+    public void StartGame(bool isLocal)
     {
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
+        isLocalGame = isLocal;
         gameStarted = true;
+        NotifyGameStartClientRpc();
+    }
 
+
+    [ClientRpc]
+    public void NotifyGameStartClientRpc()
+    {
+        gameStarted = true;
     }
 
     private void Update()
