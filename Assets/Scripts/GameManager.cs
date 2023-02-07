@@ -44,6 +44,7 @@ public class GameManager : NetworkBehaviour
         if (hostConnected.Value && clientConnected.Value)
         {
             GameObject.Find("Board").GetComponent<Chessboard>().StartGame(false);
+            RpcHandler.getInstance().StartGameClientRpc();
         }
     }
 

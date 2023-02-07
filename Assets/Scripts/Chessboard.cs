@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 
 public enum SpecialMove
@@ -11,7 +10,7 @@ public enum SpecialMove
     PROMOTION = 3
 }
 
-public class Chessboard : NetworkBehaviour
+public class Chessboard : MonoBehaviour
 {
     [Header("Art Assets")]
     [SerializeField] private Material tileMaterial;
@@ -55,15 +54,8 @@ public class Chessboard : NetworkBehaviour
         PositionAllPieces();
         isLocalGame = isLocal;
         gameStarted = true;
-        NotifyGameStartClientRpc();
     }
 
-
-    [ClientRpc]
-    public void NotifyGameStartClientRpc()
-    {
-        gameStarted = true;
-    }
 
     private void Update()
     {
@@ -245,7 +237,6 @@ public class Chessboard : NetworkBehaviour
     {
         GameObject gameObject = Instantiate(prefabs[(int)type - 1], transform);
         ChessPiece cp = gameObject.GetComponent<ChessPiece>();
-        gameObject.GetComponent<NetworkObject>().Spawn();
         cp.type = type;
         cp.team = team;
         cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
