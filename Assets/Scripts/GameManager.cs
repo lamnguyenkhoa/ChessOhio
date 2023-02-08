@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using TMPro;
 
 public enum ClientID
 {
@@ -13,6 +14,7 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<bool> hostConnected;
     public NetworkVariable<bool> clientConnected;
     public NetworkVariable<PieceTeam> teamTurn;
+    public TextMeshProUGUI turnDisplay;
 
 
     public bool isLocalGame = false;
@@ -130,11 +132,20 @@ public class GameManager : NetworkBehaviour
         if (teamTurn.Value == PieceTeam.WHITE)
         {
             teamTurn.Value = PieceTeam.BLACK;
+            ChangeTurnDisplayTextClientRpc("Black's turn");
         }
         else
         {
             teamTurn.Value = PieceTeam.WHITE;
+            ChangeTurnDisplayTextClientRpc("White's turn");
         }
+    }
+
+    [ClientRpc]
+    private void ChangeTurnDisplayTextClientRpc(string text)
+    {
+        turnDisplay.text = text;
+
     }
 
 
