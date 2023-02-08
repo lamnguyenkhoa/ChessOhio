@@ -69,6 +69,7 @@ public class Chessboard : MonoBehaviour
             return;
         }
 
+
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("Tile", "Hover", "Highlight")))
@@ -99,7 +100,8 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     // Is it our turn?
-                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.getInstance().teamTurn.Value)
+                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.getInstance().teamTurn.Value &&
+                        GameManager.getInstance().teamTurn.Value == GameManager.getInstance().GetCurrentPlayer().team)
                     {
                         currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
                         // A list of basic movement of this piece

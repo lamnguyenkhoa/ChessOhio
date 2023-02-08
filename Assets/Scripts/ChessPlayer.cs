@@ -18,9 +18,9 @@ public class ChessPlayer : NetworkBehaviour
         }
         else if (NetworkManager.Singleton.IsClient)
         {
-            GameManager.getInstance().ClientConnectServerRpc();
             team = PieceTeam.BLACK;
             playerName = "Xx_LmaoClient_xX";
+            GameManager.getInstance().ClientConnectServerRpc();
         }
     }
 
