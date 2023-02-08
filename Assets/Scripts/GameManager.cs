@@ -31,6 +31,11 @@ public class GameManager : NetworkBehaviour
         return instance;
     }
 
+    public Chessboard GetChessBoard()
+    {
+        return GameObject.Find("Board").GetComponent<Chessboard>();
+    }
+
     public override void OnNetworkSpawn()
     {
         if (IsHost)
@@ -53,6 +58,39 @@ public class GameManager : NetworkBehaviour
         hostConnected.Value = true;
     }
 
+    /// <summary>
+    /// Let the other player know that you made your move.
+    /// </summary>
+    /// <param name="before"></param>
+    /// <param name="after"></param>
+    public void NotifyMadeAMove(Vector2Int before, Vector2Int after)
+    {
+        if (IsHost)
+        {
+            MadeAMoveClientRpc(before, after);
+        }
+        else
+        {
+            MadeAMoveServerRpc(before, after);
+        }
+    }
+
+    [ClientRpc]
+    private void MadeAMoveClientRpc(Vector2Int before, Vector2Int after)
+    {
+        if (!IsHost)
+        {
+            GetChessBoard().MovePiece(before, after);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+
+    private void MadeAMoveServerRpc(Vector2Int before, Vector2Int after)
+    {
+        GetChessBoard().MovePiece(before, after);
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void ClientConnectServerRpc()
     {
@@ -63,19 +101,18 @@ public class GameManager : NetworkBehaviour
     {
         if (hostConnected.Value && clientConnected.Value)
         {
-            GameObject.Find("Board").GetComponent<Chessboard>().StartGame(false);
+            GetChessBoard().StartGame(false);
             StartGameClientRpc();
         }
     }
 
     private void StartLocalGame()
     {
-        GameObject.Find("Board").GetComponent<Chessboard>().StartGame(true);
+        GetChessBoard().StartGame(true);
     }
 
     public void ResetGame()
     {
-
     }
 
     [ClientRpc]
@@ -83,7 +120,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!IsHost)
         {
-            GameObject.Find("Board").GetComponent<Chessboard>().StartGame(false);
+            GetChessBoard().StartGame(false);
         }
     }
 

@@ -119,7 +119,14 @@ public class Chessboard : MonoBehaviour
                 Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
 
                 bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
-                if (!validMove)
+                if (validMove)
+                {
+                    if (!isLocalGame)
+                    {
+                        GameManager.getInstance().NotifyMadeAMove(previousPosition, hitPosition);
+                    }
+                }
+                else
                 {
                     currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
                 }
@@ -206,28 +213,28 @@ public class Chessboard : MonoBehaviour
         chessPieces = new ChessPiece[TILE_COUNT_X, TILE_COUNT_Y];
 
         //White team
-        // chessPieces[0, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
-        // chessPieces[1, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
-        // chessPieces[2, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
-        // chessPieces[3, 0] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.WHITE);
-        // chessPieces[4, 0] = SpawnSinglePiece(PieceType.KING, PieceTeam.WHITE);
-        // chessPieces[5, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
-        // chessPieces[6, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
-        // chessPieces[7, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
+        chessPieces[0, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
+        chessPieces[1, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
+        chessPieces[2, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
+        chessPieces[3, 0] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.WHITE);
+        chessPieces[4, 0] = SpawnSinglePiece(PieceType.KING, PieceTeam.WHITE);
+        chessPieces[5, 0] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.WHITE);
+        chessPieces[6, 0] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.WHITE);
+        chessPieces[7, 0] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.WHITE);
         for (int i = 0; i < TILE_COUNT_X; i++)
         {
             chessPieces[i, 1] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.WHITE);
         }
 
         // Black team
-        // chessPieces[0, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
-        // chessPieces[1, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
-        // chessPieces[2, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
-        // chessPieces[3, 7] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.BLACK);
-        // chessPieces[4, 7] = SpawnSinglePiece(PieceType.KING, PieceTeam.BLACK);
-        // chessPieces[5, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
-        // chessPieces[6, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
-        // chessPieces[7, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
+        chessPieces[0, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
+        chessPieces[1, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
+        chessPieces[2, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
+        chessPieces[3, 7] = SpawnSinglePiece(PieceType.QUEEN, PieceTeam.BLACK);
+        chessPieces[4, 7] = SpawnSinglePiece(PieceType.KING, PieceTeam.BLACK);
+        chessPieces[5, 7] = SpawnSinglePiece(PieceType.BISHOP, PieceTeam.BLACK);
+        chessPieces[6, 7] = SpawnSinglePiece(PieceType.KNIGHT, PieceTeam.BLACK);
+        chessPieces[7, 7] = SpawnSinglePiece(PieceType.ROOK, PieceTeam.BLACK);
         for (int i = 0; i < TILE_COUNT_X; i++)
         {
             chessPieces[i, 6] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.BLACK);
@@ -440,9 +447,17 @@ public class Chessboard : MonoBehaviour
         }
         return -Vector2Int.one; // Invalid
     }
-    private bool MoveTo(ChessPiece cp, int x, int y)
+    /// <summary>
+    /// Move the chess piece to the target position.
+    /// </summary>
+    /// <param name="cp"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="otherPlayer">Used when other player made a move. Skip availableMoves check</param>
+    /// <returns></returns>
+    private bool MoveTo(ChessPiece cp, int x, int y, bool otherPlayer = false)
     {
-        if (!ContainsValidMove(ref availableMoves, new Vector2(x, y)))
+        if (!otherPlayer && !ContainsValidMove(ref availableMoves, new Vector2(x, y)))
         {
             return false;
         }
@@ -473,7 +488,9 @@ public class Chessboard : MonoBehaviour
         chessPieces[previousPosition.x, previousPosition.y] = null;
 
         PositionSinglePiece(x, y);
-        GameManager.getInstance().SwitchTurnServerRpc();
+
+        if (!otherPlayer)
+            GameManager.getInstance().SwitchTurnServerRpc();
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
@@ -481,6 +498,24 @@ public class Chessboard : MonoBehaviour
 
         return true;
     }
+
+    /// <summary>
+    /// Used by other player, either network or AI
+    /// </summary>
+    /// <param name="before"></param>
+    /// <param name="after"></param>
+    public void MovePiece(Vector2Int before, Vector2Int after)
+    {
+        Debug.Log($"Network: Other player made a move {before} to {after}");
+        ChessPiece cp = chessPieces[before.x, before.y];
+        // Guaranteed to be valid
+        bool validMove = MoveTo(cp, after.x, after.y, true);
+        if (!validMove)
+        {
+            Debug.LogError("Invalid move. Impossible, this should not happen.");
+        }
+    }
+
     private void AddToDeadList(ChessPiece otherCp)
     {
         if (otherCp.team == PieceTeam.WHITE)
