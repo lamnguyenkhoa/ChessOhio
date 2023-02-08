@@ -28,7 +28,9 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
 
-    // LOGIC
+    [Header("Logic")]
+    public bool isLocalGame = false;
+    public bool gameStarted = false;
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -40,12 +42,10 @@ public class Chessboard : MonoBehaviour
     private Camera currentCamera;
     private Vector2Int currentHover;
     private Vector3 bounds;
-    private bool isWhiteTurn = true;
     private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
-    public bool isLocalGame = false;
-    public bool gameStarted = false;
+
 
     public void StartGame(bool isLocal)
     {
@@ -99,9 +99,7 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     // Is it our turn?
-                    if ((chessPieces[hitPosition.x, hitPosition.y].team == PieceTeam.WHITE && isWhiteTurn) ||
-                        (chessPieces[hitPosition.x, hitPosition.y].team == PieceTeam.BLACK && !isWhiteTurn)
-                    )
+                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.getInstance().teamTurn.Value)
                     {
                         currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
                         // A list of basic movement of this piece
@@ -339,7 +337,7 @@ public class Chessboard : MonoBehaviour
         // Respawn
         SpawnAllPieces();
         PositionAllPieces();
-        isWhiteTurn = true;
+        GameManager.getInstance().ResetGame();
     }
     public void OnExitButton()
     {
@@ -473,8 +471,7 @@ public class Chessboard : MonoBehaviour
         chessPieces[previousPosition.x, previousPosition.y] = null;
 
         PositionSinglePiece(x, y);
-
-        isWhiteTurn = !isWhiteTurn;
+        GameManager.getInstance().SwitchTurnServerRpc();
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 

@@ -1,12 +1,26 @@
 using Unity.Netcode;
 using UnityEngine;
 
+public enum ClientID
+{
+    HOST = 0,
+    CLIENT = 1
+}
+
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
-    public NetworkVariable<bool> hostConnected = new NetworkVariable<bool>();
-    public NetworkVariable<bool> clientConnected = new NetworkVariable<bool>();
+    public NetworkVariable<bool> hostConnected;
+    public NetworkVariable<bool> clientConnected;
+    public NetworkVariable<PieceTeam> teamTurn;
+
+
     public bool isLocalGame = false;
+
+    private void Awake()
+    {
+        teamTurn.Value = PieceTeam.WHITE;
+    }
 
     public static GameManager getInstance()
     {
@@ -28,6 +42,12 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    public ChessPlayer GetCurrentPlayer()
+    {
+        ulong id = NetworkManager.Singleton.LocalClientId;
+        return NetworkManager.SpawnManager.GetPlayerNetworkObject(id).GetComponent<ChessPlayer>();
+    }
+
     public void HostConnect()
     {
         hostConnected.Value = true;
@@ -44,7 +64,7 @@ public class GameManager : NetworkBehaviour
         if (hostConnected.Value && clientConnected.Value)
         {
             GameObject.Find("Board").GetComponent<Chessboard>().StartGame(false);
-            RpcHandler.getInstance().StartGameClientRpc();
+            StartGameClientRpc();
         }
     }
 
@@ -53,10 +73,37 @@ public class GameManager : NetworkBehaviour
         GameObject.Find("Board").GetComponent<Chessboard>().StartGame(true);
     }
 
+    public void ResetGame()
+    {
+
+    }
+
+    [ClientRpc]
+    public void StartGameClientRpc()
+    {
+        if (!IsHost)
+        {
+            GameObject.Find("Board").GetComponent<Chessboard>().StartGame(false);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SwitchTurnServerRpc()
+    {
+        if (teamTurn.Value == PieceTeam.WHITE)
+        {
+            teamTurn.Value = PieceTeam.BLACK;
+        }
+        else
+        {
+            teamTurn.Value = PieceTeam.WHITE;
+        }
+    }
+
 
     private void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+        GUILayout.BeginArea(new Rect(10, 10, 200, 300));
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             StartButtons();
         else
@@ -95,6 +142,10 @@ public class GameManager : NetworkBehaviour
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
         }
         GUILayout.Label("Mode: " + mode);
+        if (GUILayout.Button("Get current player"))
+        {
+            Debug.Log(GetCurrentPlayer().playerName);
+        }
     }
 
 }
