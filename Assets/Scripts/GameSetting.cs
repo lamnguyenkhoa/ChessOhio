@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using System.Net;
+using System.Net.Sockets;
 
 public class GameSetting : NetworkBehaviour
 {
@@ -39,6 +41,22 @@ public class GameSetting : NetworkBehaviour
         {
             Destroy(this);
         }
+    }
+
+    public string GetLocalIPAddress()
+    {
+        string myAddressLocal = "Not found";
+        //Get the local IP
+        IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in hostEntry.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                myAddressLocal = ip.ToString();
+                break;
+            }
+        }
+        return myAddressLocal;
     }
 
     public override void OnNetworkSpawn()
@@ -79,6 +97,8 @@ public class GameSetting : NetworkBehaviour
     public void OnHostButton()
     {
         isLocalGame = false;
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        transport.ConnectionData.Address = GetLocalIPAddress();
         NetworkManager.Singleton.StartHost();
     }
     public void OnClientButton()
@@ -125,5 +145,9 @@ public class GameSetting : NetworkBehaviour
                 NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port);
         }
         GUILayout.Label("Mode: " + mode);
+        if (GUILayout.Button("Disconnect"))
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
     }
 }

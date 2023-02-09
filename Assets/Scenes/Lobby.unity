@@ -2704,8 +2704,6 @@ MonoBehaviour:
     m_InternalValue: 0
   clientConnected:
     m_InternalValue: 0
-  ipAddress: 
-  port: 7777
 --- !u!4 &1615700443
 Transform:
   m_ObjectHideFlags: 0
@@ -3341,6 +3339,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4952229764036158560, guid: c6746657fca63b749bce739ddf49c945,
+        type: 3}
+      propertyPath: ConnectionData.Address
+      value: 127.0.0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4952229764036158563, guid: c6746657fca63b749bce739ddf49c945,
         type: 3}
       propertyPath: m_Name
