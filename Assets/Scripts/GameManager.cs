@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
+using Unity.Netcode.Transports.UTP;
 
 public enum ClientID
 {
@@ -115,34 +116,4 @@ public class GameManager : NetworkBehaviour
     {
         turnDisplay.text = text;
     }
-
-
-    private void OnGUI()
-    {
-        if (!NetworkManager.Singleton)
-            return;
-        GUILayout.BeginArea(new Rect(10, 10, 200, 300));
-        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
-            StatusLabels();
-        GUILayout.EndArea();
-    }
-
-    private void StatusLabels()
-    {
-        string mode = "";
-        if (GameSetting.instance.isLocalGame) mode = "Local";
-        else if (NetworkManager.Singleton.IsHost) mode = "Host";
-        else mode = "Client";
-        if (!GameSetting.instance.isLocalGame)
-        {
-            GUILayout.Label("Transport: " +
-                NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
-        }
-        GUILayout.Label("Mode: " + mode);
-        if (GUILayout.Button("Get current player"))
-        {
-            Debug.Log(GetCurrentPlayer().playerName);
-        }
-    }
-
 }

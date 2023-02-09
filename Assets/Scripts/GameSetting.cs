@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 
 public class GameSetting : NetworkBehaviour
 {
@@ -23,6 +24,9 @@ public class GameSetting : NetworkBehaviour
     public static GameSetting instance;
     public NetworkVariable<bool> hostConnected;
     public NetworkVariable<bool> clientConnected;
+    private string ipAddress = "127.0.0.1";
+    private ushort port = 7777;
+
 
     private void Awake()
     {
@@ -80,12 +84,25 @@ public class GameSetting : NetworkBehaviour
     public void OnClientButton()
     {
         isLocalGame = false;
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        transport.ConnectionData.Address = ipAddress;
+        transport.ConnectionData.Port = port;
         NetworkManager.Singleton.StartClient();
     }
 
     public void OnQuitButton()
     {
         Application.Quit();
+    }
+
+    public void ChangeIPAddress(string input)
+    {
+        ipAddress = input;
+    }
+
+    public void ChangePort(string input)
+    {
+        port = ushort.Parse(input);
     }
 
     private void OnGUI()
@@ -99,13 +116,13 @@ public class GameSetting : NetworkBehaviour
     private void StatusLabels()
     {
         string mode = "";
-        if (isLocalGame) mode = "Local";
+        if (GameSetting.instance.isLocalGame) mode = "Local";
         else if (NetworkManager.Singleton.IsHost) mode = "Host";
         else mode = "Client";
-        if (!isLocalGame)
+        if (!GameSetting.instance.isLocalGame)
         {
-            GUILayout.Label("Transport: " +
-                NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
+            GUILayout.Label("Port: " +
+                NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port);
         }
         GUILayout.Label("Mode: " + mode);
     }
