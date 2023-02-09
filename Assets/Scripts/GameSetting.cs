@@ -69,7 +69,7 @@ public class GameSetting : NetworkBehaviour
     {
         isLocalGame = true;
         NetworkManager.Singleton.StartHost();
-        SceneManager.LoadScene("Ingame", LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
     }
 
     public void OnHostButton()

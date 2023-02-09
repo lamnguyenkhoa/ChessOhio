@@ -24,24 +24,12 @@ public class GameManager : NetworkBehaviour
         {
             Destroy(this);
         }
-        NetworkObject networkObject = gameObject.GetComponent<NetworkObject>();
-        if (!networkObject.IsSpawned && IsHost)
-        {
-            networkObject.Spawn();
-        }
     }
 
     private void Start()
     {
         teamTurn.Value = PieceTeam.WHITE;
-        if (GameSetting.instance.isLocalGame)
-        {
-            GetChessBoard().StartGame(true);
-        }
-        else
-        {
-            StartGameClientRpc();
-        }
+        StartGameClientRpc(GameSetting.instance.isLocalGame);
         if (IsHost)
         {
             SetEachPlayerCameraClientRpc();
@@ -102,9 +90,9 @@ public class GameManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void StartGameClientRpc()
+    public void StartGameClientRpc(bool isLocalGame)
     {
-        GetChessBoard().StartGame(false);
+        GetChessBoard().StartGame(isLocalGame);
     }
 
     [ServerRpc(RequireOwnership = false)]
