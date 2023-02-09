@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -29,7 +28,9 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
 
-    // LOGIC
+    [Header("Logic")]
+    public bool isLocalGame = false;
+    public bool gameStarted = false;
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -41,26 +42,33 @@ public class Chessboard : MonoBehaviour
     private Camera currentCamera;
     private Vector2Int currentHover;
     private Vector3 bounds;
-    private bool isWhiteTurn;
     private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
 
-    private void Awake()
-    {
-        isWhiteTurn = true;
 
+    public void StartGame(bool isLocal)
+    {
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
+        isLocalGame = isLocal;
+        gameStarted = true;
     }
+
+
     private void Update()
     {
+        if (!gameStarted)
+        {
+            return;
+        }
         if (!currentCamera)
         {
             currentCamera = Camera.main;
             return;
         }
+
 
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
@@ -92,16 +100,18 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     // Is it our turn?
-                    if ((chessPieces[hitPosition.x, hitPosition.y].team == PieceTeam.WHITE && isWhiteTurn) ||
-                        (chessPieces[hitPosition.x, hitPosition.y].team == PieceTeam.BLACK && !isWhiteTurn)
-                    )
+                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
                     {
-                        currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
-                        // A list of basic movement of this piece
-                        availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-                        // Get a list of special move
-                        specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-                        HighlightTiles();
+                        if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
+                        {
+                            currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
+                            // A list of basic movement of this piece
+                            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                            // Get a list of special move
+                            specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+                            HighlightTiles();
+                        }
+
                     }
                 }
             }
@@ -112,7 +122,14 @@ public class Chessboard : MonoBehaviour
                 Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
 
                 bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
-                if (!validMove)
+                if (validMove)
+                {
+                    if (!isLocalGame)
+                    {
+                        GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
+                    }
+                }
+                else
                 {
                     currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
                 }
@@ -228,7 +245,8 @@ public class Chessboard : MonoBehaviour
     }
     private ChessPiece SpawnSinglePiece(PieceType type, PieceTeam team)
     {
-        ChessPiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPiece>();
+        GameObject gameObject = Instantiate(prefabs[(int)type - 1], transform);
+        ChessPiece cp = gameObject.GetComponent<ChessPiece>();
         cp.type = type;
         cp.team = team;
         cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
@@ -331,7 +349,7 @@ public class Chessboard : MonoBehaviour
         // Respawn
         SpawnAllPieces();
         PositionAllPieces();
-        isWhiteTurn = true;
+        GameManager.instance.ResetGame();
     }
     public void OnExitButton()
     {
@@ -432,9 +450,17 @@ public class Chessboard : MonoBehaviour
         }
         return -Vector2Int.one; // Invalid
     }
-    private bool MoveTo(ChessPiece cp, int x, int y)
+    /// <summary>
+    /// Move the chess piece to the target position.
+    /// </summary>
+    /// <param name="cp"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="otherPlayer">Used when other player made a move. Skip availableMoves check</param>
+    /// <returns></returns>
+    private bool MoveTo(ChessPiece cp, int x, int y, bool otherPlayer = false)
     {
-        if (!ContainsValidMove(ref availableMoves, new Vector2(x, y)))
+        if (!otherPlayer && !ContainsValidMove(ref availableMoves, new Vector2(x, y)))
         {
             return false;
         }
@@ -466,7 +492,8 @@ public class Chessboard : MonoBehaviour
 
         PositionSinglePiece(x, y);
 
-        isWhiteTurn = !isWhiteTurn;
+        if (!otherPlayer)
+            GameManager.instance.SwitchTurnServerRpc();
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
@@ -474,6 +501,24 @@ public class Chessboard : MonoBehaviour
 
         return true;
     }
+
+    /// <summary>
+    /// Used by other player, either network or AI
+    /// </summary>
+    /// <param name="before"></param>
+    /// <param name="after"></param>
+    public void MovePiece(Vector2Int before, Vector2Int after)
+    {
+        Debug.Log($"Network: Other player made a move {before} to {after}");
+        ChessPiece cp = chessPieces[before.x, before.y];
+        // Guaranteed to be valid
+        bool validMove = MoveTo(cp, after.x, after.y, true);
+        if (!validMove)
+        {
+            Debug.LogError("Invalid move. Impossible, this should not happen.");
+        }
+    }
+
     private void AddToDeadList(ChessPiece otherCp)
     {
         if (otherCp.team == PieceTeam.WHITE)

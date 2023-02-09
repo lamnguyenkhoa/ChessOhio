@@ -115,6 +115,10 @@ MonoBehaviour:
   tileSize: 1.5
   yOffset: 0.1
   boardCenter: {x: 0, y: 0, z: 0}
+  deathSize: 0.5
+  deathSpacing: 0.7
+  dragOffset: 1.5
+  victoryScreen: {fileID: 0}
   prefabs:
   - {fileID: 458981325156245816, guid: 9b78615588766c2458c8d5f38680389c, type: 3}
   - {fileID: 1481032439516329814, guid: c20c94de9b4f3ec4d8f8c76a576ec079, type: 3}
@@ -123,5 +127,7 @@ MonoBehaviour:
   - {fileID: 2379102908790964395, guid: f0a6fb8df634abe4f9b953924b0ca095, type: 3}
   - {fileID: 7745268236125051581, guid: f6e0ca765bb5c924a958f79df3a68461, type: 3}
   teamMaterials:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 8cce469f981856741831c5286f64217d, type: 2}
+  - {fileID: 2100000, guid: 43524790f2dd84e49a0ee88542666d25, type: 2}
+  isLocalGame: 0
+  gameStarted: 0
