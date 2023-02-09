@@ -11,26 +11,47 @@ public enum ClientID
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
-    public NetworkVariable<bool> hostConnected;
-    public NetworkVariable<bool> clientConnected;
     public NetworkVariable<PieceTeam> teamTurn;
     public TextMeshProUGUI turnDisplay;
 
-
-    public bool isLocalGame = false;
-
     private void Awake()
-    {
-        teamTurn.Value = PieceTeam.WHITE;
-    }
-
-    public static GameManager getInstance()
     {
         if (!instance)
         {
-            instance = GameObject.Find("GameManager").GetComponent<GameManager>();
+            instance = this;
         }
-        return instance;
+        else
+        {
+            Destroy(this);
+        }
+        NetworkObject networkObject = gameObject.GetComponent<NetworkObject>();
+        if (!networkObject.IsSpawned && IsHost)
+        {
+            networkObject.Spawn();
+        }
+    }
+
+    private void Start()
+    {
+        teamTurn.Value = PieceTeam.WHITE;
+        if (GameSetting.instance.isLocalGame)
+        {
+            GetChessBoard().StartGame(true);
+        }
+        else
+        {
+            StartGameClientRpc();
+        }
+        if (IsHost)
+        {
+            SetEachPlayerCameraClientRpc();
+        }
+    }
+
+    [ClientRpc]
+    private void SetEachPlayerCameraClientRpc()
+    {
+        GetCurrentPlayer().GetComponent<ChessPlayer>().SetCamera();
     }
 
     public Chessboard GetChessBoard()
@@ -38,26 +59,10 @@ public class GameManager : NetworkBehaviour
         return GameObject.Find("Board").GetComponent<Chessboard>();
     }
 
-    public override void OnNetworkSpawn()
-    {
-        if (IsHost)
-        {
-            hostConnected.Value = false;
-            hostConnected.Value = false;
-            hostConnected.OnValueChanged += OnConnectionChanged;
-            clientConnected.OnValueChanged += OnConnectionChanged;
-        }
-    }
-
     public ChessPlayer GetCurrentPlayer()
     {
         ulong id = NetworkManager.Singleton.LocalClientId;
         return NetworkManager.SpawnManager.GetPlayerNetworkObject(id).GetComponent<ChessPlayer>();
-    }
-
-    public void HostConnect()
-    {
-        hostConnected.Value = true;
     }
 
     /// <summary>
@@ -87,30 +92,9 @@ public class GameManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-
     private void MadeAMoveServerRpc(Vector2Int before, Vector2Int after)
     {
         GetChessBoard().MovePiece(before, after);
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void ClientConnectServerRpc()
-    {
-        clientConnected.Value = true;
-    }
-
-    private void OnConnectionChanged(bool previous, bool current)
-    {
-        if (hostConnected.Value && clientConnected.Value)
-        {
-            GetChessBoard().StartGame(false);
-            StartGameClientRpc();
-        }
-    }
-
-    private void StartLocalGame()
-    {
-        GetChessBoard().StartGame(true);
     }
 
     public void ResetGame()
@@ -120,10 +104,7 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     public void StartGameClientRpc()
     {
-        if (!IsHost)
-        {
-            GetChessBoard().StartGame(false);
-        }
+        GetChessBoard().StartGame(false);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -145,46 +126,26 @@ public class GameManager : NetworkBehaviour
     private void ChangeTurnDisplayTextClientRpc(string text)
     {
         turnDisplay.text = text;
-
     }
 
 
     private void OnGUI()
     {
+        if (!NetworkManager.Singleton)
+            return;
         GUILayout.BeginArea(new Rect(10, 10, 200, 300));
-        if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
-            StartButtons();
-        else
+        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
             StatusLabels();
         GUILayout.EndArea();
-    }
-
-    private void StartButtons()
-    {
-        if (GUILayout.Button("Local game"))
-        {
-            NetworkManager.Singleton.StartHost();
-            isLocalGame = true;
-            StartLocalGame();
-        }
-        if (GUILayout.Button("Host"))
-        {
-            NetworkManager.Singleton.StartHost();
-            HostConnect();
-        }
-        if (GUILayout.Button("Client"))
-        {
-            NetworkManager.Singleton.StartClient();
-        }
     }
 
     private void StatusLabels()
     {
         string mode = "";
-        if (isLocalGame) mode = "Local";
+        if (GameSetting.instance.isLocalGame) mode = "Local";
         else if (NetworkManager.Singleton.IsHost) mode = "Host";
         else mode = "Client";
-        if (!isLocalGame)
+        if (!GameSetting.instance.isLocalGame)
         {
             GUILayout.Label("Transport: " +
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);

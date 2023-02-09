@@ -100,15 +100,18 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     // Is it our turn?
-                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.getInstance().teamTurn.Value &&
-                        GameManager.getInstance().teamTurn.Value == GameManager.getInstance().GetCurrentPlayer().team)
+                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
                     {
-                        currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
-                        // A list of basic movement of this piece
-                        availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-                        // Get a list of special move
-                        specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-                        HighlightTiles();
+                        if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
+                        {
+                            currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
+                            // A list of basic movement of this piece
+                            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                            // Get a list of special move
+                            specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+                            HighlightTiles();
+                        }
+
                     }
                 }
             }
@@ -123,7 +126,7 @@ public class Chessboard : MonoBehaviour
                 {
                     if (!isLocalGame)
                     {
-                        GameManager.getInstance().NotifyMadeAMove(previousPosition, hitPosition);
+                        GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
                     }
                 }
                 else
@@ -346,7 +349,7 @@ public class Chessboard : MonoBehaviour
         // Respawn
         SpawnAllPieces();
         PositionAllPieces();
-        GameManager.getInstance().ResetGame();
+        GameManager.instance.ResetGame();
     }
     public void OnExitButton()
     {
@@ -490,7 +493,7 @@ public class Chessboard : MonoBehaviour
         PositionSinglePiece(x, y);
 
         if (!otherPlayer)
-            GameManager.getInstance().SwitchTurnServerRpc();
+            GameManager.instance.SwitchTurnServerRpc();
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
