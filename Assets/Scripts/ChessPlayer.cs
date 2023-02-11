@@ -19,14 +19,27 @@ public class ChessPlayer : NetworkBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             team = PieceTeam.BLACK;
+
             playerName = "Xx_LmaoClient_xX";
             GameSetting.instance.ClientConnectServerRpc();
         }
         DontDestroyOnLoad(this);
     }
 
-    public void SetCamera()
+    public void SetTeamAndCamera(PieceTeam hostChosenTeam)
     {
+        if (IsHost)
+        {
+            team = GameSetting.instance.hostChosenTeam;
+        }
+        else
+        {
+            if (hostChosenTeam == PieceTeam.BLACK)
+            {
+                team = PieceTeam.WHITE;
+            }
+        }
+
         if (team == PieceTeam.WHITE)
         {
             GameObject.Find("Main Camera (White)").GetComponent<Camera>().enabled = true;

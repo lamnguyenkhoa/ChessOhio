@@ -33,14 +33,14 @@ public class GameManager : NetworkBehaviour
         StartGameClientRpc(GameSetting.instance.isLocalGame);
         if (IsHost)
         {
-            SetEachPlayerCameraClientRpc();
+            SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
         }
     }
 
     [ClientRpc]
-    private void SetEachPlayerCameraClientRpc()
+    private void SetupEachPlayerClientRpc(PieceTeam hostChosenTeam)
     {
-        GetCurrentPlayer().GetComponent<ChessPlayer>().SetCamera();
+        GetCurrentPlayer().GetComponent<ChessPlayer>().SetTeamAndCamera(hostChosenTeam);
     }
 
     public Chessboard GetChessBoard()

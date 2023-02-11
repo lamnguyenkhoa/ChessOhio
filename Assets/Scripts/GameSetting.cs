@@ -4,6 +4,7 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine.UI;
 
 public class GameSetting : NetworkBehaviour
 {
@@ -28,6 +29,9 @@ public class GameSetting : NetworkBehaviour
     public NetworkVariable<bool> clientConnected;
     private string ipAddress = "127.0.0.1";
     private ushort port = 7777;
+    public PieceTeam hostChosenTeam = PieceTeam.WHITE;
+    public Button whiteTeamButton;
+    public Button blackTeamButton;
 
 
     private void Awake()
@@ -63,10 +67,10 @@ public class GameSetting : NetworkBehaviour
     {
         if (IsHost)
         {
-            hostConnected.Value = true;
-            clientConnected.Value = false;
             hostConnected.OnValueChanged += OnConnectionChanged;
             clientConnected.OnValueChanged += OnConnectionChanged;
+            hostConnected.Value = true;
+            clientConnected.Value = false;
         }
     }
 
@@ -98,7 +102,8 @@ public class GameSetting : NetworkBehaviour
     {
         isLocalGame = false;
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        transport.ConnectionData.Address = GetLocalIPAddress();
+        if (!Application.isEditor)
+            transport.ConnectionData.Address = GetLocalIPAddress();
         NetworkManager.Singleton.StartHost();
     }
     public void OnClientButton()
@@ -113,6 +118,22 @@ public class GameSetting : NetworkBehaviour
     public void OnQuitButton()
     {
         Application.Quit();
+    }
+
+    public void ChangeTeam(int team)
+    {
+        if (team == 0)
+        {
+            hostChosenTeam = PieceTeam.WHITE;
+            whiteTeamButton.interactable = false;
+            blackTeamButton.interactable = true;
+        }
+        else
+        {
+            hostChosenTeam = PieceTeam.BLACK;
+            whiteTeamButton.interactable = true;
+            blackTeamButton.interactable = false;
+        }
     }
 
     public void ChangeIPAddress(string input)
