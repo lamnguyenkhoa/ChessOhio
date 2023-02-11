@@ -11,6 +11,10 @@
 /[Uu]ser[Ss]ettings/
 /[Rr]ecordings/
 
+# Built game
+ChessOhio-Mac.rar
+ChessOhio-Win.rar
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
