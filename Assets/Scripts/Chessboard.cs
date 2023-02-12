@@ -38,7 +38,6 @@ public class Chessboard : MonoBehaviour
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
     public static Chessboard instance;
-
     private void Awake()
     {
         if (!instance)
@@ -59,7 +58,6 @@ public class Chessboard : MonoBehaviour
         isLocalGame = isLocal;
         gameStarted = true;
     }
-
 
     private void Update()
     {
@@ -355,9 +353,9 @@ public class Chessboard : MonoBehaviour
         PositionAllPieces();
         GameManager.instance.ResetGame();
     }
-    public void OnExitButton()
+    public void EndTurn()
     {
-        Application.Quit();
+        GameManager.instance.SwitchTurnServerRpc();
     }
 
     // Operation
@@ -428,12 +426,13 @@ public class Chessboard : MonoBehaviour
 
         PositionSinglePiece(x, y);
 
-        if (!otherPlayer)
-            GameManager.instance.SwitchTurnServerRpc();
-
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
+        bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces);
 
-        SpecialMoveHandler.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces);
+        if (!otherPlayer && !dontEndTurn)
+        {
+            EndTurn();
+        }
 
         return true;
     }
@@ -475,6 +474,11 @@ public class Chessboard : MonoBehaviour
                 + new Vector3(tileSize / 2, 0, tileSize / 2)
                 + (Vector3.back * deathSpacing) * deadBlacks.Count);
         }
+    }
+
+    public ref ChessPiece[,] GetBoardRef()
+    {
+        return ref chessPieces;
     }
 
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,28 +12,55 @@ public enum SpecialMove
 
 public class SpecialMoveHandler : MonoBehaviour
 {
-    public static void ProcessSpecialMoves(ref List<Vector2Int[]> moveList, ref List<SpecialMove> specialMoves, ref ChessPiece[,] chessPieces)
+    public static SpecialMoveHandler instance;
+    public PieceType chosenPiecePromo = PieceType.NONE;
+    public GameObject promotionScreen;
+
+    private void Awake()
     {
+        if (!instance)
+        {
+            instance = this;
+            if (promotionScreen.activeSelf)
+            {
+                promotionScreen.SetActive(false);
+            }
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    public bool ProcessSpecialMoves(ref List<Vector2Int[]> moveList, ref List<SpecialMove> specialMoves, ref ChessPiece[,] chessPieces)
+    {
+        bool dontEndTurn = false;
+
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         foreach (SpecialMove specialMove in specialMoves)
         {
             // Use switch-case will make the code indent very far to the right
             if (specialMove == SpecialMove.EN_PASSANT)
             {
-                ProcessEnPassant(ref moveList, ref chessPieces);
+                if (ProcessEnPassant(ref moveList, ref chessPieces))
+                    dontEndTurn = true;
             }
             else if (specialMove == SpecialMove.CASTLING)
             {
-                ProcessCastling(ref moveList, ref chessPieces);
+                if (ProcessCastling(ref moveList, ref chessPieces))
+                    dontEndTurn = true;
             }
             else if (specialMove == SpecialMove.PROMOTION)
             {
-                ProcessPromotion(ref moveList, ref chessPieces);
+                if (ProcessPromotion(ref moveList, ref chessPieces))
+                    dontEndTurn = true;
             }
         }
+
+        return dontEndTurn;
     }
 
-    private static void ProcessEnPassant(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
+    private bool ProcessEnPassant(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
     {
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
@@ -46,11 +74,14 @@ public class SpecialMoveHandler : MonoBehaviour
             {
                 Chessboard.instance.AddToDeadList(enemyPawn);
                 chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
+                return true;
             }
         }
+
+        return false;
     }
 
-    private static void ProcessCastling(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
+    private bool ProcessCastling(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
     {
         // TODO: Take account the board size can grow
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
@@ -63,6 +94,7 @@ public class SpecialMoveHandler : MonoBehaviour
             chessPieces[3, ourY] = rook;
             Chessboard.instance.PositionSinglePiece(3, ourY);
             chessPieces[0, ourY] = null;
+            return true;
         }
         // Right rook castling
         if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
@@ -72,13 +104,15 @@ public class SpecialMoveHandler : MonoBehaviour
             chessPieces[5, ourY] = rook;
             Chessboard.instance.PositionSinglePiece(5, ourY);
             chessPieces[7, ourY] = null;
+            return true;
         }
+
+        return false;
     }
 
-    private static void ProcessPromotion(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
+    private bool ProcessPromotion(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
     {
         // TODO: Add a UI allow to choose which piece the pawn
-        // promoto to. Currently only promote to Queen.
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
         if (targetPawn.type == PieceType.PAWN)
@@ -86,12 +120,39 @@ public class SpecialMoveHandler : MonoBehaviour
             int ourY = lastMove[1].y;
             if (ourY == 0 || ourY == 7)
             {
-                ChessPiece newQueen = Chessboard.instance.SpawnSinglePiece(PieceType.QUEEN, targetPawn.team);
-                Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
-                chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
-                Chessboard.instance.PositionSinglePiece(lastMove[1].x, lastMove[1].y, true);
+                chosenPiecePromo = PieceType.NONE;
+                StartCoroutine(PromotionScreen(targetPawn));
+                return true;
             }
         }
+        return false;
+    }
+
+    private IEnumerator PromotionScreen(ChessPiece targetPiece)
+    {
+        promotionScreen.gameObject.SetActive(true);
+        while (chosenPiecePromo == PieceType.NONE)
+        {
+            yield return null;
+        }
+        PromotePiece(targetPiece, chosenPiecePromo);
+        promotionScreen.SetActive(false);
+    }
+
+    public void SetChosenPromote(int chosenType)
+    {
+        chosenPiecePromo = (PieceType)chosenType;
+    }
+
+    public void PromotePiece(ChessPiece targetPiece, PieceType chosenPiece)
+    {
+        int x = targetPiece.currentX;
+        int y = targetPiece.currentY;
+        ChessPiece[,] chessPieces = Chessboard.instance.GetBoardRef();
+        ChessPiece newQueen = Chessboard.instance.SpawnSinglePiece(chosenPiece, targetPiece.team);
+        Destroy(chessPieces[x, y].gameObject);
+        chessPieces[x, y] = newQueen;
+        Chessboard.instance.PositionSinglePiece(x, y, true);
     }
 
 }

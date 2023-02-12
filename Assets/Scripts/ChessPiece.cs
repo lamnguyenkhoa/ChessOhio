@@ -24,9 +24,9 @@ public class ChessPiece : MonoBehaviour
     public PieceTeam team;
     public int currentX;
     public int currentY;
-
     private Vector3 desiredPosition;
     private Vector3 desiredScale = Vector3.one;
+    public List<PieceType> possiblePromotions = new List<PieceType>();
 
     private void Start()
     {
@@ -81,6 +81,11 @@ public class ChessPiece : MonoBehaviour
     {
         List<SpecialMove> specialMoves = new List<SpecialMove>();
         return specialMoves;
+    }
+
+    public virtual List<PieceType> GetPossiblePromotions()
+    {
+        return new List<PieceType>();
     }
 
 }

@@ -7,9 +7,7 @@ public class Pawn : ChessPiece
     {
         int BLACK_PAWN_Y_START = tileCountY - 2;
         int WHITE_PAWN_Y_START = 1;
-
         List<Vector2Int> availableMoves = new List<Vector2Int>();
-
         int direction = (team == PieceTeam.WHITE) ? 1 : -1;
 
         // One in front
@@ -108,5 +106,12 @@ public class Pawn : ChessPiece
             }
         }
         return false;
+    }
+
+    public override List<PieceType> GetPossiblePromotions()
+    {
+        List<PieceType> possiblePromotions = new List<PieceType> { PieceType.QUEEN,
+            PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK };
+        return possiblePromotions;
     }
 }
