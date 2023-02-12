@@ -2,14 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum SpecialMove
-{
-    NONE = 0,
-    EN_PASSANT = 1,
-    CASTLING = 2,
-    PROMOTION = 3
-}
-
 public class Chessboard : MonoBehaviour
 {
     [Header("Art Assets")]
@@ -45,7 +37,19 @@ public class Chessboard : MonoBehaviour
     private List<SpecialMove> specialMoves = new List<SpecialMove>();
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
+    public static Chessboard instance;
 
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     public void StartGame(bool isLocal)
     {
@@ -243,7 +247,7 @@ public class Chessboard : MonoBehaviour
             chessPieces[i, 6] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.BLACK);
         }
     }
-    private ChessPiece SpawnSinglePiece(PieceType type, PieceTeam team)
+    public ChessPiece SpawnSinglePiece(PieceType type, PieceTeam team)
     {
         GameObject gameObject = Instantiate(prefabs[(int)type - 1], transform);
         ChessPiece cp = gameObject.GetComponent<ChessPiece>();
@@ -274,7 +278,7 @@ public class Chessboard : MonoBehaviour
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="instant"></param>
-    private void PositionSinglePiece(int x, int y, bool instant = false)
+    public void PositionSinglePiece(int x, int y, bool instant = false)
     {
         chessPieces[x, y].currentX = x;
         chessPieces[x, y].currentY = y;
@@ -356,74 +360,6 @@ public class Chessboard : MonoBehaviour
         Application.Quit();
     }
 
-
-    // Special moves
-    private void ProcessSpecialMoves()
-    {
-        Vector2Int[] lastMove = moveList[moveList.Count - 1];
-        foreach (SpecialMove specialMove in specialMoves)
-        {
-            // Use switch-case will make the code indent very far to the right
-            // and I can't collapse the case.
-            if (specialMove == SpecialMove.EN_PASSANT)
-            {
-                Vector2Int[] enemyPawnMove = moveList[moveList.Count - 2];
-                ChessPiece myPawn = chessPieces[lastMove[1].x, lastMove[1].y];
-                ChessPiece enemyPawn = chessPieces[enemyPawnMove[1].x, enemyPawnMove[1].y];
-
-                if (myPawn.currentX == enemyPawn.currentX)
-                {
-                    if (myPawn.currentY == enemyPawn.currentY - 1 ||
-                        myPawn.currentY == enemyPawn.currentY + 1)
-                    {
-                        AddToDeadList(enemyPawn);
-                        chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
-                    }
-                }
-            }
-            if (specialMove == SpecialMove.CASTLING)
-            {  // TODO: Take account the board size can grow
-                int ourY = lastMove[1].y;
-                // Left rook castling (king moved to the left)
-                if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
-                {
-                    // Move left rook from x = 0 to x = 3
-                    ChessPiece rook = chessPieces[0, ourY];
-                    chessPieces[3, ourY] = rook;
-                    PositionSinglePiece(3, ourY);
-                    chessPieces[0, ourY] = null;
-                }
-                // Right rook castling
-                if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
-                {
-                    // Move right rook from x = 7 to x = 5
-                    ChessPiece rook = chessPieces[7, ourY];
-                    chessPieces[5, ourY] = rook;
-                    PositionSinglePiece(5, ourY);
-                    chessPieces[7, ourY] = null;
-                }
-            }
-            if (specialMove == SpecialMove.PROMOTION)
-            {
-                // TODO: Add a UI allow to choose which piece the pawn
-                // promoto to. Currently only promote to Queen.
-                ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
-                if (targetPawn.type == PieceType.PAWN)
-                {
-                    int ourY = lastMove[1].y;
-                    if (ourY == 0 || ourY == 7)
-                    {
-                        ChessPiece newQueen = SpawnSinglePiece(PieceType.QUEEN, targetPawn.team);
-                        Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
-                        chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
-                        PositionSinglePiece(lastMove[1].x, lastMove[1].y, true);
-                    }
-                }
-            }
-        }
-    }
-
-
     // Operation
     private bool ContainsValidMove(ref List<Vector2Int> moves, Vector2 pos)
     {
@@ -497,7 +433,7 @@ public class Chessboard : MonoBehaviour
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
 
-        ProcessSpecialMoves();
+        SpecialMoveHandler.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces);
 
         return true;
     }
@@ -519,7 +455,7 @@ public class Chessboard : MonoBehaviour
         }
     }
 
-    private void AddToDeadList(ChessPiece otherCp)
+    public void AddToDeadList(ChessPiece otherCp)
     {
         if (otherCp.team == PieceTeam.WHITE)
         {
