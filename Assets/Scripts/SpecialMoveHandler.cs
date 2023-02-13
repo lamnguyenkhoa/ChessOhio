@@ -32,7 +32,7 @@ public class SpecialMoveHandler : MonoBehaviour
         }
     }
 
-    public bool ProcessSpecialMoves(ref List<Vector2Int[]> moveList, ref List<SpecialMove> specialMoves, ref ChessPiece[,] chessPieces)
+    public bool ProcessSpecialMoves(ref List<Vector2Int[]> moveList, ref List<SpecialMove> specialMoves, ref ChessPiece[,] chessPieces, bool otherPlayer)
     {
         bool dontEndTurn = false;
 
@@ -52,6 +52,8 @@ public class SpecialMoveHandler : MonoBehaviour
             }
             else if (specialMove == SpecialMove.PROMOTION)
             {
+                // If this promotion come from other player, we don't process it
+                if (otherPlayer) return true;
                 if (ProcessPromotion(ref moveList, ref chessPieces))
                     dontEndTurn = true;
             }
@@ -139,7 +141,11 @@ public class SpecialMoveHandler : MonoBehaviour
         promotionScreen.SetActive(false);
         promotionScreen.GetComponent<PromotionScreen>().pieceProfile = null;
         GameManager.instance.SwitchTurnServerRpc();
-        // TODO: Notify other player what piece we promoted to.
+        if (!Chessboard.instance.isLocalGame)
+        {
+            GameManager.instance.NotifyChangePiece(new Vector2Int(targetPiece.currentX, targetPiece.currentY), chosenPiecePromo);
+        }
+
     }
 
     public void SetChosenPromote(int chosenType)
@@ -148,12 +154,12 @@ public class SpecialMoveHandler : MonoBehaviour
         chosenPiecePromo = (PieceType)chosenType;
     }
 
-    public void PromotePiece(ChessPiece targetPiece, PieceType chosenPiece)
+    public void PromotePiece(ChessPiece targetPiece, PieceType chosenType)
     {
         int x = targetPiece.currentX;
         int y = targetPiece.currentY;
         ChessPiece[,] chessPieces = Chessboard.instance.GetBoardRef();
-        ChessPiece newQueen = Chessboard.instance.SpawnSinglePiece(chosenPiece, targetPiece.team);
+        ChessPiece newQueen = Chessboard.instance.SpawnSinglePiece(chosenType, targetPiece.team);
         Destroy(chessPieces[x, y].gameObject);
         chessPieces[x, y] = newQueen;
         Chessboard.instance.PositionSinglePiece(x, y, true);

@@ -37,6 +37,11 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    public void ResetGame()
+    {
+
+    }
+
     [ClientRpc]
     private void SetupEachPlayerClientRpc(PieceTeam hostChosenTeam)
     {
@@ -62,13 +67,9 @@ public class GameManager : NetworkBehaviour
     public void NotifyMadeAMove(Vector2Int before, Vector2Int after)
     {
         if (IsHost)
-        {
             MadeAMoveClientRpc(before, after);
-        }
         else
-        {
             MadeAMoveServerRpc(before, after);
-        }
     }
 
     [ClientRpc]
@@ -76,18 +77,39 @@ public class GameManager : NetworkBehaviour
     {
         if (!IsHost)
         {
-            GetChessBoard().MovePiece(before, after);
+            Chessboard.instance.MovePiece(before, after);
         }
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     private void MadeAMoveServerRpc(Vector2Int before, Vector2Int after)
     {
-        GetChessBoard().MovePiece(before, after);
+        Chessboard.instance.MovePiece(before, after);
     }
 
-    public void ResetGame()
+    public void NotifyChangePiece(Vector2Int pos, PieceType type)
     {
+        Debug.Log($"NotifyChangePiece {pos} {type}");
+        if (IsHost)
+            ChangePieceClientRpc(pos, type);
+        else
+            ChangePieceServerRpc(pos, type);
+    }
+
+    [ClientRpc]
+    private void ChangePieceClientRpc(Vector2Int pos, PieceType type)
+    {
+        if (!IsHost)
+            Chessboard.instance.ChangePiece(pos, type);
+
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangePieceServerRpc(Vector2Int pos, PieceType type)
+    {
+        Chessboard.instance.ChangePiece(pos, type);
+
     }
 
     [ClientRpc]

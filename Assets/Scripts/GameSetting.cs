@@ -148,7 +148,7 @@ public class GameSetting : NetworkBehaviour
 
     private void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(10, 10, 200, 300));
+        GUILayout.BeginArea(new Rect(10, 10, 100, 200));
         if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
             StatusLabels();
         GUILayout.EndArea();

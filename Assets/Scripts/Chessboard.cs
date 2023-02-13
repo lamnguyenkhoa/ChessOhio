@@ -41,13 +41,9 @@ public class Chessboard : MonoBehaviour
     private void Awake()
     {
         if (!instance)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(this);
-        }
     }
 
     public void StartGame(bool isLocal)
@@ -113,7 +109,6 @@ public class Chessboard : MonoBehaviour
                             specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
                             HighlightTiles();
                         }
-
                     }
                 }
             }
@@ -427,7 +422,7 @@ public class Chessboard : MonoBehaviour
         PositionSinglePiece(x, y);
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
-        bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces);
+        bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces, otherPlayer);
 
         if (!otherPlayer && !dontEndTurn)
         {
@@ -452,6 +447,25 @@ public class Chessboard : MonoBehaviour
         {
             Debug.LogError("Invalid move. Impossible, this should not happen.");
         }
+    }
+
+    /// <summary>
+    /// Used by other player, usually after a promotion to sync the piece type.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="type"></param>
+    public void ChangePiece(Vector2Int pos, PieceType type)
+    {
+        ChessPiece currentPiece = chessPieces[pos.x, pos.y];
+        if (currentPiece == null)
+        {
+            Debug.Log($"ChangePiece but {pos} is null");
+            return;
+        }
+        ChessPiece newPiece = Chessboard.instance.SpawnSinglePiece(type, currentPiece.team);
+        Destroy(chessPieces[pos.x, pos.y].gameObject);
+        chessPieces[pos.x, pos.y] = newPiece;
+        Chessboard.instance.PositionSinglePiece(pos.x, pos.y, true);
     }
 
     public void AddToDeadList(ChessPiece otherCp)
