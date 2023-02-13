@@ -115,3 +115,5 @@ MonoBehaviour:
   team: 0
   currentX: 0
   currentY: 0
+  possiblePromotions: 
+  profile: {fileID: 11400000, guid: a123cc7227ac54a4e91e3d502865acfc, type: 2}

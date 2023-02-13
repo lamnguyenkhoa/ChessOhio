@@ -112,7 +112,6 @@ public class SpecialMoveHandler : MonoBehaviour
 
     private bool ProcessPromotion(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
     {
-        // TODO: Add a UI allow to choose which piece the pawn
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
         if (targetPawn.type == PieceType.PAWN)
@@ -130,17 +129,22 @@ public class SpecialMoveHandler : MonoBehaviour
 
     private IEnumerator PromotionScreen(ChessPiece targetPiece)
     {
-        promotionScreen.gameObject.SetActive(true);
+        promotionScreen.GetComponent<PromotionScreen>().pieceProfile = targetPiece.profile;
+        promotionScreen.SetActive(true);
         while (chosenPiecePromo == PieceType.NONE)
         {
             yield return null;
         }
         PromotePiece(targetPiece, chosenPiecePromo);
         promotionScreen.SetActive(false);
+        promotionScreen.GetComponent<PromotionScreen>().pieceProfile = null;
+        GameManager.instance.SwitchTurnServerRpc();
+        // TODO: Notify other player what piece we promoted to.
     }
 
     public void SetChosenPromote(int chosenType)
     {
+        Debug.Log("Promote to " + (PieceType)chosenType);
         chosenPiecePromo = (PieceType)chosenType;
     }
 
