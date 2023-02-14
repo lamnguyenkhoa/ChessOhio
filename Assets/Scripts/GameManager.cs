@@ -14,6 +14,7 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance;
     public NetworkVariable<PieceTeam> teamTurn;
     public TextMeshProUGUI turnDisplay;
+    public GameObject actionMenu;
 
     private void Awake()
     {
@@ -137,5 +138,17 @@ public class GameManager : NetworkBehaviour
     private void ChangeTurnDisplayTextClientRpc(string text)
     {
         turnDisplay.text = text;
+    }
+
+    public void OpenActionMenu(Vector2 pos, ChessPieceProfileSO profile)
+    {
+        actionMenu.GetComponent<ActionMenu>().Setup(profile);
+        actionMenu.transform.position = pos;
+        actionMenu.SetActive(true);
+    }
+
+    public void CloseActionMenu()
+    {
+        actionMenu.SetActive(false);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Chessboard : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Chessboard : MonoBehaviour
     [Header("Logic")]
     public bool isLocalGame = false;
     public bool gameStarted = false;
+    public bool disableRaycast = false;
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -57,7 +59,7 @@ public class Chessboard : MonoBehaviour
 
     private void Update()
     {
-        if (!gameStarted)
+        if (!gameStarted || disableRaycast)
         {
             return;
         }
@@ -92,9 +94,25 @@ public class Chessboard : MonoBehaviour
                 currentHover = hitPosition;
             }
 
+
+            // If we press right click
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (chessPieces[hitPosition.x, hitPosition.y] != null)
+                {
+                    ChessPiece cpClicked = chessPieces[hitPosition.x, hitPosition.y];
+                    GameManager.instance.OpenActionMenu(Input.mousePosition + new Vector3(80, 0, 0), cpClicked.profile);
+                }
+            }
+
             // If we press left click
             if (Input.GetMouseButtonDown(0))
             {
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    GameManager.instance.CloseActionMenu();
+                }
+                // Did we hit a chess piece?
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     // Is it our turn?
@@ -111,6 +129,7 @@ public class Chessboard : MonoBehaviour
                         }
                     }
                 }
+
             }
 
             // If we release left click
