@@ -25,10 +25,6 @@ public class SpecialMoveHandler : MonoBehaviour
         if (!instance)
         {
             instance = this;
-            if (promotionScreen.activeSelf)
-            {
-                promotionScreen.SetActive(false);
-            }
         }
         else
         {

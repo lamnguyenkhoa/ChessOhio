@@ -1,9 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameRule : MonoBehaviour
 {
-    // Move any number of steps as a knight in the same direction
-    public bool KNIGHT_INVERT_NIGHTRIDER = false;
-    // Combine Knight and Queen
-    public bool KNIGHT_PROMOTE_UNICORN = false;
+    public static GameRule instance;
+    public Dictionary<PieceType, PieceType> invertDict = new Dictionary<PieceType, PieceType>();
+    public Dictionary<PieceType, PieceType> combineDict = new Dictionary<PieceType, PieceType>();
+
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    private void Start()
+    {
+        invertDict.Add(PieceType.KNIGHT, PieceType.NIGHTRIDER);
+    }
 }
