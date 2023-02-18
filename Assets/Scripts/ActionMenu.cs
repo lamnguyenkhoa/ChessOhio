@@ -22,7 +22,7 @@ public class ActionMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
@@ -38,17 +38,21 @@ public class ActionMenu : MonoBehaviour
         transform.Find("PieceName").GetComponent<TextMeshProUGUI>().text = chessPiece.profile.pieceName;
 
         PieceType currentType = currentSelectPiece.type;
-        if (GameRule.instance.invertDict.ContainsKey(currentType))
-            invertButton.gameObject.SetActive(true);
-        else
-            invertButton.gameObject.SetActive(false);
+        infoButton.gameObject.SetActive(true);
+        moveButton.gameObject.SetActive(false);
+        invertButton.gameObject.SetActive(false);
+        combineButton.gameObject.SetActive(false);
 
-        if (GameRule.instance.combineDict.ContainsKey(currentType))
-            combineButton.gameObject.SetActive(true);
-        else
-            combineButton.gameObject.SetActive(false);
+        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        {
+            moveButton.gameObject.SetActive(true);
+            if (GameRule.instance.invertDict.ContainsKey(currentType))
+                invertButton.gameObject.SetActive(true);
+
+            if (GameRule.instance.combineDict.ContainsKey(currentType))
+                combineButton.gameObject.SetActive(true);
+        }
     }
-
 
     public void OnInvertButton()
     {
