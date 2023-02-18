@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// SpecialMove, which is different from SpecialAction. Usually resolved
+/// at the end of turn.
+/// </summary>
 public enum SpecialMove
 {
     NONE = 0,
@@ -159,9 +163,9 @@ public class SpecialMoveHandler : MonoBehaviour
         int x = targetPiece.currentX;
         int y = targetPiece.currentY;
         ChessPiece[,] chessPieces = Chessboard.instance.GetBoardRef();
-        ChessPiece newQueen = Chessboard.instance.SpawnSinglePiece(chosenType, targetPiece.team);
+        ChessPiece newPiece = Chessboard.instance.SpawnSinglePiece(chosenType, targetPiece.team);
         Destroy(chessPieces[x, y].gameObject);
-        chessPieces[x, y] = newQueen;
+        chessPieces[x, y] = newPiece;
         Chessboard.instance.PositionSinglePiece(x, y, true);
     }
 

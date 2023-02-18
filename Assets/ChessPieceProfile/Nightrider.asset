@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e4616414e0b904682103c5d98d7805, type: 3}
-  m_Name: Rook
+  m_Name: Nightrider
   m_EditorClassIdentifier: 
-  pieceName: Rook
-  description: Move vertical and horizontal.
-  type: 2
+  pieceName: Nightrider
+  description: Can move any number of steps as a knight in the same direction.
+  type: 7
   possiblePromoProfiles: []
-  specialAction: 01000000
+  specialAction: 

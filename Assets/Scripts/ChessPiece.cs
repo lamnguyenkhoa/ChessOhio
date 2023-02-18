@@ -9,7 +9,8 @@ public enum PieceType
     KNIGHT = 3,
     BISHOP = 4,
     QUEEN = 5,
-    KING = 6
+    KING = 6,
+    NIGHTRIDER = 7,
 }
 
 public enum PieceTeam

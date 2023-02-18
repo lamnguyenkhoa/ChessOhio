@@ -101,17 +101,13 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
                     ChessPiece cpClicked = chessPieces[hitPosition.x, hitPosition.y];
-                    GameManager.instance.OpenActionMenu(Input.mousePosition + new Vector3(80, 0, 0), cpClicked.profile);
+                    GameManager.instance.OpenActionMenu(Input.mousePosition + new Vector3(80, 0, 0), cpClicked);
                 }
             }
 
             // If we press left click
             if (Input.GetMouseButtonDown(0))
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                    GameManager.instance.CloseActionMenu();
-                }
                 // Did we hit a chess piece?
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
@@ -265,7 +261,16 @@ public class Chessboard : MonoBehaviour
         ChessPiece cp = gameObject.GetComponent<ChessPiece>();
         cp.type = type;
         cp.team = team;
-        cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+
+        // Some piece prefab has differrent structure. Example: Knight vs Nightrider
+        if (cp.transform.Find("Model"))
+        {
+            cp.transform.GetChild(0).GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+        }
+        else
+        {
+            cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+        }
         return cp;
     }
 

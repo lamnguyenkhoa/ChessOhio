@@ -140,15 +140,17 @@ public class GameManager : NetworkBehaviour
         turnDisplay.text = text;
     }
 
-    public void OpenActionMenu(Vector2 pos, ChessPieceProfileSO profile)
+    public void OpenActionMenu(Vector2 pos, ChessPiece piece)
     {
-        actionMenu.GetComponent<ActionMenu>().Setup(profile);
+        actionMenu.GetComponent<ActionMenu>().Setup(piece);
         actionMenu.transform.position = pos;
         actionMenu.SetActive(true);
+        Chessboard.instance.disableRaycast = true;
     }
 
     public void CloseActionMenu()
     {
         actionMenu.SetActive(false);
+        Chessboard.instance.disableRaycast = false;
     }
 }

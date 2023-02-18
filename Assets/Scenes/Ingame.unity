@@ -556,7 +556,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Flip
+  m_text: Invert
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 670382313}
   - component: {fileID: 670382312}
   m_Layer: 5
-  m_Name: Button
+  m_Name: InfoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2566,10 +2566,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1625825886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076bbbff8ea9cc04dadf0f0be4a1cd5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b87be996bdbab24d8d010b84fe34e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 0}
+  chessPiece: {fileID: 0}
 --- !u!1 &1704996184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,7 +2836,7 @@ GameObject:
   - component: {fileID: 2000188908}
   - component: {fileID: 2000188907}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: InvertButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2906,7 +2906,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2000188908}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1625825891}
+        m_TargetAssemblyTypeName: ActionMenu, Assembly-CSharp
+        m_MethodName: OnInvertButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2000188908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2958,7 +2970,7 @@ GameObject:
   - component: {fileID: 2017249612}
   - component: {fileID: 2017249611}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: MoveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
