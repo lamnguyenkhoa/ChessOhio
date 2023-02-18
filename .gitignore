@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 /[Rr]ecordings/
+/Build_Win
+/Build_Mac
 
 # Built game
 ChessOhio-Mac.rar
