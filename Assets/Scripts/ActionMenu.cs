@@ -11,15 +11,6 @@ public class ActionMenu : MonoBehaviour
     public Button invertButton;
     public Button combineButton;
 
-    private void Awake()
-    {
-        if (gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
@@ -34,7 +25,6 @@ public class ActionMenu : MonoBehaviour
     public void Setup(ChessPiece chessPiece)
     {
         this.currentSelectPiece = chessPiece;
-        if (currentSelectPiece == null) return;
         transform.Find("PieceName").GetComponent<TextMeshProUGUI>().text = chessPiece.profile.pieceName;
 
         PieceType currentType = currentSelectPiece.type;

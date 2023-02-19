@@ -170,11 +170,12 @@ public class Chessboard : MonoBehaviour
         // If we're dragging a piece
         if (currentlyDragging)
         {
-            Plane horizontalPlane = new Plane(Vector3.up, Vector3.up * yOffset);
+            Plane horizontalPlane = new Plane(Vector3.up, Vector3.up * (transform.position.y + yOffset));
             float distance = 0.0f;
             if (horizontalPlane.Raycast(ray, out distance))
             {
-                currentlyDragging.SetPosition(ray.GetPoint(distance) + Vector3.up * dragOffset);
+                Vector3 localPos = transform.InverseTransformPoint(ray.GetPoint(distance));
+                currentlyDragging.SetPosition(localPos + Vector3.up * dragOffset);
             }
         }
     }
@@ -182,7 +183,6 @@ public class Chessboard : MonoBehaviour
     // Generate the board
     private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY)
     {
-        yOffset += transform.position.y;
         bounds = new Vector3((tileCountX / 2) * tileSize, 0, (tileCountX / 2) * tileSize) + boardCenter;
         tiles = new GameObject[tileCountX, tileCountY];
         for (int x = 0; x < tileCountX; x++)
@@ -197,6 +197,7 @@ public class Chessboard : MonoBehaviour
     {
         GameObject tileObject = new GameObject($"X:{x} Y:{y}");
         tileObject.transform.SetParent(transform);
+        tileObject.transform.localPosition = Vector3.zero;
 
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
