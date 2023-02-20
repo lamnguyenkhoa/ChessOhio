@@ -5,6 +5,7 @@ using Unity.Netcode.Transports.UTP;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameSetting : NetworkBehaviour
 {
@@ -28,10 +29,14 @@ public class GameSetting : NetworkBehaviour
     public NetworkVariable<bool> hostConnected;
     public NetworkVariable<bool> clientConnected;
     private string ipAddress = "127.0.0.1";
-    private ushort port = 7777;
     public PieceTeam hostChosenTeam = PieceTeam.WHITE;
+
+    [Header("Lobby stuff")]
     public Button whiteTeamButton;
     public Button blackTeamButton;
+    public Button bgmButton;
+    public AudioSource bgm;
+    public TextMeshProUGUI versionText;
 
 
     private void Awake()
@@ -45,6 +50,11 @@ public class GameSetting : NetworkBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        versionText.text = $"Version {Application.version}";
     }
 
     public string GetLocalIPAddress()
@@ -111,7 +121,6 @@ public class GameSetting : NetworkBehaviour
         isLocalGame = false;
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.ConnectionData.Address = ipAddress;
-        transport.ConnectionData.Port = port;
         NetworkManager.Singleton.StartClient();
     }
 
@@ -141,9 +150,18 @@ public class GameSetting : NetworkBehaviour
         ipAddress = input;
     }
 
-    public void ChangePort(string input)
+    public void OnMuteButton()
     {
-        port = ushort.Parse(input);
+        if (bgm)
+            bgm.mute = !bgm.mute;
+        if (bgm.mute)
+        {
+            bgmButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Unmute";
+        }
+        else
+        {
+            bgmButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Mute";
+        }
     }
 
     private void OnGUI()
