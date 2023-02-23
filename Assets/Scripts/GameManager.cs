@@ -91,7 +91,6 @@ public class GameManager : NetworkBehaviour
 
     public void NotifyChangePiece(Vector2Int pos, PieceType type)
     {
-        Debug.Log($"NotifyChangePiece {pos} {type}");
         if (IsHost)
             ChangePieceClientRpc(pos, type);
         else
@@ -102,13 +101,17 @@ public class GameManager : NetworkBehaviour
     private void ChangePieceClientRpc(Vector2Int pos, PieceType type)
     {
         if (!IsHost)
+        {
+            Debug.Log($"NotifyChangePiece {pos} {type}");
             Chessboard.instance.ChangePiece(pos, type);
+        }
 
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void ChangePieceServerRpc(Vector2Int pos, PieceType type)
     {
+        Debug.Log($"NotifyChangePiece {pos} {type}");
         Chessboard.instance.ChangePiece(pos, type);
 
     }

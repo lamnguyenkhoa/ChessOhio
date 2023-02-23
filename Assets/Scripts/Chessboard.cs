@@ -74,7 +74,6 @@ public class Chessboard : MonoBehaviour
             return;
         }
 
-
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("Tile", "Hover", "Highlight")))

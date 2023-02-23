@@ -35,12 +35,15 @@ public class ActionMenu : MonoBehaviour
 
         if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
         {
-            moveButton.gameObject.SetActive(true);
-            if (GameRule.instance.invertDict.ContainsKey(currentType))
-                invertButton.gameObject.SetActive(true);
+            if (GameSetting.instance.isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
+            {
+                moveButton.gameObject.SetActive(true);
+                if (GameRule.instance.invertDict.ContainsKey(currentType))
+                    invertButton.gameObject.SetActive(true);
 
-            if (GameRule.instance.combineDict.ContainsKey(currentType))
-                combineButton.gameObject.SetActive(true);
+                if (GameRule.instance.combineDict.ContainsKey(currentType))
+                    combineButton.gameObject.SetActive(true);
+            }
         }
     }
 
