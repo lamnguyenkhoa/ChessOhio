@@ -119,6 +119,7 @@ MonoBehaviour:
   deathSpacing: 0.7
   dragOffset: 1.5
   victoryScreen: {fileID: 0}
+  turnCountUI: {fileID: 0}
   prefabs:
   - {fileID: 458981325156245816, guid: 9b78615588766c2458c8d5f38680389c, type: 3}
   - {fileID: 1481032439516329814, guid: c20c94de9b4f3ec4d8f8c76a576ec079, type: 3}
@@ -133,3 +134,4 @@ MonoBehaviour:
   isLocalGame: 0
   gameStarted: 0
   disableRaycast: 0
+  pauseGame: 0

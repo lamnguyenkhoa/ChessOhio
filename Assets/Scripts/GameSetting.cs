@@ -30,6 +30,7 @@ public class GameSetting : NetworkBehaviour
     public NetworkVariable<bool> clientConnected;
     private string ipAddress = "127.0.0.1";
     public PieceTeam hostChosenTeam = PieceTeam.WHITE;
+    public int turnForNewRule = 5;
 
     [Header("Lobby stuff")]
     public Button whiteTeamButton;

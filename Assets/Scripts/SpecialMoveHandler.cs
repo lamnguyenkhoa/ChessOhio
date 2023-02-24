@@ -140,7 +140,7 @@ public class SpecialMoveHandler : MonoBehaviour
         PromotePiece(targetPiece, chosenPiecePromo);
         promotionScreen.SetActive(false);
         promotionScreen.GetComponent<PromotionScreen>().pieceProfile = null;
-        GameManager.instance.SwitchTurnServerRpc();
+        Chessboard.instance.EndTurn();
         if (!Chessboard.instance.isLocalGame)
         {
             GameManager.instance.NotifyChangePiece(new Vector2Int(targetPiece.currentX, targetPiece.currentY), chosenPiecePromo);

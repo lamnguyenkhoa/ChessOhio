@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,11 +8,17 @@ public class GameRule : MonoBehaviour
     public static GameRule instance;
     public Dictionary<PieceType, PieceType> invertDict = new Dictionary<PieceType, PieceType>();
     public Dictionary<PieceType, PieceType> combineDict = new Dictionary<PieceType, PieceType>();
-    public RuleCardSO[] availableRule; // Every rulecardSO
-    public List<RuleCardSO> activeRulePool = new List<RuleCardSO>(); // Some default starting rulecardSO
-
-    public const int N_DRAW = 3;
+    // Every rulecardSO.
+    public RuleCardSO[] availableRule;
+    // Some default starting rulecardSO that can be draw. If certain conditions meet, some rule card
+    // will be added from the `availableRule` or removed from the active pool.
+    public List<RuleCardSO> activeRulePool = new List<RuleCardSO>();
+    // Currently only for debugging purpose, since the 2 dicts above already used to check for logic.
+    public List<RuleCardSO> activatedRule = new List<RuleCardSO>();
+    private const int N_DRAW = 3;
     public GameObject ruleCardUI;
+    // Because White move first, Black get to choose rule first
+    public PieceTeam teamToChoseRule = PieceTeam.BLACK;
 
 
     private void Awake()
@@ -28,7 +35,6 @@ public class GameRule : MonoBehaviour
 
     private void Start()
     {
-        invertDict.Add(PieceType.KNIGHT, PieceType.NIGHTRIDER);
     }
 
     public void DrawRuleCard()
@@ -36,11 +42,12 @@ public class GameRule : MonoBehaviour
         RuleCardSO[] drawedCards = { };
         if (activeRulePool.Count >= N_DRAW)
         {
-            drawedCards = MyHelper.GetRandomItems(activeRulePool, 3);
+            drawedCards = MyHelper.GetRandomItems(activeRulePool, N_DRAW);
         }
         else
         {
             Debug.Log("Not enough card to draw");
+            return;
         }
 
         for (int i = 0; i < N_DRAW; i++)
@@ -48,6 +55,35 @@ public class GameRule : MonoBehaviour
             RuleCard ruleCard = ruleCardUI.transform.GetChild(i).GetComponent<RuleCard>();
             ruleCard.profile = drawedCards[i];
         }
+    }
+
+    public void OpenRuleCardMenu()
+    {
+        // Calculate team to choose rule
+        if (activatedRule.Count % 2 == 0)
+            teamToChoseRule = PieceTeam.BLACK;
+        else
+            teamToChoseRule = PieceTeam.WHITE;
+        Chessboard.instance.pauseGame = true;
+        DrawRuleCard();
         ruleCardUI.SetActive(true);
+    }
+
+    public void ChoseThisRule(RuleCardSO chosenRule, bool sendNotification = false)
+    {
+        activeRulePool.Remove(chosenRule);
+        activatedRule.Add(chosenRule);
+        if (sendNotification)
+        {
+            int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
+            GameManager.instance.NotifyChosenRuleCard(ruleCardId);
+        }
+
+    }
+
+    public void CloseRuleCardMenu()
+    {
+        Chessboard.instance.pauseGame = false;
+        ruleCardUI.SetActive(false);
     }
 }

@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
-using Unity.Netcode.Transports.UTP;
 
 public enum ClientID
 {
@@ -82,7 +81,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-
     [ServerRpc(RequireOwnership = false)]
     private void MadeAMoveServerRpc(Vector2Int before, Vector2Int after)
     {
@@ -105,7 +103,6 @@ public class GameManager : NetworkBehaviour
             Debug.Log($"NotifyChangePiece {pos} {type}");
             Chessboard.instance.ChangePiece(pos, type);
         }
-
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -113,7 +110,33 @@ public class GameManager : NetworkBehaviour
     {
         Debug.Log($"NotifyChangePiece {pos} {type}");
         Chessboard.instance.ChangePiece(pos, type);
+    }
 
+    public void NotifyChosenRuleCard(int ruleCardId)
+    {
+        if (IsHost)
+            ChosenRuleCardClientRpc(ruleCardId);
+        else
+            ChosenRuleCardServerRpc(ruleCardId);
+    }
+
+    [ClientRpc]
+    public void ChosenRuleCardClientRpc(int ruleCardId)
+    {
+        if (!IsHost)
+        {
+            RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
+            GameRule.instance.ChoseThisRule(ruleCard);
+            GameRule.instance.CloseRuleCardMenu();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ChosenRuleCardServerRpc(int ruleCardId)
+    {
+        RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
+        GameRule.instance.ChoseThisRule(ruleCard);
+        GameRule.instance.CloseRuleCardMenu();
     }
 
     [ClientRpc]
@@ -128,19 +151,21 @@ public class GameManager : NetworkBehaviour
         if (teamTurn.Value == PieceTeam.WHITE)
         {
             teamTurn.Value = PieceTeam.BLACK;
-            ChangeTurnDisplayTextClientRpc("Black's turn");
+            AfterSwitchTurnStuffClientRpc("Black's turn");
         }
         else
         {
             teamTurn.Value = PieceTeam.WHITE;
-            ChangeTurnDisplayTextClientRpc("White's turn");
+            AfterSwitchTurnStuffClientRpc("White's turn");
         }
+
     }
 
     [ClientRpc]
-    private void ChangeTurnDisplayTextClientRpc(string text)
+    private void AfterSwitchTurnStuffClientRpc(string turnDisplayText)
     {
-        turnDisplay.text = text;
+        turnDisplay.text = turnDisplayText;
+        Chessboard.instance.IncreaseTurnCount();
     }
 
     public void OpenActionMenu(Vector2 pos, ChessPiece piece)

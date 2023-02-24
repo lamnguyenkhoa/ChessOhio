@@ -35,7 +35,7 @@ public class SpecialActionHandler : MonoBehaviour
         //Since it has the same function, I re-use it
         SpecialMoveHandler.instance.PromotePiece(piece, type);
 
-        GameManager.instance.SwitchTurnServerRpc();
+        Chessboard.instance.EndTurn();
         if (!Chessboard.instance.isLocalGame)
         {
             GameManager.instance.NotifyChangePiece(new Vector2Int(piece.currentX, piece.currentY), type);

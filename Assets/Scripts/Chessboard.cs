@@ -15,9 +15,7 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private float deathSpacing = 0.7f;
     [SerializeField] private float dragOffset = 1.5f;
     [SerializeField] private GameObject victoryScreen;
-    [SerializeField] private TextMeshProUGUI turnCountUI;
-
-
+    public TextMeshProUGUI turnCountUI;
 
     [Header("Prefabs & Materials")]
     [SerializeField] private GameObject[] prefabs;
@@ -27,6 +25,7 @@ public class Chessboard : MonoBehaviour
     public bool isLocalGame = false;
     public bool gameStarted = false;
     public bool disableRaycast = false;
+    public bool pauseGame = false;
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -42,7 +41,7 @@ public class Chessboard : MonoBehaviour
     // Record moves history, with format array of {start position, end position}
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
     public static Chessboard instance;
-    public int turnCount = 0;
+    public int turnCount;
 
     private void Awake()
     {
@@ -64,7 +63,7 @@ public class Chessboard : MonoBehaviour
 
     private void Update()
     {
-        if (!gameStarted || disableRaycast)
+        if (!gameStarted || disableRaycast || pauseGame)
         {
             return;
         }
@@ -140,7 +139,6 @@ public class Chessboard : MonoBehaviour
                 bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
                 if (validMove)
                 {
-                    IncreaseTurnCount();
                     if (!isLocalGame)
                     {
                         GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
@@ -378,6 +376,7 @@ public class Chessboard : MonoBehaviour
         PositionAllPieces();
         GameManager.instance.ResetGame();
     }
+
     public void EndTurn()
     {
         GameManager.instance.SwitchTurnServerRpc();
@@ -469,7 +468,6 @@ public class Chessboard : MonoBehaviour
     /// <param name="after"></param>
     public void MovePiece(Vector2Int before, Vector2Int after)
     {
-        IncreaseTurnCount();
         Debug.Log($"Network: Other player made a move {before} to {after}");
         ChessPiece cp = chessPieces[before.x, before.y];
         // Guaranteed to be valid
@@ -530,6 +528,11 @@ public class Chessboard : MonoBehaviour
     {
         turnCount += 1;
         turnCountUI.text = $"Turn: {turnCount}";
+        // Check for new rule
+        if ((turnCount - 1) % GameSetting.instance.turnForNewRule == 0)
+        {
+            GameRule.instance.OpenRuleCardMenu();
+        }
     }
 
 }

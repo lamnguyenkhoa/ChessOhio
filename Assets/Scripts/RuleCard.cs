@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,8 +11,9 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public TextMeshProUGUI description;
     private Vector3 originalPos;
     private Vector3 desiredPos;
-
+    private bool mouseHovering = false;
     private const float HOVER_OFFSET_Y = 20f;
+    private bool allowInteraction = true;
 
     private void Start()
     {
@@ -24,13 +23,34 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Update()
     {
-        transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
+        if (allowInteraction)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
+            if (Input.GetMouseButtonDown(0) && mouseHovering)
+            {
+                Debug.Log($"Selected {profile.ruleName}");
+                GameRule.instance.ChoseThisRule(profile, true);
+                GameRule.instance.CloseRuleCardMenu();
+            }
+        }
+
     }
 
     private void OnEnable()
     {
+        allowInteraction = GameSetting.instance.isLocalGame ||
+            GameManager.instance.teamTurn.Value == GameRule.instance.teamToChoseRule;
         if (profile)
-            RefreshCardInfo();
+        {
+            if (allowInteraction)
+            {
+                RefreshCardInfo();
+            }
+            else
+            {
+                DisplayHiddenCardInfo();
+            }
+        }
     }
 
     public void RefreshCardInfo()
@@ -52,14 +72,24 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         description.text = profile.description;
     }
 
+    public void DisplayHiddenCardInfo()
+    {
+        image = null;
+        ruleName.text = "Wait for other player...";
+        description.text = "";
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         desiredPos = originalPos + new Vector3(0, HOVER_OFFSET_Y, 0);
+        mouseHovering = true;
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         desiredPos = originalPos;
+        mouseHovering = false;
     }
 
 

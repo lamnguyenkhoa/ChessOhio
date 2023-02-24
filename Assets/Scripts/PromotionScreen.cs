@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class PromotionScreen : MonoBehaviour
 {
@@ -9,14 +7,6 @@ public class PromotionScreen : MonoBehaviour
     public GameObject buttonArea;
     public GameObject descriptionArea;
     public ChessPieceProfileSO pieceProfile;
-
-    private void Awake()
-    {
-        if (gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-        }
-    }
 
     private void OnEnable()
     {
