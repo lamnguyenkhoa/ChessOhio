@@ -28,7 +28,6 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
             if (Input.GetMouseButtonDown(0) && mouseHovering)
             {
-                Debug.Log($"Selected {profile.ruleName}");
                 GameRule.instance.ChoseThisRule(profile, true);
                 GameRule.instance.CloseRuleCardMenu();
             }

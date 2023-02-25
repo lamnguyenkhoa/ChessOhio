@@ -9,3 +9,8 @@ Chess but every x turn a new rule is added. Chaos ensured.w
 - [x] v0.3: Online multiplayer feature (LAN, can use with hamachi for Internet play).
 - [ ] v0.4: Some simple extra rules. Mostly new unit.
 - [ ] v0.5: More advance extra rules. More polish to graphic.
+
+## Screenshots
+
+![Main menu screenshot](/Images/menu.jpg "Main menu")
+![Ingame screenshot](/Images/ingame.jpg "Ingame")

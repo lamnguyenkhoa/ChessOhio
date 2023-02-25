@@ -69,10 +69,18 @@ public class GameRule : MonoBehaviour
         ruleCardUI.SetActive(true);
     }
 
+    /// <summary>
+    /// Player chose this rule. Implement rule into current game and notify other player
+    /// if playing LAN game.
+    /// </summary>
+    /// <param name="chosenRule"></param>
+    /// <param name="sendNotification">Notify other player that you chose this rule</param>
     public void ChoseThisRule(RuleCardSO chosenRule, bool sendNotification = false)
     {
+        Debug.Log($"Selected {chosenRule.ruleName}");
         activeRulePool.Remove(chosenRule);
         activatedRule.Add(chosenRule);
+        RuleImplementinator(chosenRule);
         if (sendNotification)
         {
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
@@ -85,5 +93,13 @@ public class GameRule : MonoBehaviour
     {
         Chessboard.instance.pauseGame = false;
         ruleCardUI.SetActive(false);
+    }
+
+    public void RuleImplementinator(RuleCardSO chosenRule)
+    {
+        if (chosenRule.type == RuleType.INVERT_RULE)
+        {
+            invertDict.Add(chosenRule.invertBefore, chosenRule.invertAfter);
+        }
     }
 }

@@ -27,4 +27,15 @@ public class RuleCardSO : ScriptableObject
     public string description;
     public RuleType type;
     public Image image;
+    // Should have conditional display these field depend on this rule card's rule type.
+    [Header("Invert")]
+    public PieceType invertBefore;
+    public PieceType invertAfter;
+    // [Header("Combine")]
+    // public PieceType[] combineMaterials;
+    // public PieceType combineResult;
+    // [Header("Special Promo")]
+    // public PieceType promoBefore;
+    // public PieceType promoAfter;
+
 }

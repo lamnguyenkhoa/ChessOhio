@@ -17,3 +17,5 @@ MonoBehaviour:
     step in same direction.
   type: 1
   image: {fileID: 0}
+  invertBefore: 3
+  invertAfter: 7
