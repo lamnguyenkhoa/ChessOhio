@@ -17,3 +17,5 @@ MonoBehaviour:
     and King. Both Bunker and King mustn't have moved yet.
   type: 1
   image: {fileID: 0}
+  invertBefore: 0
+  invertAfter: 0

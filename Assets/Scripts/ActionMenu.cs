@@ -51,7 +51,7 @@ public class ActionMenu : MonoBehaviour
     {
         if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
         {
-            SpecialActionHandler.instance.TransformPiece(currentSelectPiece, PieceType.NIGHTRIDER);
+            SpecialActionHandler.instance.TransformPiece(currentSelectPiece, GameRule.instance.invertDict[currentSelectPiece.type]);
             GameManager.instance.CloseActionMenu();
         }
     }

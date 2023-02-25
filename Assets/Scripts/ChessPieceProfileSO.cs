@@ -8,5 +8,5 @@ public class ChessPieceProfileSO : ScriptableObject
     public string description;
     public PieceType type;
     public ChessPieceProfileSO[] possiblePromoProfiles;
-    public SpecialAction[] specialAction;
+    // public SpecialAction[] specialAction;
 }

@@ -42,17 +42,13 @@ public class ChessPlayer : NetworkBehaviour
 
         if (team == PieceTeam.WHITE)
         {
-            GameObject.Find("Main Camera (White)").GetComponent<Camera>().enabled = true;
-            GameObject.Find("Main Camera (White)").GetComponent<AudioListener>().enabled = true;
-            GameObject.Find("Main Camera (Black)").GetComponent<Camera>().enabled = false;
-            GameObject.Find("Main Camera (Black)").GetComponent<AudioListener>().enabled = false;
+            GameManager.instance.whiteCamera.SetActive(true);
+            GameManager.instance.blackCamera.SetActive(false);
         }
         else
         {
-            GameObject.Find("Main Camera (White)").GetComponent<Camera>().enabled = false;
-            GameObject.Find("Main Camera (White)").GetComponent<AudioListener>().enabled = false;
-            GameObject.Find("Main Camera (Black)").GetComponent<Camera>().enabled = true;
-            GameObject.Find("Main Camera (Black)").GetComponent<AudioListener>().enabled = true;
+            GameManager.instance.whiteCamera.SetActive(false);
+            GameManager.instance.blackCamera.SetActive(true);
         }
     }
 

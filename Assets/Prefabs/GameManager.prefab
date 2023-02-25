@@ -52,6 +52,9 @@ MonoBehaviour:
     m_InternalValue: 0
   turnDisplay: {fileID: 0}
   actionMenu: {fileID: 0}
+  textTooltip: {fileID: 0}
+  whiteCamera: {fileID: 0}
+  blackCamera: {fileID: 0}
 --- !u!114 &5138193932589567050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,4 +123,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0860d974b9e9f4e4f9a598d7017f0099, type: 2}
   - {fileID: 11400000, guid: 89b91a4ae16cada418185a421c1843cc, type: 2}
   - {fileID: 11400000, guid: 3265e02a51eb0034aab171fc94ff0f8d, type: 2}
+  activatedRule: []
   ruleCardUI: {fileID: 0}
+  teamToChoseRule: 1

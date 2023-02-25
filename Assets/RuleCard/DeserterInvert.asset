@@ -17,3 +17,5 @@ MonoBehaviour:
     has unit (and capture them in process). Ally included.
   type: 1
   image: {fileID: 0}
+  invertBefore: 1
+  invertAfter: 8

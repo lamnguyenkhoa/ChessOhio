@@ -14,6 +14,10 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<PieceTeam> teamTurn;
     public TextMeshProUGUI turnDisplay;
     public GameObject actionMenu;
+    public GameObject textTooltip;
+    public GameObject whiteCamera;
+    public GameObject blackCamera;
+
 
     private void Awake()
     {
@@ -180,5 +184,18 @@ public class GameManager : NetworkBehaviour
     {
         actionMenu.SetActive(false);
         Chessboard.instance.disableRaycast = false;
+    }
+
+    public void ShowTextToolTip(string content, Vector3 worldPosition)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
+        textTooltip.GetComponent<TextMeshProUGUI>().text = content;
+        textTooltip.transform.position = screenPos;
+        textTooltip.SetActive(true);
+    }
+
+    public void HideTextToolTip()
+    {
+        textTooltip.SetActive(false);
     }
 }

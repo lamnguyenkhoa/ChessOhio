@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum PieceType
 {
@@ -11,6 +12,8 @@ public enum PieceType
     QUEEN = 5,
     KING = 6,
     NIGHTRIDER = 7,
+    DESERTER = 8,
+
 }
 
 public enum PieceTeam
@@ -89,5 +92,4 @@ public class ChessPiece : MonoBehaviour
     {
         return new List<PieceType>();
     }
-
 }

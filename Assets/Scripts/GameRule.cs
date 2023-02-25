@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GameRule : MonoBehaviour
 {
@@ -97,6 +96,7 @@ public class GameRule : MonoBehaviour
 
     public void RuleImplementinator(RuleCardSO chosenRule)
     {
+
         if (chosenRule.type == RuleType.INVERT_RULE)
         {
             invertDict.Add(chosenRule.invertBefore, chosenRule.invertAfter);
