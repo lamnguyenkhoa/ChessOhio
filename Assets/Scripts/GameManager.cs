@@ -186,16 +186,26 @@ public class GameManager : NetworkBehaviour
         Chessboard.instance.disableRaycast = false;
     }
 
+    public void OnToggleTooltipButton()
+    {
+        GameSetting.instance.showToolTip = !GameSetting.instance.showToolTip;
+    }
+
     public void ShowTextToolTip(string content, Vector3 worldPosition)
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
-        textTooltip.GetComponent<TextMeshProUGUI>().text = content;
-        textTooltip.transform.position = screenPos;
-        textTooltip.SetActive(true);
+        if (GameSetting.instance.showToolTip)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
+            textTooltip.GetComponent<TextMeshProUGUI>().text = content;
+            textTooltip.transform.position = screenPos;
+            textTooltip.SetActive(true);
+        }
+
     }
 
     public void HideTextToolTip()
     {
-        textTooltip.SetActive(false);
+        if (textTooltip.activeSelf)
+            textTooltip.SetActive(false);
     }
 }

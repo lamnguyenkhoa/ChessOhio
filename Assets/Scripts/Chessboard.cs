@@ -108,11 +108,13 @@ public class Chessboard : MonoBehaviour
                 }
             }
 
-            // If we press left click
-            if (Input.GetMouseButtonDown(0))
+            // Did we hit a chess piece?
+
+            if (chessPieces[hitPosition.x, hitPosition.y] != null)
             {
-                // Did we hit a chess piece?
-                if (chessPieces[hitPosition.x, hitPosition.y] != null)
+                GameManager.instance.ShowTextToolTip(chessPieces[hitPosition.x, hitPosition.y].profile.pieceName, chessPieces[hitPosition.x, hitPosition.y].transform.position);
+                // If we press left click
+                if (Input.GetMouseButtonDown(0))
                 {
                     // Is it our turn?
                     if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
@@ -129,6 +131,10 @@ public class Chessboard : MonoBehaviour
                     }
                 }
 
+            }
+            else
+            {
+                GameManager.instance.HideTextToolTip();
             }
 
             // If we release left click
