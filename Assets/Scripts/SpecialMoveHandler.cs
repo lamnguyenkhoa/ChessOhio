@@ -48,13 +48,7 @@ public class SpecialMoveHandler : MonoBehaviour
             else if (specialMove == SpecialMove.CASTLING)
             {
                 if (ProcessCastling(ref moveList, ref chessPieces))
-                {
                     dontEndTurn = true;
-                }
-                else
-                {
-                    Debug.Log("S");
-                }
             }
             else if (specialMove == SpecialMove.PROMOTION)
             {

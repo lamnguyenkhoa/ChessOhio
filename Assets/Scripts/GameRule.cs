@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameRule : MonoBehaviour
 {
+    public GameObject ruleCardParentUI;
+    public GameObject ruleCardPrefab;
     public static GameRule instance;
     public Dictionary<PieceType, PieceType> invertDict = new Dictionary<PieceType, PieceType>();
     public Dictionary<PieceType, PieceType> combineDict = new Dictionary<PieceType, PieceType>();
@@ -16,8 +18,9 @@ public class GameRule : MonoBehaviour
     public List<RuleCardSO> activatedRule = new List<RuleCardSO>();
     public List<PieceType> activeUnits = new List<PieceType>();
 
-    private const int N_DRAW = 3;
-    public GameObject ruleCardUI;
+    private const int DEFAULT_N_DRAW = 3;
+
+
     // Because White move first, Black get to choose rule first
     public PieceTeam teamToChoseRule = PieceTeam.BLACK;
 
@@ -42,18 +45,19 @@ public class GameRule : MonoBehaviour
 
     public void DrawRuleCard()
     {
-        if (activeRulePool.Count >= N_DRAW)
+        int n_draw = activeRulePool.Count >= DEFAULT_N_DRAW ? DEFAULT_N_DRAW : activeRulePool.Count;
+        if (n_draw > 0)
         {
-            RuleCardSO[] drawedCards = MyHelper.GetRandomItems(activeRulePool, N_DRAW);
-            for (int i = 0; i < N_DRAW; i++)
+            RuleCardSO[] drawedCards = MyHelper.GetRandomItems(activeRulePool, n_draw);
+            for (int i = 0; i < drawedCards.Length; i++)
             {
-                RuleCard ruleCard = ruleCardUI.transform.GetChild(i).GetComponent<RuleCard>();
+                RuleCard ruleCard = Instantiate(ruleCardPrefab, ruleCardParentUI.transform).GetComponent<RuleCard>();
                 ruleCard.profile = drawedCards[i];
             }
         }
         else
         {
-            Debug.Log("Not enough card to draw");
+            CloseRuleCardMenu();
         }
     }
 
@@ -66,7 +70,15 @@ public class GameRule : MonoBehaviour
             teamToChoseRule = PieceTeam.WHITE;
         Chessboard.instance.pauseGame = true;
         DrawRuleCard();
-        ruleCardUI.SetActive(true);
+        ruleCardParentUI.SetActive(true);
+    }
+
+    public void CloseRuleCardMenu()
+    {
+        Chessboard.instance.pauseGame = false;
+        foreach (Transform child in ruleCardParentUI.transform)
+            GameObject.Destroy(child.gameObject);
+        ruleCardParentUI.SetActive(false);
     }
 
     /// <summary>
@@ -86,13 +98,6 @@ public class GameRule : MonoBehaviour
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
             GameManager.instance.NotifyChosenRuleCard(ruleCardId);
         }
-
-    }
-
-    public void CloseRuleCardMenu()
-    {
-        Chessboard.instance.pauseGame = false;
-        ruleCardUI.SetActive(false);
     }
 
     public void RuleImplementinator(RuleCardSO chosenRule)

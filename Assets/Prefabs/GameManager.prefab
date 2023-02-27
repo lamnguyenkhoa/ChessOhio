@@ -109,6 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd65193fc9a70f84a8c006ce849224de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruleCardParentUI: {fileID: 0}
+  ruleCardPrefab: {fileID: 3336380986862039849, guid: fef38b6c8f3f56c4e9a47fb4f88a91cd,
+    type: 3}
   availableRule:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -124,5 +127,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89b91a4ae16cada418185a421c1843cc, type: 2}
   - {fileID: 11400000, guid: 3265e02a51eb0034aab171fc94ff0f8d, type: 2}
   activatedRule: []
-  ruleCardUI: {fileID: 0}
+  activeUnits: 
   teamToChoseRule: 1

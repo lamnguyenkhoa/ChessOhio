@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,29 +15,11 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private bool mouseHovering = false;
     private const float HOVER_OFFSET_Y = 20f;
     private bool allowInteraction = true;
+    private bool delayedInteraction = false; // Delay a bit of time to make sure no accident clicking
 
     private void Start()
     {
-        originalPos = transform.localPosition;
-        desiredPos = originalPos;
-    }
-
-    private void Update()
-    {
-        if (allowInteraction)
-        {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
-            if (Input.GetMouseButtonDown(0) && mouseHovering)
-            {
-                GameRule.instance.ChoseThisRule(profile, true);
-                GameRule.instance.CloseRuleCardMenu();
-            }
-        }
-
-    }
-
-    private void OnEnable()
-    {
+        StartCoroutine(SetOriginalPos());
         allowInteraction = GameSetting.instance.isLocalGame ||
             GameManager.instance.teamTurn.Value == GameRule.instance.teamToChoseRule;
         if (profile)
@@ -50,6 +33,31 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 DisplayHiddenCardInfo();
             }
         }
+    }
+
+    private void Update()
+    {
+        if (allowInteraction && delayedInteraction)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
+            if (Input.GetMouseButtonDown(0) && mouseHovering)
+            {
+                GameRule.instance.ChoseThisRule(profile, true);
+                GameRule.instance.CloseRuleCardMenu();
+            }
+        }
+    }
+
+    public IEnumerator SetOriginalPos()
+    {
+        // We need to wait a bit for 2 reasons: 
+        // - Grid Layout update the rule card's position
+        // - Prevent accident clicking the card
+        delayedInteraction = false;
+        yield return new WaitForSeconds(0.1f);
+        originalPos = transform.localPosition;
+        desiredPos = originalPos;
+        delayedInteraction = true;
     }
 
     public void RefreshCardInfo()
