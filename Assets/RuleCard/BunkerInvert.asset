@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: BunkerInvert
   m_EditorClassIdentifier: 
   ruleName: Bunker
-  description: Invert a Rook. Can castling even if there are units between Bunker
-    and King. Both Bunker and King mustn't have moved yet.
+  description: Invert a Rook. Can castling even if there are pieces between. Kill
+    any pieces on the 2 castling tiles after castling. Both Bunker and King must
+    not moved yet.
   type: 1
   image: {fileID: 0}
-  invertBefore: 0
-  invertAfter: 0
+  invertBefore: 2
+  invertAfter: 9

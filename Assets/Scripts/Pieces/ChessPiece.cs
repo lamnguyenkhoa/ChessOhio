@@ -13,6 +13,8 @@ public enum PieceType
     KING = 6,
     NIGHTRIDER = 7,
     DESERTER = 8,
+    BUNKER = 9,
+
 
 }
 
@@ -91,5 +93,10 @@ public class ChessPiece : MonoBehaviour
     public virtual List<PieceType> GetPossiblePromotions()
     {
         return new List<PieceType>();
+    }
+
+    public virtual bool CanCaptureAlly()
+    {
+        return false;
     }
 }

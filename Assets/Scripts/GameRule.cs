@@ -14,6 +14,8 @@ public class GameRule : MonoBehaviour
     public List<RuleCardSO> activeRulePool = new List<RuleCardSO>();
     // Currently only for debugging purpose, since the 2 dicts above already used to check for logic.
     public List<RuleCardSO> activatedRule = new List<RuleCardSO>();
+    public List<PieceType> activeUnits = new List<PieceType>();
+
     private const int N_DRAW = 3;
     public GameObject ruleCardUI;
     // Because White move first, Black get to choose rule first
@@ -34,25 +36,24 @@ public class GameRule : MonoBehaviour
 
     private void Start()
     {
+        PieceType[] baseUnits = new PieceType[] { PieceType.PAWN, PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.KING, PieceType.QUEEN };
+        activeUnits.AddRange(baseUnits);
     }
 
     public void DrawRuleCard()
     {
-        RuleCardSO[] drawedCards = { };
         if (activeRulePool.Count >= N_DRAW)
         {
-            drawedCards = MyHelper.GetRandomItems(activeRulePool, N_DRAW);
+            RuleCardSO[] drawedCards = MyHelper.GetRandomItems(activeRulePool, N_DRAW);
+            for (int i = 0; i < N_DRAW; i++)
+            {
+                RuleCard ruleCard = ruleCardUI.transform.GetChild(i).GetComponent<RuleCard>();
+                ruleCard.profile = drawedCards[i];
+            }
         }
         else
         {
             Debug.Log("Not enough card to draw");
-            return;
-        }
-
-        for (int i = 0; i < N_DRAW; i++)
-        {
-            RuleCard ruleCard = ruleCardUI.transform.GetChild(i).GetComponent<RuleCard>();
-            ruleCard.profile = drawedCards[i];
         }
     }
 
@@ -100,6 +101,10 @@ public class GameRule : MonoBehaviour
         if (chosenRule.type == RuleType.INVERT_RULE)
         {
             invertDict.Add(chosenRule.invertBefore, chosenRule.invertAfter);
+            if (!activeUnits.Contains(chosenRule.invertAfter))
+            {
+                activeUnits.Add(chosenRule.invertAfter);
+            }
         }
     }
 }

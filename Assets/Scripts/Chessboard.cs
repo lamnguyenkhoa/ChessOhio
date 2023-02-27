@@ -435,7 +435,7 @@ public class Chessboard : MonoBehaviour
         if (chessPieces[x, y] != null)
         {
             ChessPiece otherCp = chessPieces[x, y];
-            if (cp.team == otherCp.team)
+            if (!cp.CanCaptureAlly() && cp.team == otherCp.team)
             {
                 return false;
             }

@@ -48,7 +48,13 @@ public class SpecialMoveHandler : MonoBehaviour
             else if (specialMove == SpecialMove.CASTLING)
             {
                 if (ProcessCastling(ref moveList, ref chessPieces))
+                {
                     dontEndTurn = true;
+                }
+                else
+                {
+                    Debug.Log("S");
+                }
             }
             else if (specialMove == SpecialMove.PROMOTION)
             {
@@ -76,11 +82,9 @@ public class SpecialMoveHandler : MonoBehaviour
             {
                 Chessboard.instance.AddToDeadList(enemyPawn);
                 chessPieces[enemyPawn.currentX, enemyPawn.currentY] = null;
-                return true;
             }
         }
-
-        return false;
+        return false; // end turn
     }
 
     private bool ProcessCastling(ref List<Vector2Int[]> moveList, ref ChessPiece[,] chessPieces)
@@ -92,21 +96,27 @@ public class SpecialMoveHandler : MonoBehaviour
         if (lastMove[1].x == 2 && (ourY == 0 || ourY == 7))
         {
             // Move left rook from x = 0 to x = 3
-            ChessPiece rook = chessPieces[0, ourY];
-            chessPieces[3, ourY] = rook;
+            ChessPiece leftPiece = chessPieces[0, ourY];
+            if (chessPieces[3, ourY] != null)
+            {
+                Chessboard.instance.AddToDeadList(chessPieces[3, ourY]);
+            }
+            chessPieces[3, ourY] = leftPiece;
             Chessboard.instance.PositionSinglePiece(3, ourY);
             chessPieces[0, ourY] = null;
-            return true;
         }
         // Right rook castling
         if (lastMove[1].x == 6 && (ourY == 0 || ourY == 7))
         {
             // Move right rook from x = 7 to x = 5
-            ChessPiece rook = chessPieces[7, ourY];
-            chessPieces[5, ourY] = rook;
+            ChessPiece rightPiece = chessPieces[7, ourY];
+            if (chessPieces[5, ourY] != null)
+            {
+                Chessboard.instance.AddToDeadList(chessPieces[5, ourY]);
+            }
+            chessPieces[5, ourY] = rightPiece;
             Chessboard.instance.PositionSinglePiece(5, ourY);
             chessPieces[7, ourY] = null;
-            return true;
         }
 
         return false;
@@ -123,10 +133,10 @@ public class SpecialMoveHandler : MonoBehaviour
             {
                 chosenPiecePromo = PieceType.NONE;
                 StartCoroutine(PromotionScreen(targetPawn));
-                return true;
+                return true; // dont end turn
             }
         }
-        return false;
+        return false; // end turn
     }
 
     private IEnumerator PromotionScreen(ChessPiece targetPiece)

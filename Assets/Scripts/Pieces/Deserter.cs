@@ -15,7 +15,11 @@ public class Deserter : ChessPiece
         }
 
         return availableMoves;
+    }
 
+    public override bool CanCaptureAlly()
+    {
+        return true;
     }
 
 }

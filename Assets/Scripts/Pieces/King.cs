@@ -64,7 +64,6 @@ public class King : ChessPiece
                 {
                     availableMoves.Add(new Vector2Int(KING_X - 2, ourY));
                     specialMoves.Add(SpecialMove.CASTLING);
-
                 }
             }
             if (rightRookMove == null && board[R_ROOK_X, ourY].type == PieceType.ROOK && board[R_ROOK_X, ourY].team == team)
@@ -80,7 +79,29 @@ public class King : ChessPiece
                     specialMoves.Add(SpecialMove.CASTLING);
                 }
             }
+
+            // Special case for bunker
+            if (leftRookMove == null && board[L_ROOK_X, ourY].type == PieceType.BUNKER && board[L_ROOK_X, ourY].team == team)
+            {
+                availableMoves.Add(new Vector2Int(KING_X - 2, ourY));
+                specialMoves.Add(SpecialMove.CASTLING);
+            }
+            if (rightRookMove == null && board[R_ROOK_X, ourY].type == PieceType.BUNKER && board[R_ROOK_X, ourY].team == team)
+            {
+                availableMoves.Add(new Vector2Int(KING_X + 2, ourY));
+                specialMoves.Add(SpecialMove.CASTLING);
+            }
         }
         return specialMoves;
     }
+
+    public override bool CanCaptureAlly()
+    {
+        if (GameRule.instance.activeUnits.Contains(PieceType.BUNKER))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

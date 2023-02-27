@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e4616414e0b904682103c5d98d7805, type: 3}
+  m_Name: Bunker
+  m_EditorClassIdentifier: 
+  pieceName: Bunker
+  description: Can castling even if there are pieces between. Kill any pieces on
+    the 2 castling tiles after castling. Both Bunker and King must not moved yet.
+  type: 9
+  possiblePromoProfiles: []
