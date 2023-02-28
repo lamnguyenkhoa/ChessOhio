@@ -43,7 +43,6 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (Input.GetMouseButtonDown(0) && mouseHovering)
             {
                 GameRule.instance.ChoseThisRule(profile, true);
-                GameRule.instance.CloseRuleCardMenu();
             }
         }
     }

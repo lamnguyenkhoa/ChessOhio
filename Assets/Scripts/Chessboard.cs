@@ -42,6 +42,7 @@ public class Chessboard : MonoBehaviour
     private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
     public static Chessboard instance;
     public int turnCount;
+    public bool combineMode = false;
 
     private void Awake()
     {
@@ -73,6 +74,14 @@ public class Chessboard : MonoBehaviour
             return;
         }
 
+        if (combineMode)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                combineMode = false;
+            }
+        }
+
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("Tile", "Hover", "Highlight")))
@@ -99,7 +108,7 @@ public class Chessboard : MonoBehaviour
 
 
             // If we press right click
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && !combineMode)
             {
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
@@ -109,16 +118,33 @@ public class Chessboard : MonoBehaviour
             }
 
             // Did we hit a chess piece?
-
             if (chessPieces[hitPosition.x, hitPosition.y] != null)
             {
                 GameManager.instance.ShowTextToolTip(chessPieces[hitPosition.x, hitPosition.y].profile.pieceName, chessPieces[hitPosition.x, hitPosition.y].transform.position);
                 // If we press left click
                 if (Input.GetMouseButtonDown(0))
                 {
-                    // Is it our turn?
-                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
+                    // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
+                    if (combineMode)
                     {
+                        ChessPiece selectedCp = chessPieces[hitPosition.x, hitPosition.y];
+                        Vector3 originalLocalPos = GetTileCenter(selectedCp.currentX, selectedCp.currentY);
+                        // Add or remove piece from piecesToCombine
+                        if (GameRule.instance.piecesToCombine.Contains(selectedCp))
+                        {
+                            selectedCp.SetPosition(originalLocalPos);
+                            GameRule.instance.piecesToCombine.Remove(selectedCp);
+                        }
+                        else
+                        {
+                            selectedCp.SetPosition(originalLocalPos + Vector3.up * dragOffset);
+                            GameRule.instance.piecesToCombine.Add(selectedCp);
+                        }
+                    }
+                    // Is it our turn?
+                    else if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
+                    {
+                        // Am I the correct player (for LAN game)
                         if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
                         {
                             currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
@@ -160,6 +186,8 @@ public class Chessboard : MonoBehaviour
         }
         else
         {
+            // If we don't hover on anything
+            // Reset tiles highlight
             if (currentHover != -Vector2Int.one)
             {
                 tiles[currentHover.x, currentHover.y].layer = (ContainsValidMove(ref availableMoves, currentHover))
@@ -167,7 +195,7 @@ public class Chessboard : MonoBehaviour
                 : LayerMask.NameToLayer("Tile");
                 currentHover = -Vector2Int.one;
             }
-
+            // If we release the dragging piece here, revert it
             if (currentlyDragging && Input.GetMouseButtonUp(0))
             {
                 currentlyDragging.SetPosition(GetTileCenter(currentlyDragging.currentX, currentlyDragging.currentY));
@@ -540,5 +568,4 @@ public class Chessboard : MonoBehaviour
             GameRule.instance.OpenRuleCardMenu();
         }
     }
-
 }

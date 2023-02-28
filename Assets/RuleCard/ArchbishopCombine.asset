@@ -17,3 +17,7 @@ MonoBehaviour:
     combined.
   type: 2
   image: {fileID: 0}
+  invertBefore: 0
+  invertAfter: 0
+  combineMaterials: 0400000003000000
+  combineResult: 10

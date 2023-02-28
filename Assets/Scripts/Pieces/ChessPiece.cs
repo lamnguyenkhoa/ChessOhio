@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public enum PieceType
 {
@@ -14,7 +13,7 @@ public enum PieceType
     NIGHTRIDER = 7,
     DESERTER = 8,
     BUNKER = 9,
-
+    ARCHBISHOP = 10,
 
 }
 

@@ -17,12 +17,10 @@ public class GameRule : MonoBehaviour
     // Currently only for debugging purpose, since the 2 dicts above already used to check for logic.
     public List<RuleCardSO> activatedRule = new List<RuleCardSO>();
     public List<PieceType> activeUnits = new List<PieceType>();
-
     private const int DEFAULT_N_DRAW = 3;
-
-
     // Because White move first, Black get to choose rule first
     public PieceTeam teamToChoseRule = PieceTeam.BLACK;
+    public List<ChessPiece> piecesToCombine = new List<ChessPiece>();
 
 
     private void Awake()
@@ -41,6 +39,11 @@ public class GameRule : MonoBehaviour
     {
         PieceType[] baseUnits = new PieceType[] { PieceType.PAWN, PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.KING, PieceType.QUEEN };
         activeUnits.AddRange(baseUnits);
+    }
+
+    private void Update()
+    {
+
     }
 
     public void DrawRuleCard()
@@ -98,6 +101,7 @@ public class GameRule : MonoBehaviour
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
             GameManager.instance.NotifyChosenRuleCard(ruleCardId);
         }
+        CloseRuleCardMenu();
     }
 
     public void RuleImplementinator(RuleCardSO chosenRule)

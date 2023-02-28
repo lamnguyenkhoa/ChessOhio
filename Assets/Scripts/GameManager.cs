@@ -131,7 +131,6 @@ public class GameManager : NetworkBehaviour
         {
             RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
             GameRule.instance.ChoseThisRule(ruleCard);
-            GameRule.instance.CloseRuleCardMenu();
         }
     }
 
@@ -140,7 +139,6 @@ public class GameManager : NetworkBehaviour
     {
         RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
         GameRule.instance.ChoseThisRule(ruleCard);
-        GameRule.instance.CloseRuleCardMenu();
     }
 
     [ClientRpc]
