@@ -13,7 +13,7 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
     [SerializeField] private float deathSize = 0.5f;
     [SerializeField] private float deathSpacing = 0.7f;
-    [SerializeField] private float dragOffset = 1.5f;
+    public float dragOffset = 1.5f;
     [SerializeField] private GameObject victoryScreen;
     public TextMeshProUGUI turnCountUI;
 
@@ -134,8 +134,7 @@ public class Chessboard : MonoBehaviour
                             if (combineMode)
                             {
                                 ChessPiece selectedCp = chessPieces[hitPosition.x, hitPosition.y];
-                                Vector3 originalLocalPos = GetTileCenter(selectedCp.currentX, selectedCp.currentY);
-                                GameRule.instance.AddOrRemovePiecesToCombine(selectedCp, originalLocalPos, dragOffset);
+                                GameRule.instance.AddOrRemovePiecesToCombine(selectedCp);
                             }
                             else
                             {
@@ -309,7 +308,7 @@ public class Chessboard : MonoBehaviour
 
 
     // Positioning
-    private void PositionAllPieces()
+    public void PositionAllPieces(bool instant = true)
     {
         for (int x = 0; x < TILE_COUNT_X; x++)
         {
@@ -317,7 +316,7 @@ public class Chessboard : MonoBehaviour
             {
                 if (chessPieces[x, y] != null)
                 {
-                    PositionSinglePiece(x, y, true);
+                    PositionSinglePiece(x, y, instant);
                 }
             }
         }
@@ -334,7 +333,7 @@ public class Chessboard : MonoBehaviour
         chessPieces[x, y].currentY = y;
         chessPieces[x, y].SetPosition(GetTileCenter(x, y), instant);
     }
-    private Vector3 GetTileCenter(int x, int y)
+    public Vector3 GetTileCenter(int x, int y)
     {
         return new Vector3(x * tileSize, yOffset, y * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2);
     }

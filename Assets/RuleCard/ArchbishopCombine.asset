@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: ArchbishopCombine
   m_EditorClassIdentifier: 
   ruleName: 'Combine: Archbishop'
-  description: Combined from Bishop and Knight. Can move like a Knight and Bishop
+  description: Combined from [Bishop] and Knight. Can move like a Knight and Bishop
     combined.
   type: 2
   image: {fileID: 0}
   invertBefore: 0
   invertAfter: 0
   combineMaterials: 0400000003000000
+  combineStart: 4
   combineResult: 10

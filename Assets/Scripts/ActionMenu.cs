@@ -55,4 +55,13 @@ public class ActionMenu : MonoBehaviour
             GameManager.instance.CloseActionMenu();
         }
     }
+
+    public void OnCombineButton()
+    {
+        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        {
+            GameRule.instance.StartCombineMode(GameRule.instance.combineDict[currentSelectPiece.type], currentSelectPiece);
+            GameManager.instance.CloseActionMenu();
+        }
+    }
 }

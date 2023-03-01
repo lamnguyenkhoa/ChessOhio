@@ -55,6 +55,7 @@ MonoBehaviour:
   textTooltip: {fileID: 0}
   whiteCamera: {fileID: 0}
   blackCamera: {fileID: 0}
+  exitCombineButton: {fileID: 0}
 --- !u!114 &5138193932589567050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +130,4 @@ MonoBehaviour:
   activatedRule: []
   activeUnits: 
   teamToChoseRule: 1
+  piecesToCombine: []

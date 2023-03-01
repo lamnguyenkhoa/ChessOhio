@@ -17,6 +17,8 @@ public class GameManager : NetworkBehaviour
     public GameObject textTooltip;
     public GameObject whiteCamera;
     public GameObject blackCamera;
+    public GameObject exitCombineButton;
+
 
 
     private void Awake()
@@ -198,12 +200,16 @@ public class GameManager : NetworkBehaviour
             textTooltip.transform.position = screenPos;
             textTooltip.SetActive(true);
         }
-
     }
 
     public void HideTextToolTip()
     {
         if (textTooltip.activeSelf)
             textTooltip.SetActive(false);
+    }
+
+    public void OnExitCombineModeButton()
+    {
+        GameRule.instance.ExitCombineMode();
     }
 }

@@ -9,7 +9,7 @@ public class GameRule : MonoBehaviour
     public GameObject ruleCardPrefab;
     public static GameRule instance;
     public Dictionary<PieceType, PieceType> invertDict = new Dictionary<PieceType, PieceType>();
-    public Dictionary<PieceType, PieceType> combineDict = new Dictionary<PieceType, PieceType>();
+    public Dictionary<PieceType, RuleCardSO> combineDict = new Dictionary<PieceType, RuleCardSO>();
     // Every rulecardSO.
     public RuleCardSO[] availableRule;
     // Some default starting rulecardSO that can be draw. If certain conditions meet, some rule card
@@ -21,7 +21,10 @@ public class GameRule : MonoBehaviour
     private const int DEFAULT_N_DRAW = 3;
     // Because White move first, Black get to choose rule first
     public PieceTeam teamToChoseRule = PieceTeam.BLACK;
+    [Header("Combine")]
     public List<ChessPiece> piecesToCombine = new List<ChessPiece>();
+    // If sourcePiece removed from piecesToCombine, sotp combine mode. Also used for combineResult position.
+    public ChessPiece sourcePiece;
     private RuleCardSO currentCombineRecipe;
 
 
@@ -119,23 +122,31 @@ public class GameRule : MonoBehaviour
         }
         if (chosenRule.type == RuleType.COMBINE_RULE)
         {
-            Chessboard.instance.combineMode = true;
-            currentCombineRecipe = chosenRule;
+            combineDict.Add(chosenRule.combineStart, chosenRule);
+            if (!activeUnits.Contains(chosenRule.combineResult))
+            {
+                activeUnits.Add(chosenRule.combineResult);
+            }
         }
     }
 
-    public void AddOrRemovePiecesToCombine(ChessPiece cp, Vector3 originalLocalPos, float dragOffset)
+    public void AddOrRemovePiecesToCombine(ChessPiece cp)
     {
+        Vector3 originalLocalPos = Chessboard.instance.GetTileCenter(cp.currentX, cp.currentY);
         if (GameRule.instance.piecesToCombine.Contains(cp))
         {
             // Remove
             cp.SetPosition(originalLocalPos);
             GameRule.instance.piecesToCombine.Remove(cp);
+            if (sourcePiece == cp)
+            {
+                ExitCombineMode();
+            }
         }
         else
         {
             // Add
-            cp.SetPosition(originalLocalPos + Vector3.up * dragOffset);
+            cp.SetPosition(originalLocalPos + Vector3.up * Chessboard.instance.dragOffset);
             GameRule.instance.piecesToCombine.Add(cp);
 
             // Check if fulfiled recipe materials
@@ -154,19 +165,39 @@ public class GameRule : MonoBehaviour
 
     private void ProcessCombine()
     {
-        ChessPiece cpSpawnPoint = piecesToCombine[0];
         for (int i = 1; i < piecesToCombine.Count; i++)
         {
             Chessboard.instance.DeleteChessPiece(piecesToCombine[i]);
         }
-        Chessboard.instance.ChangePiece(new Vector2Int(cpSpawnPoint.currentX, cpSpawnPoint.currentY), currentCombineRecipe.combineResult);
-        currentCombineRecipe = null;
-        Chessboard.instance.combineMode = false;
-        piecesToCombine.Clear();
+        Chessboard.instance.ChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult);
         Chessboard.instance.EndTurn();
         if (!Chessboard.instance.isLocalGame)
         {
-            GameManager.instance.NotifyChangePiece(new Vector2Int(cpSpawnPoint.currentX, cpSpawnPoint.currentY), currentCombineRecipe.combineResult);
+            GameManager.instance.NotifyChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult);
         }
+        ExitCombineMode();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="chosenRule">Contain the combine recipe</param>
+    /// <param name="sourcePiece">The piece that start Combine process</param>
+    public void StartCombineMode(RuleCardSO chosenRule, ChessPiece sourcePiece)
+    {
+        this.sourcePiece = sourcePiece;
+        currentCombineRecipe = chosenRule;
+        Chessboard.instance.combineMode = true;
+        GameManager.instance.exitCombineButton.SetActive(true);
+        AddOrRemovePiecesToCombine(sourcePiece);
+    }
+
+    public void ExitCombineMode()
+    {
+        currentCombineRecipe = null;
+        Chessboard.instance.combineMode = false;
+        piecesToCombine.Clear();
+        Chessboard.instance.PositionAllPieces(false);
+        GameManager.instance.exitCombineButton.SetActive(false);
+
     }
 }
