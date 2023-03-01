@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
   m_Name: DeserterInvert
   m_EditorClassIdentifier: 
-  ruleName: Deserter
+  ruleName: 'Invert: Deserter'
   description: Invert a Pawn. Deserter can move backward, even on tile that already
     has unit (and capture them in process). Ally included.
   type: 1
   image: {fileID: 0}
   invertBefore: 1
   invertAfter: 8
+  combineMaterials: 
+  combineResult: 0

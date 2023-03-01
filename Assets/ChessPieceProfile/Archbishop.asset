@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e4616414e0b904682103c5d98d7805, type: 3}
-  m_Name: ChessPieceProfile
+  m_Name: Archbishop
   m_EditorClassIdentifier: 
-  pieceName: Deserter
-  description: Invert a Pawn
-  type: 8
+  pieceName: Archbishop
+  description: Move like a Knight and Bishop combined.
+  type: 10
   possiblePromoProfiles: []

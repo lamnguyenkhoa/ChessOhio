@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameRule : MonoBehaviour
@@ -21,6 +22,7 @@ public class GameRule : MonoBehaviour
     // Because White move first, Black get to choose rule first
     public PieceTeam teamToChoseRule = PieceTeam.BLACK;
     public List<ChessPiece> piecesToCombine = new List<ChessPiece>();
+    private RuleCardSO currentCombineRecipe;
 
 
     private void Awake()
@@ -114,6 +116,57 @@ public class GameRule : MonoBehaviour
             {
                 activeUnits.Add(chosenRule.invertAfter);
             }
+        }
+        if (chosenRule.type == RuleType.COMBINE_RULE)
+        {
+            Chessboard.instance.combineMode = true;
+            currentCombineRecipe = chosenRule;
+        }
+    }
+
+    public void AddOrRemovePiecesToCombine(ChessPiece cp, Vector3 originalLocalPos, float dragOffset)
+    {
+        if (GameRule.instance.piecesToCombine.Contains(cp))
+        {
+            // Remove
+            cp.SetPosition(originalLocalPos);
+            GameRule.instance.piecesToCombine.Remove(cp);
+        }
+        else
+        {
+            // Add
+            cp.SetPosition(originalLocalPos + Vector3.up * dragOffset);
+            GameRule.instance.piecesToCombine.Add(cp);
+
+            // Check if fulfiled recipe materials
+            if (piecesToCombine.Count == currentCombineRecipe.combineMaterials.Length)
+            {
+                PieceType[] setA = piecesToCombine.Select((piece) => piece.type).ToArray<PieceType>();
+                PieceType[] setB = currentCombineRecipe.combineMaterials;
+                bool areEquivalent = (setA.Count() == setB.Count()) && !setA.Except(setB).Any();
+                if (areEquivalent)
+                {
+                    ProcessCombine();
+                }
+            }
+        }
+    }
+
+    private void ProcessCombine()
+    {
+        ChessPiece cpSpawnPoint = piecesToCombine[0];
+        for (int i = 1; i < piecesToCombine.Count; i++)
+        {
+            Chessboard.instance.DeleteChessPiece(piecesToCombine[i]);
+        }
+        Chessboard.instance.ChangePiece(new Vector2Int(cpSpawnPoint.currentX, cpSpawnPoint.currentY), currentCombineRecipe.combineResult);
+        currentCombineRecipe = null;
+        Chessboard.instance.combineMode = false;
+        piecesToCombine.Clear();
+        Chessboard.instance.EndTurn();
+        if (!Chessboard.instance.isLocalGame)
+        {
+            GameManager.instance.NotifyChangePiece(new Vector2Int(cpSpawnPoint.currentX, cpSpawnPoint.currentY), currentCombineRecipe.combineResult);
         }
     }
 }

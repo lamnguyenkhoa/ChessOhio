@@ -130,6 +130,7 @@ MonoBehaviour:
   - {fileID: 1381248741649428780, guid: c363b360a7a16384f9dbc7324284519f, type: 3}
   - {fileID: 1381248741649428780, guid: 7098214d098dda646820d2218719f6c5, type: 3}
   - {fileID: 1381248741649428780, guid: efa4909f8d13470448b7c7096e6861da, type: 3}
+  - {fileID: 8768970095247141984, guid: bfacae2be9e9f8c43bce3c3a95d4985c, type: 3}
   teamMaterials:
   - {fileID: 2100000, guid: 8cce469f981856741831c5286f64217d, type: 2}
   - {fileID: 2100000, guid: 43524790f2dd84e49a0ee88542666d25, type: 2}
@@ -138,3 +139,4 @@ MonoBehaviour:
   disableRaycast: 0
   pauseGame: 0
   turnCount: 1
+  combineMode: 0

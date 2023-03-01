@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
   m_Name: NightriderInvert
   m_EditorClassIdentifier: 
-  ruleName: Nightrider
+  ruleName: 'Invert: Nightrider'
   description: Invert a Knight. Nightrider can move like a Knight in any number of
     step in same direction.
   type: 1
   image: {fileID: 0}
   invertBefore: 3
   invertAfter: 7
+  combineMaterials: 
+  combineResult: 0

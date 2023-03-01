@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
   m_Name: ArchbishopCombine
   m_EditorClassIdentifier: 
-  ruleName: Archbishop
+  ruleName: 'Combine: Archbishop'
   description: Combined from Bishop and Knight. Can move like a Knight and Bishop
     combined.
   type: 2

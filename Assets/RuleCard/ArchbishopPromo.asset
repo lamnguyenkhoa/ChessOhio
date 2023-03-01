@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
   m_Name: ArchbishopPromo
   m_EditorClassIdentifier: 
-  ruleName: Archbishop
+  ruleName: 'Promotion: Archbishop'
   description: Promote from Bishop after Bishop survived 30 turns. Can move like
     a Knight and Bishop combined.
   type: 3
   image: {fileID: 0}
+  invertBefore: 0
+  invertAfter: 0
+  combineMaterials: 
+  combineResult: 0

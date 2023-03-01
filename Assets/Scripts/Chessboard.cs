@@ -124,35 +124,29 @@ public class Chessboard : MonoBehaviour
                 // If we press left click
                 if (Input.GetMouseButtonDown(0))
                 {
-                    // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
-                    if (combineMode)
-                    {
-                        ChessPiece selectedCp = chessPieces[hitPosition.x, hitPosition.y];
-                        Vector3 originalLocalPos = GetTileCenter(selectedCp.currentX, selectedCp.currentY);
-                        // Add or remove piece from piecesToCombine
-                        if (GameRule.instance.piecesToCombine.Contains(selectedCp))
-                        {
-                            selectedCp.SetPosition(originalLocalPos);
-                            GameRule.instance.piecesToCombine.Remove(selectedCp);
-                        }
-                        else
-                        {
-                            selectedCp.SetPosition(originalLocalPos + Vector3.up * dragOffset);
-                            GameRule.instance.piecesToCombine.Add(selectedCp);
-                        }
-                    }
                     // Is it our turn?
-                    else if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
+                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
                     {
                         // Am I the correct player (for LAN game)
                         if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
                         {
-                            currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
-                            // A list of basic movement of this piece
-                            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-                            // Get a list of special move
-                            specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-                            HighlightTiles();
+                            // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
+                            if (combineMode)
+                            {
+                                ChessPiece selectedCp = chessPieces[hitPosition.x, hitPosition.y];
+                                Vector3 originalLocalPos = GetTileCenter(selectedCp.currentX, selectedCp.currentY);
+                                GameRule.instance.AddOrRemovePiecesToCombine(selectedCp, originalLocalPos, dragOffset);
+                            }
+                            else
+                            {
+                                currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
+                                // A list of basic movement of this piece
+                                availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                                // Get a list of special move
+                                specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+                                HighlightTiles();
+                            }
+
                         }
                     }
                 }
@@ -300,15 +294,16 @@ public class Chessboard : MonoBehaviour
         cp.type = type;
         cp.team = team;
 
+        if (cp.GetComponent<MeshRenderer>())
+        {
+            cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+        }
         // Some piece prefab has differrent structure. Example: Knight vs Nightrider
         if (cp.transform.Find("Model"))
         {
             cp.transform.GetChild(0).GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
         }
-        else
-        {
-            cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
-        }
+
         return cp;
     }
 
@@ -567,5 +562,11 @@ public class Chessboard : MonoBehaviour
         {
             GameRule.instance.OpenRuleCardMenu();
         }
+    }
+
+    public void DeleteChessPiece(ChessPiece cp)
+    {
+        Destroy(chessPieces[cp.currentX, cp.currentY].gameObject);
+        chessPieces[cp.currentX, cp.currentY] = null;
     }
 }

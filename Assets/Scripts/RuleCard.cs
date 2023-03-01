@@ -63,18 +63,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (profile.image)
             image = profile.image;
-        if (profile.type == RuleType.INVERT_RULE ||
-            profile.type == RuleType.COMBINE_RULE ||
-            profile.type == RuleType.SPECIAL_PROMO_RULE)
-        {
-            ruleName.text = "New unit: ";
-        }
-        else
-        {
-            ruleName.text = "";
-        }
-
-        ruleName.text += profile.ruleName;
+        ruleName.text = profile.ruleName;
         description.text = profile.description;
     }
 

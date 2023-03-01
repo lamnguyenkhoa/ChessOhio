@@ -7,7 +7,7 @@ public class Knight : ChessPiece
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
 
-        Vector2Int[] offset = {
+        Vector2Int[] direction = {
             new Vector2Int(-1, -2),
             new Vector2Int(-1, 2),
             new Vector2Int(1, -2),
@@ -19,12 +19,12 @@ public class Knight : ChessPiece
         };
 
         int x, y;
-        for (int i = 0; i < offset.Length; i++)
+        for (int i = 0; i < direction.Length; i++)
         {
-            if (WithinBoundaryAfterMove(offset[i].x, offset[i].y))
+            if (WithinBoundaryAfterMove(direction[i].x, direction[i].y))
             {
-                x = currentX + offset[i].x;
-                y = currentY + offset[i].y;
+                x = currentX + direction[i].x;
+                y = currentY + direction[i].y;
                 if (board[x, y] == null ||
                     board[x, y].team != team)
                 {
