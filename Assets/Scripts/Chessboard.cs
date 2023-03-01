@@ -43,6 +43,8 @@ public class Chessboard : MonoBehaviour
     public static Chessboard instance;
     public int turnCount;
     public bool combineMode = false;
+    public bool gameFinished = false;
+
 
     private void Awake()
     {
@@ -59,6 +61,7 @@ public class Chessboard : MonoBehaviour
         PositionAllPieces();
         isLocalGame = isLocal;
         gameStarted = true;
+        gameFinished = false;
         turnCount = 1;
     }
 
@@ -354,10 +357,17 @@ public class Chessboard : MonoBehaviour
     }
 
 
-    // Checkmate
+    /// <summary>
+    /// Checkmate
+    /// </summary>
+    /// <param name="team">Team that got checkmated</param>
     private void CheckMate(PieceTeam team)
     {
-        DisplayVictory(team);
+        if (team == PieceTeam.WHITE)
+            DisplayVictory(PieceTeam.BLACK);
+        else
+            DisplayVictory(PieceTeam.WHITE);
+        gameFinished = true;
     }
     private void DisplayVictory(PieceTeam winningTeam)
     {
@@ -372,6 +382,7 @@ public class Chessboard : MonoBehaviour
         availableMoves.Clear();
         specialMoves.Clear();
         moveList.Clear();
+        gameFinished = false;
 
         // UI
         victoryScreen.SetActive(false);
@@ -467,7 +478,7 @@ public class Chessboard : MonoBehaviour
                 // If it's the enemy team
                 if (otherCp.type == PieceType.KING)
                 {
-                    CheckMate(cp.team);
+                    CheckMate(otherCp.team);
                 }
                 AddToDeadList(otherCp);
             }
@@ -557,7 +568,7 @@ public class Chessboard : MonoBehaviour
         turnCount += 1;
         turnCountUI.text = $"Turn: {turnCount}";
         // Check for new rule
-        if ((turnCount - 1) % GameSetting.instance.turnForNewRule == 0)
+        if ((turnCount - 1) % GameSetting.instance.turnForNewRule == 0 && !gameFinished)
         {
             GameRule.instance.OpenRuleCardMenu();
         }
