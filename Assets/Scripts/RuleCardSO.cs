@@ -35,8 +35,10 @@ public class RuleCardSO : ScriptableObject
     public PieceType[] combineMaterials;
     public PieceType combineStart;
     public PieceType combineResult;
-    // [Header("Special Promo")]
-    // public PieceType promoBefore;
-    // public PieceType promoAfter;
+    [Header("Special Promo")]
+    public PieceType promoBefore;
+    public PieceType promoAfter;
+    public UniqueRuleCode promoRuleCode;
+
 
 }

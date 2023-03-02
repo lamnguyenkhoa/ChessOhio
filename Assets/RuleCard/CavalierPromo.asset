@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: CavalierPromo
   m_EditorClassIdentifier: 
   ruleName: 'Promotion: Cavalier'
-  description: Promote from a Knight after capture one enemy Knight. Can only move
+  description: Promote from a [Knight] after capture an enemy Knight. Can only move
     in forward or sideway directions. Can move again after capture an unit.
   type: 3
   image: {fileID: 0}
   invertBefore: 0
   invertAfter: 0
   combineMaterials: 
+  combineStart: 0
   combineResult: 0
+  promoBefore: 3
+  promoAfter: 11
+  promoRuleCode: 2

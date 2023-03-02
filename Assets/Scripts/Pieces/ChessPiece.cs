@@ -14,6 +14,7 @@ public enum PieceType
     DESERTER = 8,
     BUNKER = 9,
     ARCHBISHOP = 10,
+    CAVALIER = 11,
 
 }
 
@@ -33,6 +34,11 @@ public class ChessPiece : MonoBehaviour
     private Vector3 desiredScale = Vector3.one;
     public List<PieceType> possiblePromotions = new List<PieceType>();
     public ChessPieceProfileSO profile;
+    public bool lockedControl = false;
+
+    [Header("Stat")]
+    public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>();
+    public int timeMoved;
 
     private void Start()
     {
@@ -95,6 +101,23 @@ public class ChessPiece : MonoBehaviour
     }
 
     public virtual bool CanCaptureAlly()
+    {
+        return false;
+    }
+
+    public virtual void UpdateStatCaptureHistory(PieceType enemyType)
+    {
+        if (captureHistory.ContainsKey(enemyType))
+        {
+            captureHistory[enemyType] += 1;
+        }
+        else
+        {
+            captureHistory[enemyType] = 1;
+        }
+    }
+
+    public virtual bool CanMoveAgainAfterCapture()
     {
         return false;
     }

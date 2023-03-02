@@ -123,12 +123,13 @@ public class Chessboard : MonoBehaviour
             // Did we hit a chess piece?
             if (chessPieces[hitPosition.x, hitPosition.y] != null)
             {
-                GameManager.instance.ShowTextToolTip(chessPieces[hitPosition.x, hitPosition.y].profile.pieceName, chessPieces[hitPosition.x, hitPosition.y].transform.position);
+                ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
+                GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
                 // If we press left click
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !hitCp.lockedControl)
                 {
                     // Is it our turn?
-                    if (chessPieces[hitPosition.x, hitPosition.y].team == GameManager.instance.teamTurn.Value)
+                    if (hitCp.team == GameManager.instance.teamTurn.Value)
                     {
                         // Am I the correct player (for LAN game)
                         if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
@@ -136,12 +137,12 @@ public class Chessboard : MonoBehaviour
                             // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
                             if (combineMode)
                             {
-                                ChessPiece selectedCp = chessPieces[hitPosition.x, hitPosition.y];
+                                ChessPiece selectedCp = hitCp;
                                 GameRule.instance.AddOrRemovePiecesToCombine(selectedCp);
                             }
                             else
                             {
-                                currentlyDragging = chessPieces[hitPosition.x, hitPosition.y];
+                                currentlyDragging = hitCp;
                                 // A list of basic movement of this piece
                                 availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
                                 // Get a list of special move
@@ -457,6 +458,9 @@ public class Chessboard : MonoBehaviour
     /// <returns></returns>
     private bool MoveTo(ChessPiece cp, int x, int y, bool otherPlayer = false)
     {
+        // For some unit that can move again if capture enemy piece
+        bool canMoveAgain = false;
+
         if (!otherPlayer && !ContainsValidMove(ref availableMoves, new Vector2(x, y)))
         {
             return false;
@@ -468,33 +472,49 @@ public class Chessboard : MonoBehaviour
         if (chessPieces[x, y] != null)
         {
             ChessPiece otherCp = chessPieces[x, y];
+            // Check if the other piece is our team or enemy team, and whether
+            // we can capture it.
             if (!cp.CanCaptureAlly() && cp.team == otherCp.team)
             {
                 return false;
             }
             else
             {
-
-                // If it's the enemy team
+                // If king then checkmate
                 if (otherCp.type == PieceType.KING)
                 {
                     CheckMate(otherCp.team);
                 }
                 AddToDeadList(otherCp);
+                cp.UpdateStatCaptureHistory(otherCp.type);
+                canMoveAgain = cp.CanMoveAgainAfterCapture();
             }
         }
 
         chessPieces[x, y] = cp;
         chessPieces[previousPosition.x, previousPosition.y] = null;
-
         PositionSinglePiece(x, y);
 
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
         bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces, otherPlayer);
 
-        if (!otherPlayer && !dontEndTurn)
+        if (!otherPlayer && !dontEndTurn && !canMoveAgain)
         {
+            ChangeLockControlAllPiece(false);
             EndTurn();
+        }
+
+        if (canMoveAgain)
+        {
+            ChangeLockControlAllPiece(true);
+            cp.lockedControl = false;
+            // Check if any available move again to prevent stuck
+            List<Vector2Int> tmpMoves = cp.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+            if (tmpMoves.Count == 0)
+            {
+                ChangeLockControlAllPiece(false);
+                EndTurn();
+            }
         }
 
         return true;
@@ -583,6 +603,26 @@ public class Chessboard : MonoBehaviour
         if ((turnCount - 1) % GameSetting.instance.turnForNewRule == 0 && !gameFinished)
         {
             GameRule.instance.OpenRuleCardMenu();
+        }
+    }
+
+
+    /// <summary>
+    /// Useful for when you want a piece move multiple time a turn. You lock
+    /// all other pieces and unlock that piece only.
+    /// </summary>
+    /// <param name="doLock">Lock or Unlock</param>
+    public void ChangeLockControlAllPiece(bool doLock = true)
+    {
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null)
+                {
+                    chessPieces[x, y].lockedControl = doLock;
+                }
+            }
         }
     }
 }

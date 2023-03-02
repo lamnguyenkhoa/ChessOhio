@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: ArchbishopPromo
   m_EditorClassIdentifier: 
   ruleName: 'Promotion: Archbishop'
-  description: Promote from Bishop after Bishop survived 30 turns. Can move like
+  description: Promote from [Bishop] after Bishop survived 30 turns. Can move like
     a Knight and Bishop combined.
   type: 3
   image: {fileID: 0}
   invertBefore: 0
   invertAfter: 0
   combineMaterials: 
+  combineStart: 0
   combineResult: 0
+  promoBefore: 4
+  promoAfter: 10
+  promoRuleCode: 1

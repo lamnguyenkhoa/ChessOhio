@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BunkerInvert
   m_EditorClassIdentifier: 
   ruleName: 'Invert: Bunker'
-  description: Invert a Rook. Can castling even if there are pieces between. Kill
+  description: Invert a [Rook]. Can castling even if there are pieces between. Kill
     any pieces on the 2 castling tiles after castling. Both Bunker and King must
     not moved yet.
   type: 1
@@ -21,4 +21,8 @@ MonoBehaviour:
   invertBefore: 2
   invertAfter: 9
   combineMaterials: 
+  combineStart: 0
   combineResult: 0
+  promoBefore: 0
+  promoAfter: 0
+  promoRuleCode: 0

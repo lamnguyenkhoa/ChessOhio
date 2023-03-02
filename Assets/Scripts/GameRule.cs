@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// Stuff that can't be coded using variable and must be assessed 
+/// on a case-by-case basic
+/// </summary>
+public enum UniqueRuleCode
+{
+    NONE,
+    SP_PROMO_BISHOP_ARCHBISHOP,
+    SP_PROMO_KNIGHT_CAVALIER
+}
+
 public class GameRule : MonoBehaviour
 {
     public GameObject ruleCardParentUI;
     public GameObject ruleCardPrefab;
     public static GameRule instance;
-    public Dictionary<PieceType, PieceType> invertDict = new Dictionary<PieceType, PieceType>();
+    public Dictionary<PieceType, RuleCardSO> invertDict = new Dictionary<PieceType, RuleCardSO>();
     public Dictionary<PieceType, RuleCardSO> combineDict = new Dictionary<PieceType, RuleCardSO>();
+    public Dictionary<PieceType, RuleCardSO> spPromoDict = new Dictionary<PieceType, RuleCardSO>();
     // Every rulecardSO.
     public RuleCardSO[] availableRule;
     // Some default starting rulecardSO that can be draw. If certain conditions meet, some rule card
     // will be added from the `availableRule` or removed from the active pool.
     public List<RuleCardSO> activeRulePool = new List<RuleCardSO>();
-    // Currently only for debugging purpose, since the 2 dicts above already used to check for logic.
     public List<RuleCardSO> activatedRule = new List<RuleCardSO>();
     public List<PieceType> activeUnits = new List<PieceType>();
     private const int DEFAULT_N_DRAW = 3;
@@ -114,19 +126,49 @@ public class GameRule : MonoBehaviour
 
         if (chosenRule.type == RuleType.INVERT_RULE)
         {
-            invertDict.Add(chosenRule.invertBefore, chosenRule.invertAfter);
-            if (!activeUnits.Contains(chosenRule.invertAfter))
+            if (!invertDict.ContainsKey(chosenRule.invertBefore))
             {
-                activeUnits.Add(chosenRule.invertAfter);
+                invertDict.Add(chosenRule.invertBefore, chosenRule);
             }
+            else
+            {
+                // Later in development, add some animation to clearly show that
+                // the new rule replaced the old rule.
+                Debug.Log("Replaced rule");
+                invertDict[chosenRule.invertBefore] = chosenRule;
+            }
+            if (!activeUnits.Contains(chosenRule.invertAfter))
+                activeUnits.Add(chosenRule.invertAfter);
         }
+
         if (chosenRule.type == RuleType.COMBINE_RULE)
         {
-            combineDict.Add(chosenRule.combineStart, chosenRule);
-            if (!activeUnits.Contains(chosenRule.combineResult))
+            if (!combineDict.ContainsKey(chosenRule.combineStart))
             {
-                activeUnits.Add(chosenRule.combineResult);
+                combineDict.Add(chosenRule.combineStart, chosenRule);
             }
+            else
+            {
+                Debug.Log("Replaced rule");
+                combineDict[chosenRule.combineStart] = chosenRule;
+            }
+            if (!activeUnits.Contains(chosenRule.combineResult))
+                activeUnits.Add(chosenRule.combineResult);
+        }
+
+        if (chosenRule.type == RuleType.SPECIAL_PROMO_RULE)
+        {
+            if (!spPromoDict.ContainsKey(chosenRule.promoBefore))
+            {
+                spPromoDict.Add(chosenRule.promoBefore, chosenRule);
+            }
+            else
+            {
+                Debug.Log("Replaced rule");
+                spPromoDict[chosenRule.promoBefore] = chosenRule;
+            }
+            if (!activeUnits.Contains(chosenRule.promoAfter))
+                activeUnits.Add(chosenRule.promoAfter);
         }
     }
 
@@ -194,5 +236,21 @@ public class GameRule : MonoBehaviour
         piecesToCombine.Clear();
         Chessboard.instance.PositionAllPieces(false);
         GameManager.instance.exitCombineButton.SetActive(false);
+    }
+
+    public bool ResolveSpecialPromoCondition(ChessPiece cp, RuleCardSO rule)
+    {
+        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_BISHOP_ARCHBISHOP)
+        {
+            if (Chessboard.instance.turnCount > 30)
+                return true;
+        }
+        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_KNIGHT_CAVALIER)
+        {
+            if (cp.captureHistory.ContainsKey(PieceType.KNIGHT) &&
+                cp.captureHistory[PieceType.KNIGHT] >= 1)
+                return true;
+        }
+        return false;
     }
 }

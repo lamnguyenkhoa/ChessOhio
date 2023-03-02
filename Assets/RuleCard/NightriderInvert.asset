@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: NightriderInvert
   m_EditorClassIdentifier: 
   ruleName: 'Invert: Nightrider'
-  description: Invert a Knight. Nightrider can move like a Knight in any number of
-    step in same direction.
+  description: Invert a [Knight]. Nightrider can move like a Knight in any number
+    of step in same direction.
   type: 1
   image: {fileID: 0}
   invertBefore: 3
   invertAfter: 7
   combineMaterials: 
+  combineStart: 0
   combineResult: 0
+  promoBefore: 0
+  promoAfter: 0
+  promoRuleCode: 0

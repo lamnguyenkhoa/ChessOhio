@@ -10,6 +10,8 @@ public class ActionMenu : MonoBehaviour
     public Button moveButton;
     public Button invertButton;
     public Button combineButton;
+    public Button specialPromoButton;
+
 
     private void Update()
     {
@@ -32,35 +34,60 @@ public class ActionMenu : MonoBehaviour
         moveButton.gameObject.SetActive(false);
         invertButton.gameObject.SetActive(false);
         combineButton.gameObject.SetActive(false);
+        specialPromoButton.gameObject.SetActive(false);
 
-        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value && !currentSelectPiece.lockedControl)
         {
             if (GameSetting.instance.isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
             {
+                // Only display special action button if certain conditions are met
                 moveButton.gameObject.SetActive(true);
                 if (GameRule.instance.invertDict.ContainsKey(currentType))
                     invertButton.gameObject.SetActive(true);
 
                 if (GameRule.instance.combineDict.ContainsKey(currentType))
                     combineButton.gameObject.SetActive(true);
+
+                if (GameRule.instance.spPromoDict.ContainsKey(currentType))
+                {
+                    specialPromoButton.gameObject.SetActive(true);
+                    specialPromoButton.GetComponent<Button>().interactable = false;
+                    RuleCardSO rule = GameRule.instance.spPromoDict[currentSelectPiece.type];
+                    if (GameRule.instance.ResolveSpecialPromoCondition(currentSelectPiece, rule))
+                    {
+                        specialPromoButton.GetComponent<Button>().interactable = true;
+                    }
+                }
             }
         }
     }
 
     public void OnInvertButton()
     {
+        RuleCardSO rule = GameRule.instance.invertDict[currentSelectPiece.type];
         if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
         {
-            SpecialActionHandler.instance.TransformPiece(currentSelectPiece, GameRule.instance.invertDict[currentSelectPiece.type]);
+            SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.invertAfter);
             GameManager.instance.CloseActionMenu();
         }
     }
 
     public void OnCombineButton()
     {
+        RuleCardSO rule = GameRule.instance.combineDict[currentSelectPiece.type];
         if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
         {
-            GameRule.instance.StartCombineMode(GameRule.instance.combineDict[currentSelectPiece.type], currentSelectPiece);
+            GameRule.instance.StartCombineMode(rule, currentSelectPiece);
+            GameManager.instance.CloseActionMenu();
+        }
+    }
+
+    public void OnSpecialPromoButton()
+    {
+        RuleCardSO rule = GameRule.instance.spPromoDict[currentSelectPiece.type];
+        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        {
+            SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.promoAfter);
             GameManager.instance.CloseActionMenu();
         }
     }
