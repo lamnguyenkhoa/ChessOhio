@@ -12,6 +12,8 @@
 /[Rr]ecordings/
 /Build_Win
 /Build_Mac
+/Build_Web
+/Build_Linux
 
 # Built game
 ChessOhio-Mac.rar
