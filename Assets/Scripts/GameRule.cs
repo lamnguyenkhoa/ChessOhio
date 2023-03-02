@@ -101,7 +101,7 @@ public class GameRule : MonoBehaviour
         activeRulePool.Remove(chosenRule);
         activatedRule.Add(chosenRule);
         RuleImplementinator(chosenRule);
-        if (sendNotification)
+        if (!Chessboard.instance.isLocalGame && sendNotification)
         {
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
             GameManager.instance.NotifyChosenRuleCard(ruleCardId);
@@ -167,14 +167,10 @@ public class GameRule : MonoBehaviour
     {
         for (int i = 1; i < piecesToCombine.Count; i++)
         {
-            Chessboard.instance.DeleteChessPiece(piecesToCombine[i]);
+            Chessboard.instance.ChangePiece(new Vector2Int(piecesToCombine[i].currentX, piecesToCombine[i].currentY), PieceType.NONE, true);
         }
-        Chessboard.instance.ChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult);
+        Chessboard.instance.ChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult, true);
         Chessboard.instance.EndTurn();
-        if (!Chessboard.instance.isLocalGame)
-        {
-            GameManager.instance.NotifyChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult);
-        }
         ExitCombineMode();
     }
 
@@ -198,6 +194,5 @@ public class GameRule : MonoBehaviour
         piecesToCombine.Clear();
         Chessboard.instance.PositionAllPieces(false);
         GameManager.instance.exitCombineButton.SetActive(false);
-
     }
 }

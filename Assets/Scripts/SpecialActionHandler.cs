@@ -32,13 +32,7 @@ public class SpecialActionHandler : MonoBehaviour
 
     public void TransformPiece(ChessPiece piece, PieceType type)
     {
-        //Since it has the same function, I re-use it
-        SpecialMoveHandler.instance.PromotePiece(piece, type);
-
+        Chessboard.instance.ChangePiece(new Vector2Int(piece.currentX, piece.currentY), type, true);
         Chessboard.instance.EndTurn();
-        if (!Chessboard.instance.isLocalGame)
-        {
-            GameManager.instance.NotifyChangePiece(new Vector2Int(piece.currentX, piece.currentY), type);
-        }
     }
 }

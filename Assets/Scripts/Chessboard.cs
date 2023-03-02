@@ -518,11 +518,12 @@ public class Chessboard : MonoBehaviour
     }
 
     /// <summary>
-    /// Used by other player, usually after a promotion to sync the piece type.
+    /// Change or Delete a piece from chessboard.
     /// </summary>
-    /// <param name="pos"></param>
-    /// <param name="type"></param>
-    public void ChangePiece(Vector2Int pos, PieceType type)
+    /// <param name="pos">Position in board of piece</param>
+    /// <param name="type">Type of unit to change to. NONE to delete</param>
+    /// <param name="sendNotification">Notify other player that you changed this chess piece</param>
+    public void ChangePiece(Vector2Int pos, PieceType type, bool sendNotification = false)
     {
         ChessPiece currentPiece = chessPieces[pos.x, pos.y];
         if (currentPiece == null)
@@ -530,10 +531,21 @@ public class Chessboard : MonoBehaviour
             Debug.Log($"ChangePiece but {pos} is null");
             return;
         }
-        ChessPiece newPiece = Chessboard.instance.SpawnSinglePiece(type, currentPiece.team);
         Destroy(chessPieces[pos.x, pos.y].gameObject);
-        chessPieces[pos.x, pos.y] = newPiece;
-        Chessboard.instance.PositionSinglePiece(pos.x, pos.y, true);
+        if (type != PieceType.NONE)
+        {
+            ChessPiece newPiece = Chessboard.instance.SpawnSinglePiece(type, currentPiece.team);
+            chessPieces[pos.x, pos.y] = newPiece;
+            Chessboard.instance.PositionSinglePiece(pos.x, pos.y, true);
+        }
+        else
+        {
+            chessPieces[pos.x, pos.y] = null;
+        }
+        if (!Chessboard.instance.isLocalGame && sendNotification)
+        {
+            GameManager.instance.NotifyChangePiece(pos, type);
+        }
     }
 
     public void AddToDeadList(ChessPiece otherCp)
@@ -572,11 +584,5 @@ public class Chessboard : MonoBehaviour
         {
             GameRule.instance.OpenRuleCardMenu();
         }
-    }
-
-    public void DeleteChessPiece(ChessPiece cp)
-    {
-        Destroy(chessPieces[cp.currentX, cp.currentY].gameObject);
-        chessPieces[cp.currentX, cp.currentY] = null;
     }
 }

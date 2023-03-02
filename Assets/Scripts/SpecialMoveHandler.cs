@@ -141,15 +141,10 @@ public class SpecialMoveHandler : MonoBehaviour
         {
             yield return null;
         }
-        PromotePiece(targetPiece, chosenPiecePromo);
+        Chessboard.instance.ChangePiece(new Vector2Int(targetPiece.currentX, targetPiece.currentY), chosenPiecePromo, true);
         promotionScreen.SetActive(false);
         promotionScreen.GetComponent<PromotionScreen>().pieceProfile = null;
         Chessboard.instance.EndTurn();
-        if (!Chessboard.instance.isLocalGame)
-        {
-            GameManager.instance.NotifyChangePiece(new Vector2Int(targetPiece.currentX, targetPiece.currentY), chosenPiecePromo);
-        }
-
     }
 
     public void SetChosenPromote(int chosenType)
@@ -157,16 +152,4 @@ public class SpecialMoveHandler : MonoBehaviour
         Debug.Log("Promote to " + (PieceType)chosenType);
         chosenPiecePromo = (PieceType)chosenType;
     }
-
-    public void PromotePiece(ChessPiece targetPiece, PieceType chosenType)
-    {
-        int x = targetPiece.currentX;
-        int y = targetPiece.currentY;
-        ChessPiece[,] chessPieces = Chessboard.instance.GetBoardRef();
-        ChessPiece newPiece = Chessboard.instance.SpawnSinglePiece(chosenType, targetPiece.team);
-        Destroy(chessPieces[x, y].gameObject);
-        chessPieces[x, y] = newPiece;
-        Chessboard.instance.PositionSinglePiece(x, y, true);
-    }
-
 }
