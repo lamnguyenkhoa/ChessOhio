@@ -21,7 +21,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         StartCoroutine(SetOriginalPos());
         allowInteraction = GameSetting.instance.isLocalGame ||
-            GameManager.instance.teamTurn.Value == GameRule.instance.teamToChoseRule;
+            GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
         if (profile)
         {
             if (allowInteraction)

@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using UnityEngine;
 
 public class ChessPlayer : NetworkBehaviour
 {
@@ -19,7 +18,6 @@ public class ChessPlayer : NetworkBehaviour
         else if (NetworkManager.Singleton.IsClient)
         {
             team = PieceTeam.BLACK;
-
             playerName = "Xx_LmaoClient_xX";
             GameSetting.instance.ClientConnectServerRpc();
         }
