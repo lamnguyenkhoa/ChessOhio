@@ -1,6 +1,10 @@
 # Chess in Ohio
 
-Chess but every x turn a new rule is added. Chaos ensured.w
+Chess but every x turn a new rule is added. Chaos ensured.
+
+## Download links
+
+<https://johnminer.itch.io/chess-in-ohio>
 
 ## Tags
 
