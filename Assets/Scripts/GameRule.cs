@@ -212,7 +212,7 @@ public class GameRule : MonoBehaviour
             Chessboard.instance.ChangePiece(new Vector2Int(piecesToCombine[i].currentX, piecesToCombine[i].currentY), PieceType.NONE, true);
         }
         Chessboard.instance.ChangePiece(new Vector2Int(sourcePiece.currentX, sourcePiece.currentY), currentCombineRecipe.combineResult, true);
-        Chessboard.instance.EndTurn();
+        Chessboard.instance.EndTurn(true);
         ExitCombineMode();
     }
 

@@ -144,7 +144,7 @@ public class SpecialMoveHandler : MonoBehaviour
         Chessboard.instance.ChangePiece(new Vector2Int(targetPiece.currentX, targetPiece.currentY), chosenPiecePromo, true);
         promotionScreen.SetActive(false);
         promotionScreen.GetComponent<PromotionScreen>().pieceProfile = null;
-        Chessboard.instance.EndTurn();
+        Chessboard.instance.EndTurn(true);
     }
 
     public void SetChosenPromote(int chosenType)

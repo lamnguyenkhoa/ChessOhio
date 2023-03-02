@@ -129,10 +129,10 @@ public class Chessboard : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && !hitCp.lockedControl)
                 {
                     // Is it our turn?
-                    if (hitCp.team == GameManager.instance.teamTurn.Value)
+                    if (hitCp.team == GameManager.instance.teamTurn)
                     {
                         // Am I the correct player (for LAN game)
-                        if (isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
+                        if (isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
                         {
                             // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
                             if (combineMode)
@@ -417,9 +417,23 @@ public class Chessboard : MonoBehaviour
         GameManager.instance.ResetGame();
     }
 
-    public void EndTurn()
+    public void EndTurn(bool sendNotification = false)
     {
-        GameManager.instance.SwitchTurnServerRpc();
+        if (GameManager.instance.teamTurn == PieceTeam.WHITE)
+        {
+            GameManager.instance.teamTurn = PieceTeam.BLACK;
+            GameManager.instance.turnDisplay.text = "Black's turn";
+        }
+        else
+        {
+            GameManager.instance.teamTurn = PieceTeam.WHITE;
+            GameManager.instance.turnDisplay.text = "White's turn";
+        }
+        Chessboard.instance.IncreaseTurnCount();
+        if (!Chessboard.instance.isLocalGame && sendNotification)
+        {
+            GameManager.instance.NotifyEndTurn();
+        }
     }
 
     // Operation
@@ -501,7 +515,7 @@ public class Chessboard : MonoBehaviour
         if (!otherPlayer && !dontEndTurn && !canMoveAgain)
         {
             ChangeLockControlAllPiece(false);
-            EndTurn();
+            EndTurn(true);
         }
 
         if (canMoveAgain)
@@ -513,7 +527,7 @@ public class Chessboard : MonoBehaviour
             if (tmpMoves.Count == 0)
             {
                 ChangeLockControlAllPiece(false);
-                EndTurn();
+                EndTurn(true);
             }
         }
 

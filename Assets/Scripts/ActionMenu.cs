@@ -36,9 +36,9 @@ public class ActionMenu : MonoBehaviour
         combineButton.gameObject.SetActive(false);
         specialPromoButton.gameObject.SetActive(false);
 
-        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value && !currentSelectPiece.lockedControl)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn && !currentSelectPiece.lockedControl)
         {
-            if (GameSetting.instance.isLocalGame || GameManager.instance.teamTurn.Value == GameManager.instance.GetCurrentPlayer().team)
+            if (GameSetting.instance.isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
             {
                 // Only display special action button if certain conditions are met
                 moveButton.gameObject.SetActive(true);
@@ -65,7 +65,7 @@ public class ActionMenu : MonoBehaviour
     public void OnInvertButton()
     {
         RuleCardSO rule = GameRule.instance.invertDict[currentSelectPiece.type];
-        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn)
         {
             SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.invertAfter);
             GameManager.instance.CloseActionMenu();
@@ -75,7 +75,7 @@ public class ActionMenu : MonoBehaviour
     public void OnCombineButton()
     {
         RuleCardSO rule = GameRule.instance.combineDict[currentSelectPiece.type];
-        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn)
         {
             GameRule.instance.StartCombineMode(rule, currentSelectPiece);
             GameManager.instance.CloseActionMenu();
@@ -85,7 +85,7 @@ public class ActionMenu : MonoBehaviour
     public void OnSpecialPromoButton()
     {
         RuleCardSO rule = GameRule.instance.spPromoDict[currentSelectPiece.type];
-        if (currentSelectPiece.team == GameManager.instance.teamTurn.Value)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn)
         {
             SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.promoAfter);
             GameManager.instance.CloseActionMenu();

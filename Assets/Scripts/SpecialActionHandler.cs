@@ -33,6 +33,6 @@ public class SpecialActionHandler : MonoBehaviour
     public void TransformPiece(ChessPiece piece, PieceType type)
     {
         Chessboard.instance.ChangePiece(new Vector2Int(piece.currentX, piece.currentY), type, true);
-        Chessboard.instance.EndTurn();
+        Chessboard.instance.EndTurn(true);
     }
 }

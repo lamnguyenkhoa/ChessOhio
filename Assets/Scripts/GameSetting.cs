@@ -106,8 +106,9 @@ public class GameSetting : NetworkBehaviour
     public void OnLocalButton()
     {
         isLocalGame = true;
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
+        NetworkManager.Shutdown();
+        Destroy(NetworkManager.gameObject);
+        SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
     }
 
     public void OnHostButton()
@@ -168,24 +169,31 @@ public class GameSetting : NetworkBehaviour
 
     private void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(10, 10, 100, 200));
-        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
-            StatusLabels();
-        GUILayout.EndArea();
+        if (!isLocalGame)
+        {
+            GUILayout.BeginArea(new Rect(10, 10, 100, 200));
+            if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
+                StatusLabels();
+            GUILayout.EndArea();
+        }
     }
 
     private void StatusLabels()
     {
         string mode = "";
-        if (GameSetting.instance.isLocalGame) mode = "Local";
-        else if (NetworkManager.Singleton.IsHost) mode = "Host";
-        else mode = "Client";
-        if (!GameSetting.instance.isLocalGame)
+        if (isLocalGame) mode = "Local";
+        else
+        {
+            if (NetworkManager.Singleton.IsHost) mode = "Host";
+            else mode = "Client";
+        }
+
+        GUILayout.Label("Mode: " + mode);
+        if (!isLocalGame)
         {
             GUILayout.Label("Port: " +
                 NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port);
         }
-        GUILayout.Label("Mode: " + mode);
         if (GUILayout.Button("Disconnect"))
         {
             NetworkManager.Singleton.Shutdown();

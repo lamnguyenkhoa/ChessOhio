@@ -11,15 +11,13 @@ public enum ClientID
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
-    public NetworkVariable<PieceTeam> teamTurn;
+    public PieceTeam teamTurn;
     public TextMeshProUGUI turnDisplay;
     public GameObject actionMenu;
     public GameObject textTooltip;
     public GameObject whiteCamera;
     public GameObject blackCamera;
     public GameObject exitCombineButton;
-
-
 
     private void Awake()
     {
@@ -35,8 +33,12 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        teamTurn.Value = PieceTeam.WHITE;
-        StartGameClientRpc(GameSetting.instance.isLocalGame);
+        teamTurn = PieceTeam.WHITE;
+        if (GameSetting.instance.isLocalGame)
+        {
+            GetChessBoard().StartGame(true);
+        }
+        StartGameClientRpc();
         if (IsHost)
         {
             SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
@@ -144,32 +146,32 @@ public class GameManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void StartGameClientRpc(bool isLocalGame)
+    public void StartGameClientRpc()
     {
-        GetChessBoard().StartGame(isLocalGame);
+        GetChessBoard().StartGame(false);
+    }
+
+    public void NotifyEndTurn()
+    {
+        if (IsHost)
+            EndTurnClientRpc();
+        else
+            EndTurnServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void SwitchTurnServerRpc()
+    private void EndTurnServerRpc()
     {
-        if (teamTurn.Value == PieceTeam.WHITE)
-        {
-            teamTurn.Value = PieceTeam.BLACK;
-            AfterSwitchTurnStuffClientRpc("Black's turn");
-        }
-        else
-        {
-            teamTurn.Value = PieceTeam.WHITE;
-            AfterSwitchTurnStuffClientRpc("White's turn");
-        }
-
+        Chessboard.instance.EndTurn();
     }
 
     [ClientRpc]
-    private void AfterSwitchTurnStuffClientRpc(string turnDisplayText)
+    private void EndTurnClientRpc()
     {
-        turnDisplay.text = turnDisplayText;
-        Chessboard.instance.IncreaseTurnCount();
+        if (!IsHost)
+        {
+            Chessboard.instance.EndTurn();
+        };
     }
 
     public void OpenActionMenu(Vector2 pos, ChessPiece piece)
