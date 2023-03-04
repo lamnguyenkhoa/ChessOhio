@@ -1,18 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-/// <summary>
-/// Action in ActionMenu, different from SpecialMove. Think of it like
-/// active vs passive skill.
-/// </summary>
-public enum SpecialAction
-{
-    NONE = 0,
-    INVERT = 1,
-    COMBINE = 2,
-    SPECIAL_PROMO = 3,
-}
 
 public class SpecialActionHandler : MonoBehaviour
 {

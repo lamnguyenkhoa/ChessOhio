@@ -2,18 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// SpecialMove, which is different from SpecialAction. Usually resolved
-/// at the end of turn.
-/// </summary>
-public enum SpecialMove
-{
-    NONE = 0,
-    EN_PASSANT = 1,
-    CASTLING = 2,
-    PROMOTION = 3
-}
-
 public class SpecialMoveHandler : MonoBehaviour
 {
     public static SpecialMoveHandler instance;

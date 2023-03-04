@@ -2,11 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 
-public enum ClientID
-{
-    HOST = 0,
-    CLIENT = 1
-}
+
 
 public class GameManager : NetworkBehaviour
 {
