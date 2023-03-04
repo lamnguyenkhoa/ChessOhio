@@ -3,20 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-/// <summary>
-/// Stuff that can't be coded using variable and must be assessed 
-/// on a case-by-case basic
-/// </summary>
-public enum UniqueRuleCode
-{
-    NONE,
-    SP_PROMO_BISHOP_ARCHBISHOP,
-    SP_PROMO_KNIGHT_CAVALIER,
-    SP_PROMO_CAVALIER_PALADIN,
-
-}
-
 public class GameRule : MonoBehaviour
 {
     public GameObject ruleCardParentUI;

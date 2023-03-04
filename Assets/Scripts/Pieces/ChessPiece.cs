@@ -1,30 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PieceType
-{
-    NONE = 0,
-    PAWN = 1,
-    ROOK = 2,
-    KNIGHT = 3,
-    BISHOP = 4,
-    QUEEN = 5,
-    KING = 6,
-    NIGHTRIDER = 7,
-    DESERTER = 8,
-    BUNKER = 9,
-    ARCHBISHOP = 10,
-    CAVALIER = 11,
-    PALADIN = 12,
-
-}
-
-public enum PieceTeam
-{
-    WHITE = 0,
-    BLACK = 1
-}
-
 public class ChessPiece : MonoBehaviour
 {
     public PieceType type;
