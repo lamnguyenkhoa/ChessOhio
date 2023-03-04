@@ -39,6 +39,7 @@ public class GameSetting : NetworkBehaviour
     public Button bgmButton;
     public AudioSource bgm;
     public TextMeshProUGUI versionText;
+    [SerializeField] private GameObject[] hideIfWebGL;
 
 
     private void Awake()
@@ -57,6 +58,14 @@ public class GameSetting : NetworkBehaviour
     private void Start()
     {
         versionText.text = $"Version {Application.version}";
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // Hide LAN game buttons
+            foreach (GameObject go in hideIfWebGL)
+            {
+                go.SetActive(false);
+            }
+        }
     }
 
     public string GetLocalIPAddress()
