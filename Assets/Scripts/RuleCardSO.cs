@@ -27,6 +27,10 @@ public class RuleCardSO : ScriptableObject
     public string description;
     public RuleType type;
     public Image image;
+    // Unlock these rules if this rule card selected (prerequisite)
+    public RuleCardSO[] unlockRules;
+
+
     // Should have conditional display these field depend on this rule card's rule type.
     [Header("Invert")]
     public PieceType invertBefore;

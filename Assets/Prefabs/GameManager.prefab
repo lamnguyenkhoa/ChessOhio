@@ -48,8 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1aace9f6cb727447ad224701a36030f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamTurn:
-    m_InternalValue: 0
+  teamTurn: 0
   turnDisplay: {fileID: 0}
   actionMenu: {fileID: 0}
   textTooltip: {fileID: 0}
@@ -120,6 +119,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0860d974b9e9f4e4f9a598d7017f0099, type: 2}
   - {fileID: 11400000, guid: 89b91a4ae16cada418185a421c1843cc, type: 2}
   - {fileID: 11400000, guid: 3265e02a51eb0034aab171fc94ff0f8d, type: 2}
+  - {fileID: 11400000, guid: ea013ebb35a8976478e88182b443e9dc, type: 2}
   activeRulePool:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -131,3 +131,4 @@ MonoBehaviour:
   activeUnits: 
   teamToChoseRule: 1
   piecesToCombine: []
+  sourcePiece: {fileID: 0}

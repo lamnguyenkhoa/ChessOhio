@@ -15,6 +15,7 @@ public enum PieceType
     BUNKER = 9,
     ARCHBISHOP = 10,
     CAVALIER = 11,
+    PALADIN = 12,
 
 }
 
@@ -36,9 +37,11 @@ public class ChessPiece : MonoBehaviour
     public ChessPieceProfileSO profile;
     public bool lockedControl = false;
 
-    [Header("Stat")]
+    [Header("Common Stat")]
     public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>();
-    public int timeMoved;
+
+    [Header("Logic stat")]
+    public int timeMoveAgain; // How many time this piece move again (due to its ability)
 
     private void Start()
     {
@@ -120,5 +123,10 @@ public class ChessPiece : MonoBehaviour
     public virtual bool CanMoveAgainAfterCapture()
     {
         return false;
+    }
+
+    public virtual int MaxTimeMoveAgain()
+    {
+        return 0;
     }
 }

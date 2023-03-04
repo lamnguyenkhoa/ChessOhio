@@ -12,7 +12,9 @@ public enum UniqueRuleCode
 {
     NONE,
     SP_PROMO_BISHOP_ARCHBISHOP,
-    SP_PROMO_KNIGHT_CAVALIER
+    SP_PROMO_KNIGHT_CAVALIER,
+    SP_PROMO_CAVALIER_PALADIN,
+
 }
 
 public class GameRule : MonoBehaviour
@@ -117,6 +119,13 @@ public class GameRule : MonoBehaviour
         {
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);
             GameManager.instance.NotifyChosenRuleCard(ruleCardId);
+        }
+
+        // Add unlocked rules
+        foreach (RuleCardSO unlockRule in chosenRule.unlockRules)
+        {
+            if (!activeRulePool.Contains(unlockRule))
+                activeRulePool.Add(unlockRule);
         }
         CloseRuleCardMenu();
     }
@@ -250,6 +259,14 @@ public class GameRule : MonoBehaviour
             if (cp.captureHistory.ContainsKey(PieceType.KNIGHT) &&
                 cp.captureHistory[PieceType.KNIGHT] >= 1)
                 return true;
+        }
+        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_CAVALIER_PALADIN)
+        {
+            int otherSideY = cp.team == PieceTeam.WHITE ? 7 : 0;
+            if (cp.currentY == otherSideY)
+            {
+                return true;
+            }
         }
         return false;
     }

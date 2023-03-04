@@ -10,22 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
-  m_Name: CavalierPromo
+  m_Name: PaladinPromo
   m_EditorClassIdentifier: 
-  ruleName: 'Promotion: Cavalier'
-  description: Promote from a [Knight] after capture an enemy Knight. Can only move
-    in forward or sideway directions. Can move again after capture an unit. Max 1
-    time.
+  ruleName: 'Promotion: Paladin'
+  description: Promote from a [Cavalier] after reached enemy backline. Move like
+    Knight. Can move again after capture an unit. Max 2 times.
   type: 3
   image: {fileID: 0}
-  unlockRules:
-  - {fileID: 11400000, guid: ea013ebb35a8976478e88182b443e9dc, type: 2}
-  conflictRules: []
+  unlockRules: []
   invertBefore: 0
   invertAfter: 0
   combineMaterials: 
   combineStart: 0
   combineResult: 0
-  promoBefore: 3
-  promoAfter: 11
-  promoRuleCode: 2
+  promoBefore: 11
+  promoAfter: 12
+  promoRuleCode: 3

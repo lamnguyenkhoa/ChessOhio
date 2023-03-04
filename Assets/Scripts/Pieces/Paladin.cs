@@ -1,30 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cavalier : ChessPiece
+public class Paladin : ChessPiece
 {
     public override List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
-        Vector2Int[] direction;
-        if (team == PieceTeam.WHITE)
-        {
-            direction = new Vector2Int[] {
-                new Vector2Int(-1, 2),
-                new Vector2Int(1, 2),
-                new Vector2Int(-2, 1),
-                new Vector2Int(2, 1)
-            };
-        }
-        else
-        {
-            direction = new Vector2Int[] {
-                new Vector2Int(-2, -1),
-                new Vector2Int(2, -1),
-                new Vector2Int(1, -2),
-                new Vector2Int(-1, -2)
-            };
-        }
+
+        Vector2Int[] direction = {
+            new Vector2Int(-1, -2),
+            new Vector2Int(-1, 2),
+            new Vector2Int(1, -2),
+            new Vector2Int(1, 2),
+            new Vector2Int(-2, -1),
+            new Vector2Int(-2, 1),
+            new Vector2Int(2, -1),
+            new Vector2Int(2, 1)
+        };
 
         int x, y;
         for (int i = 0; i < direction.Length; i++)
@@ -55,7 +47,7 @@ public class Cavalier : ChessPiece
 
     public override int MaxTimeMoveAgain()
     {
-        return 1;
+        return 2;
     }
 
 }

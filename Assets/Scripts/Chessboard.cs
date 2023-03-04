@@ -301,10 +301,12 @@ public class Chessboard : MonoBehaviour
         {
             cp.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
         }
-        // Some piece prefab has differrent structure. Example: Knight vs Nightrider
-        if (cp.transform.Find("Model"))
+        // Also change material for all child model
+        foreach (Transform child in cp.transform)
         {
-            cp.transform.GetChild(0).GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+            if (child.name == "Model")
+                child.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
+
         }
 
         return cp;
@@ -419,6 +421,7 @@ public class Chessboard : MonoBehaviour
 
     public void EndTurn(bool sendNotification = false)
     {
+        ChangeLockControlAllPiece(false);
         if (GameManager.instance.teamTurn == PieceTeam.WHITE)
         {
             GameManager.instance.teamTurn = PieceTeam.BLACK;
@@ -512,21 +515,22 @@ public class Chessboard : MonoBehaviour
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
         bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces, otherPlayer);
 
+        // If nothing special, end the turn
         if (!otherPlayer && !dontEndTurn && !canMoveAgain)
         {
-            ChangeLockControlAllPiece(false);
+            cp.timeMoveAgain = 0;
             EndTurn(true);
         }
 
         if (canMoveAgain)
         {
             ChangeLockControlAllPiece(true);
+            cp.timeMoveAgain += 1;
             cp.lockedControl = false;
             // Check if any available move again to prevent stuck
             List<Vector2Int> tmpMoves = cp.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
             if (tmpMoves.Count == 0)
             {
-                ChangeLockControlAllPiece(false);
                 EndTurn(true);
             }
         }
