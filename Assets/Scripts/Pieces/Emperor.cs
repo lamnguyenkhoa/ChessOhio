@@ -1,13 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knight : ChessPiece
+public class Emperor : King
 {
     public override List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
 
-        Vector2Int[] directions = {
+        Vector2Int[] offset = {
+            new Vector2Int(0, 1),
+            new Vector2Int(0, -1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(1, 0),
+            new Vector2Int(1, 1),
+            new Vector2Int(1, -1),
+            new Vector2Int(-1, 1),
+            new Vector2Int(-1, -1),
             new Vector2Int(-1, -2),
             new Vector2Int(-1, 2),
             new Vector2Int(1, -2),
@@ -19,12 +27,12 @@ public class Knight : ChessPiece
         };
 
         int x, y;
-        for (int i = 0; i < directions.Length; i++)
+        for (int i = 0; i < offset.Length; i++)
         {
-            if (WithinBoundaryAfterMove(directions[i].x, directions[i].y))
+            if (WithinBoundaryAfterMove(offset[i].x, offset[i].y))
             {
-                x = currentX + directions[i].x;
-                y = currentY + directions[i].y;
+                x = currentX + offset[i].x;
+                y = currentY + offset[i].y;
                 if (board[x, y] == null ||
                     board[x, y].team != team)
                 {

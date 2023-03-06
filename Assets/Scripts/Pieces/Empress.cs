@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Queen : ChessPiece
+public class Empress : ChessPiece
 {
     public override List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
@@ -28,17 +28,10 @@ public class Queen : ChessPiece
             {
                 x = currentX + distanceX;
                 y = currentY + distanceY;
-                if (board[x, y] == null)
+                if (board[x, y] == null ||
+                    board[x, y].team != team)
                 {
                     availableMoves.Add(new Vector2Int(x, y));
-                }
-                if (board[x, y] != null)
-                {
-                    if (board[x, y].team != team)
-                    {
-                        availableMoves.Add(new Vector2Int(x, y));
-                    }
-                    break;
                 }
                 distanceX += directions[i].x;
                 distanceY += directions[i].y;
@@ -46,5 +39,10 @@ public class Queen : ChessPiece
         }
 
         return availableMoves;
+    }
+
+    public override bool IsEssential()
+    {
+        return true;
     }
 }

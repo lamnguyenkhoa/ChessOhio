@@ -104,4 +104,9 @@ public class King : ChessPiece
         return false;
     }
 
+    public override bool IsEssential()
+    {
+        return true;
+    }
+
 }

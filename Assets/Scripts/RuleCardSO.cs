@@ -20,9 +20,10 @@ public class RuleCardSO : ScriptableObject
     public PieceType invertBefore;
     public PieceType invertAfter;
     [Header("Combine")]
-    public PieceType[] combineMaterials;
     public PieceType combineStart;
     public PieceType combineResult;
+    public PieceType[] combineMaterials;
+
     [Header("Special Promo")]
     public PieceType promoBefore;
     public PieceType promoAfter;

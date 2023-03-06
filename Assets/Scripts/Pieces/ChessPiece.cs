@@ -105,4 +105,14 @@ public class ChessPiece : MonoBehaviour
     {
         return 0;
     }
+
+
+    /// <summary>
+    /// End game if captured
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool IsEssential()
+    {
+        return false;
+    }
 }

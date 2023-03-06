@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
+  m_Name: EmpressCombine
+  m_EditorClassIdentifier: 
+  ruleName: 'Combine: Empress'
+  description: Combined from [Queen] and King. Can move like Queen. Can jump over
+    units. End game if captured.
+  type: 2
+  image: {fileID: 0}
+  unlockRules: []
+  invertBefore: 0
+  invertAfter: 0
+  combineStart: 5
+  combineResult: 14
+  combineMaterials: 0500000006000000
+  promoBefore: 0
+  promoAfter: 0
+  promoRuleCode: 0

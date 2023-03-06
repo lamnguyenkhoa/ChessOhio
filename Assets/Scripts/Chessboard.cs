@@ -497,8 +497,8 @@ public class Chessboard : MonoBehaviour
             }
             else
             {
-                // If king then checkmate
-                if (otherCp.type == PieceType.KING)
+                // If Essential piece (such as King) then checkmate
+                if (otherCp.IsEssential())
                 {
                     CheckMate(otherCp.team);
                 }
