@@ -9969,23 +9969,6 @@ PrefabInstance:
       propertyPath: victoryScreen
       value: 
       objectReference: {fileID: 520614264}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: prefabs.Array.size
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: prefabs.Array.data[12]
-      value: 
-      objectReference: {fileID: 2379102908790964395, guid: a80f2fe5f6a63464691457c1317d6cf7,
-        type: 3}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: prefabs.Array.data[13]
-      value: 
-      objectReference: {fileID: 2379102908790964395, guid: 228b21d958e78fd4bbcea24035c68e61,
-        type: 3}
     - target: {fileID: 2132279431527156416, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: m_RootOrder

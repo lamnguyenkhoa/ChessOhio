@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea013ebb35a8976478e88182b443e9dc, type: 2}
   - {fileID: 11400000, guid: d2d849b160a6c4d4f8f344cd82c5c6ba, type: 2}
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
+  - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
   activeRulePool:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -131,6 +132,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3265e02a51eb0034aab171fc94ff0f8d, type: 2}
   - {fileID: 11400000, guid: d2d849b160a6c4d4f8f344cd82c5c6ba, type: 2}
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
+  - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
   activatedRule: []
   activeUnits: 
   teamToChoseRule: 1

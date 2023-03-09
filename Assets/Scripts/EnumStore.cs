@@ -80,5 +80,5 @@ public enum PieceType
     PALADIN,
     EMPEROR,
     EMPRESS,
-
+    CHANCELLOR
 }
