@@ -62,6 +62,11 @@ public class ActionMenu : MonoBehaviour
         }
     }
 
+    public void OnInfoButton()
+    {
+        GameManager.instance.OpenInfoWindow(currentSelectPiece.profile);
+    }
+
     public void OnInvertButton()
     {
         RuleCardSO rule = GameRule.instance.invertDict[currentSelectPiece.type];

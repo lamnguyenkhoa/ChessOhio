@@ -15,7 +15,9 @@ public class GameManager : NetworkBehaviour
     public GameObject blackCamera;
     public GameObject exitCombineButton;
     public GameObject viewChosenRuleDisplay;
-    public GameObject displayRuleCard;
+    private GameObject displayRuleCard;
+    public InfoWindow infoWindow;
+
 
     private void Awake()
     {
@@ -32,6 +34,10 @@ public class GameManager : NetworkBehaviour
     private void Start()
     {
         teamTurn = PieceTeam.WHITE;
+        if (displayRuleCard == null)
+        {
+            displayRuleCard = viewChosenRuleDisplay.transform.Find("DisplayCard").gameObject;
+        }
         if (GameSetting.instance.isLocalGame)
         {
             GetChessBoard().StartGame(true);
@@ -186,6 +192,18 @@ public class GameManager : NetworkBehaviour
         Chessboard.instance.disableRaycast = false;
     }
 
+    public void OpenInfoWindow(ChessPieceProfileSO profile)
+    {
+        infoWindow.profile = profile;
+        infoWindow.ShowInfoWindow();
+        CloseActionMenu();
+    }
+
+    public void CloseInfoWindow()
+    {
+        infoWindow.CloseInfoWindow();
+    }
+
     public void OnToggleTooltipButton()
     {
         GameSetting.instance.showToolTip = !GameSetting.instance.showToolTip;
@@ -216,14 +234,12 @@ public class GameManager : NetworkBehaviour
     public void OnViewChosenRuleDisplayButton()
     {
         viewChosenRuleDisplay.SetActive(!viewChosenRuleDisplay.activeSelf);
+        displayRuleCard.SetActive(false);
     }
 
     public void SetDisplayCardProfile(RuleCardSO profile)
     {
-        if (displayRuleCard == null)
-        {
-            displayRuleCard = viewChosenRuleDisplay.transform.Find("DisplayCard").gameObject;
-        }
+
         displayRuleCard.SetActive(true);
         displayRuleCard.GetComponent<RuleCard>().profile = profile;
         displayRuleCard.GetComponent<RuleCard>().RefreshCardInfo();
