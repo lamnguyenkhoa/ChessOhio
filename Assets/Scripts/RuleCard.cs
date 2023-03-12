@@ -13,18 +13,32 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Vector3 originalPos;
     private Vector3 desiredPos;
     private bool mouseHovering = false;
+    // For selecting card, slightly move card up
     private const float HOVER_OFFSET_Y = 20f;
-    private bool allowInteraction = true;
-    private bool delayedInteraction = false; // Delay a bit of time to make sure no accident clicking
+    ///If other player is choosing card, you can't see the details
+    private bool showDetails = true;
+    // Delay a bit of time to make sure no accident clicking
+    private bool delayedInteraction = false;
+    // Card already selected. Now only for viewing. Hover over finished card will update
+    // the isDisplay card.
+    public bool finished = false;
+    // This card is for display profile only. No interaction.
+    public bool isDisplay = false;
 
-    private void Start()
+
+    private void OnEnable()
     {
+        if (isDisplay)
+        {
+            DisplayEmptyCard();
+            return;
+        }
         StartCoroutine(SetOriginalPos());
-        allowInteraction = GameSetting.instance.isLocalGame ||
-            GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
+        // showDetails = GameSetting.instance.isLocalGame ||
+        //     GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
         if (profile)
         {
-            if (allowInteraction)
+            if (showDetails)
             {
                 RefreshCardInfo();
             }
@@ -37,12 +51,18 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Update()
     {
-        if (allowInteraction && delayedInteraction)
+        if (isDisplay)
+        {
+            return;
+        }
+        if (showDetails && delayedInteraction)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPos, Time.deltaTime * 10);
-            if (Input.GetMouseButtonDown(0) && mouseHovering)
+            if (Input.GetMouseButtonDown(0) && mouseHovering && !finished)
             {
+                finished = true;
                 GameRule.instance.ChoseThisRule(profile, true);
+                GameManager.instance.AddToViewChosenRuleDisplay(this.gameObject);
             }
         }
     }
@@ -63,6 +83,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (profile.image)
             image = profile.image;
+        image.gameObject.SetActive(true);
         ruleName.text = profile.ruleName;
         description.text = profile.description;
     }
@@ -70,22 +91,44 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void DisplayHiddenCardInfo()
     {
         image = null;
+        image.gameObject.SetActive(false);
         ruleName.text = "Wait for other player...";
+        description.text = "";
+    }
+
+    public void DisplayEmptyCard()
+    {
+        image.gameObject.SetActive(false);
+        ruleName.text = "";
         description.text = "";
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isDisplay)
+        {
+            return;
+        }
         desiredPos = originalPos + new Vector3(0, HOVER_OFFSET_Y, 0);
         mouseHovering = true;
+        if (finished)
+        {
+            GameManager.instance.SetDisplayCardProfile(profile);
+        }
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isDisplay)
+        {
+            return;
+        }
         desiredPos = originalPos;
         mouseHovering = false;
+        if (finished)
+        {
+            GameManager.instance.HideDisplayCardProfile();
+        }
     }
-
-
 }

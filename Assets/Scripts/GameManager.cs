@@ -14,6 +14,8 @@ public class GameManager : NetworkBehaviour
     public GameObject whiteCamera;
     public GameObject blackCamera;
     public GameObject exitCombineButton;
+    public GameObject viewChosenRuleDisplay;
+    public GameObject displayRuleCard;
 
     private void Awake()
     {
@@ -209,5 +211,34 @@ public class GameManager : NetworkBehaviour
     public void OnExitCombineModeButton()
     {
         GameRule.instance.ExitCombineMode();
+    }
+
+    public void OnViewChosenRuleDisplayButton()
+    {
+        viewChosenRuleDisplay.SetActive(!viewChosenRuleDisplay.activeSelf);
+    }
+
+    public void SetDisplayCardProfile(RuleCardSO profile)
+    {
+        if (displayRuleCard == null)
+        {
+            displayRuleCard = viewChosenRuleDisplay.transform.Find("DisplayCard").gameObject;
+        }
+        displayRuleCard.SetActive(true);
+        displayRuleCard.GetComponent<RuleCard>().profile = profile;
+        displayRuleCard.GetComponent<RuleCard>().RefreshCardInfo();
+    }
+
+    public void HideDisplayCardProfile()
+    {
+        displayRuleCard.GetComponent<RuleCard>().DisplayEmptyCard();
+        displayRuleCard.SetActive(false);
+    }
+
+    public void AddToViewChosenRuleDisplay(GameObject ruleCard)
+    {
+        Transform viewChosenRuleContent = viewChosenRuleDisplay.transform.Find("Scroll View").GetChild(0).GetChild(0);
+        ruleCard.transform.SetParent(viewChosenRuleContent);
+        // StartCoroutine(ruleCard.GetComponent<RuleCard>().SetOriginalPos());
     }
 }

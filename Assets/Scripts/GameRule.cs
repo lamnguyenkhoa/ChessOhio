@@ -46,11 +46,6 @@ public class GameRule : MonoBehaviour
         activeUnits.AddRange(baseUnits);
     }
 
-    private void Update()
-    {
-
-    }
-
     public void DrawRuleCard()
     {
         int n_draw = activeRulePool.Count >= DEFAULT_N_DRAW ? DEFAULT_N_DRAW : activeRulePool.Count;
@@ -85,7 +80,13 @@ public class GameRule : MonoBehaviour
     {
         Chessboard.instance.pauseGame = false;
         foreach (Transform child in ruleCardParentUI.transform)
-            GameObject.Destroy(child.gameObject);
+        {
+            // Finished / Chosen rulecard is send to the viewAllChosenRuleCard display
+            if (!child.GetComponent<RuleCard>().finished)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+        }
         ruleCardParentUI.SetActive(false);
     }
 
