@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New unit: Nightrider'
+  m_text: 'Name: [Placeholder]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -228,10 +228,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03064df3b1e2ed540988fff1280377ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 3265e02a51eb0034aab171fc94ff0f8d, type: 2}
+  profile: {fileID: 0}
   image: {fileID: 3336380987983477354}
   ruleName: {fileID: 3336380986283133895}
   description: {fileID: 3336380988341321955}
+  finished: 0
+  isDisplay: 0
+  hoverSound: {fileID: 8300000, guid: 91a9a3363e42f474b808bae95db709b5, type: 3}
+  clickSound: {fileID: 8300000, guid: 85586216ec46cb844891aafe318ab646, type: 3}
 --- !u!1 &3336380987983477352
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,8 +378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Invert a Knight. Nightrider can move like a Knight in any number of step
-    in same direction.
+  m_text: 'Description: [Place holder]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

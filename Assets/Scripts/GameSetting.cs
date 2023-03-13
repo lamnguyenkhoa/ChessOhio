@@ -36,8 +36,8 @@ public class GameSetting : NetworkBehaviour
     [Header("Lobby stuff")]
     public Button whiteTeamButton;
     public Button blackTeamButton;
-    public Button bgmButton;
-    public AudioSource bgm;
+    public Button hostButton;
+    public Button connectButton;
     public TextMeshProUGUI versionText;
     [SerializeField] private GameObject[] hideIfWebGL;
 
@@ -127,13 +127,17 @@ public class GameSetting : NetworkBehaviour
         if (!Application.isEditor)
             transport.ConnectionData.Address = GetLocalIPAddress();
         NetworkManager.Singleton.StartHost();
+        hostButton.interactable = false;
+        connectButton.interactable = false;
     }
-    public void OnClientButton()
+    public void OnConnectButton()
     {
         isLocalGame = false;
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.ConnectionData.Address = ipAddress;
         NetworkManager.Singleton.StartClient();
+        hostButton.interactable = false;
+        connectButton.interactable = false;
     }
 
     public void OnQuitButton()
@@ -160,20 +164,6 @@ public class GameSetting : NetworkBehaviour
     public void ChangeIPAddress(string input)
     {
         ipAddress = input;
-    }
-
-    public void OnMuteButton()
-    {
-        if (bgm)
-            bgm.mute = !bgm.mute;
-        if (bgm.mute)
-        {
-            bgmButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Unmute";
-        }
-        else
-        {
-            bgmButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Mute";
-        }
     }
 
     private void OnGUI()
@@ -206,6 +196,8 @@ public class GameSetting : NetworkBehaviour
         if (GUILayout.Button("Disconnect"))
         {
             NetworkManager.Singleton.Shutdown();
+            hostButton.interactable = true;
+            connectButton.interactable = true;
         }
     }
 }

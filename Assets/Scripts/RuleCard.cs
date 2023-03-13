@@ -24,18 +24,24 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool finished = false;
     // This card is for display profile only. No interaction.
     public bool isDisplay = false;
-
+    public AudioClip hoverSound;
+    public AudioClip clickSound;
+    private AudioSource audioSource;
 
     private void OnEnable()
     {
+        if (!audioSource)
+        {
+            audioSource = GameObject.Find("SFX").GetComponent<AudioSource>();
+        }
         if (isDisplay)
         {
             DisplayEmptyCard();
             return;
         }
         StartCoroutine(SetOriginalPos());
-        // showDetails = GameSetting.instance.isLocalGame ||
-        //     GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
+        showDetails = GameSetting.instance.isLocalGame ||
+            GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
         if (profile)
         {
             if (showDetails)
@@ -62,6 +68,8 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 finished = true;
                 GameRule.instance.ChoseThisRule(profile, true);
+                if (audioSource)
+                    audioSource.PlayOneShot(clickSound);
                 GameManager.instance.AddToViewChosenRuleDisplay(this.gameObject);
             }
         }
@@ -105,10 +113,10 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (audioSource)
+            audioSource.PlayOneShot(hoverSound);
         if (isDisplay)
-        {
             return;
-        }
         desiredPos = originalPos + new Vector3(0, HOVER_OFFSET_Y, 0);
         mouseHovering = true;
         if (finished)
@@ -121,9 +129,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         if (isDisplay)
-        {
             return;
-        }
         desiredPos = originalPos;
         mouseHovering = false;
         if (finished)

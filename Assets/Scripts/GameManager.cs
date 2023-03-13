@@ -40,7 +40,7 @@ public class GameManager : NetworkBehaviour
         }
         if (GameSetting.instance.isLocalGame)
         {
-            GetChessBoard().StartGame(true);
+            Chessboard.instance.StartGame(true);
         }
         StartGameClientRpc();
         if (IsHost)
@@ -58,11 +58,6 @@ public class GameManager : NetworkBehaviour
     private void SetupEachPlayerClientRpc(PieceTeam hostChosenTeam)
     {
         GetCurrentPlayer().GetComponent<ChessPlayer>().SetTeamAndCamera(hostChosenTeam);
-    }
-
-    public Chessboard GetChessBoard()
-    {
-        return GameObject.Find("Board").GetComponent<Chessboard>();
     }
 
     public ChessPlayer GetCurrentPlayer()
@@ -152,7 +147,7 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     public void StartGameClientRpc()
     {
-        GetChessBoard().StartGame(false);
+        Chessboard.instance.StartGame(false);
     }
 
     public void NotifyEndTurn()

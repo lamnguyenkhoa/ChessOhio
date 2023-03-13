@@ -56,6 +56,7 @@ public class GameRule : MonoBehaviour
             {
                 RuleCard ruleCard = Instantiate(ruleCardPrefab, ruleCardParentUI.transform).GetComponent<RuleCard>();
                 ruleCard.profile = drawedCards[i];
+                ruleCard.RefreshCardInfo();
             }
         }
         else
@@ -115,6 +116,9 @@ public class GameRule : MonoBehaviour
                 activeRulePool.Add(unlockRule);
         }
         CloseRuleCardMenu();
+
+        // Speedup the BGM a bit for fun
+        GameObject.Find("BGM").GetComponent<AudioSource>().pitch += 0.02f;
     }
 
     public void RuleImplementinator(RuleCardSO chosenRule)

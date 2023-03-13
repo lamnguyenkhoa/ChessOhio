@@ -13,8 +13,10 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
     [SerializeField] private float deathSize = 0.5f;
     [SerializeField] private float deathSpacing = 0.7f;
+    [SerializeField] private AudioSource audioSource;
+    public AudioClip chessMoveSound;
     public float dragOffset = 1.5f;
-    [SerializeField] private GameObject victoryScreen;
+    public GameObject victoryScreen;
     public TextMeshProUGUI turnCountUI;
 
     [Header("Prefabs & Materials")]
@@ -134,7 +136,7 @@ public class Chessboard : MonoBehaviour
                         // Am I the correct player (for LAN game)
                         if (isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
                         {
-                            // If combine mode, left click do not drag-n-drop piece, but select piece for combining instead
+                            // If in combine mode, left click does not drag-n-drop piece, but select piece for combining instead
                             if (combineMode)
                             {
                                 ChessPiece selectedCp = hitCp;
@@ -168,6 +170,7 @@ public class Chessboard : MonoBehaviour
                 bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
                 if (validMove)
                 {
+                    PlayPiecePlacementSound();
                     if (!isLocalGame)
                     {
                         GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
@@ -175,6 +178,7 @@ public class Chessboard : MonoBehaviour
                 }
                 else
                 {
+                    // Not valid move, return the piece to original position
                     currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
                 }
                 currentlyDragging = null;
@@ -642,5 +646,11 @@ public class Chessboard : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlayPiecePlacementSound()
+    {
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(chessMoveSound);
     }
 }
