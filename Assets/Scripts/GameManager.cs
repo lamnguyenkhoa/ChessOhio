@@ -228,8 +228,31 @@ public class GameManager : NetworkBehaviour
 
     public void OnViewChosenRuleDisplayButton()
     {
-        viewChosenRuleDisplay.SetActive(!viewChosenRuleDisplay.activeSelf);
+        Transform viewChosenRuleContent = viewChosenRuleDisplay.transform.Find("Scroll View").GetChild(0).GetChild(0);
+        if (viewChosenRuleDisplay.activeSelf)
+        {
+            // Destroy all rule cards
+            foreach (Transform child in viewChosenRuleContent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        else
+        {
+            // Recreate rule cards for display
+            foreach (RuleCardSO ruleProfile in GameRule.instance.activatedRule)
+            {
+                RuleCard ruleCard = Instantiate(GameRule.instance.ruleCardPrefab, viewChosenRuleContent).GetComponent<RuleCard>();
+                ruleCard.profile = ruleProfile;
+                ruleCard.showDetails = true;
+                ruleCard.finished = true;
+                ruleCard.RefreshCardInfo();
+            }
+        }
         displayRuleCard.SetActive(false);
+        viewChosenRuleDisplay.SetActive(!viewChosenRuleDisplay.activeSelf);
+
+
     }
 
     public void SetDisplayCardProfile(RuleCardSO profile)
@@ -244,12 +267,5 @@ public class GameManager : NetworkBehaviour
     {
         displayRuleCard.GetComponent<RuleCard>().DisplayEmptyCard();
         displayRuleCard.SetActive(false);
-    }
-
-    public void AddToViewChosenRuleDisplay(GameObject ruleCard)
-    {
-        Transform viewChosenRuleContent = viewChosenRuleDisplay.transform.Find("Scroll View").GetChild(0).GetChild(0);
-        ruleCard.transform.SetParent(viewChosenRuleContent);
-        // StartCoroutine(ruleCard.GetComponent<RuleCard>().SetOriginalPos());
     }
 }

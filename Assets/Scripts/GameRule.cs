@@ -56,7 +56,13 @@ public class GameRule : MonoBehaviour
             {
                 RuleCard ruleCard = Instantiate(ruleCardPrefab, ruleCardParentUI.transform).GetComponent<RuleCard>();
                 ruleCard.profile = drawedCards[i];
-                ruleCard.RefreshCardInfo();
+                bool showDetails = GameSetting.instance.isLocalGame ||
+                    GameManager.instance.GetCurrentPlayer().team == teamToChoseRule;
+                ruleCard.showDetails = showDetails;
+                if (showDetails)
+                    ruleCard.RefreshCardInfo();
+                else
+                    ruleCard.DisplayHiddenCardInfo();
             }
         }
         else
@@ -82,11 +88,7 @@ public class GameRule : MonoBehaviour
         Chessboard.instance.pauseGame = false;
         foreach (Transform child in ruleCardParentUI.transform)
         {
-            // Finished / Chosen rulecard is send to the viewAllChosenRuleCard display
-            if (!child.GetComponent<RuleCard>().finished)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
+            GameObject.Destroy(child.gameObject);
         }
         ruleCardParentUI.SetActive(false);
     }

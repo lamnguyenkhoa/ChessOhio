@@ -16,7 +16,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // For selecting card, slightly move card up
     private const float HOVER_OFFSET_Y = 20f;
     ///If other player is choosing card, you can't see the details
-    private bool showDetails = true;
+    public bool showDetails = true;
     // Delay a bit of time to make sure no accident clicking
     private bool delayedInteraction = false;
     // Card already selected. Now only for viewing. Hover over finished card will update
@@ -40,19 +40,6 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
         StartCoroutine(SetOriginalPos());
-        showDetails = GameSetting.instance.isLocalGame ||
-            GameManager.instance.GetCurrentPlayer().team == GameRule.instance.teamToChoseRule;
-        if (profile)
-        {
-            if (showDetails)
-            {
-                RefreshCardInfo();
-            }
-            else
-            {
-                DisplayHiddenCardInfo();
-            }
-        }
     }
 
     private void Update()
@@ -70,7 +57,6 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 GameRule.instance.ChoseThisRule(profile, true);
                 if (audioSource)
                     audioSource.PlayOneShot(clickSound);
-                GameManager.instance.AddToViewChosenRuleDisplay(this.gameObject);
             }
         }
     }
@@ -98,7 +84,7 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void DisplayHiddenCardInfo()
     {
-        image = null;
+        image.sprite = null;
         image.gameObject.SetActive(false);
         ruleName.text = "Wait for other player...";
         description.text = "";
