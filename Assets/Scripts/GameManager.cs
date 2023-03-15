@@ -206,13 +206,10 @@ public class GameManager : NetworkBehaviour
 
     public void ShowTextToolTip(string content, Vector3 worldPosition)
     {
-        if (GameSetting.instance.showToolTip)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
-            textTooltip.GetComponent<TextMeshProUGUI>().text = content;
-            textTooltip.transform.position = screenPos;
-            textTooltip.SetActive(true);
-        }
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
+        textTooltip.GetComponent<TextMeshProUGUI>().text = content;
+        textTooltip.transform.position = screenPos;
+        textTooltip.SetActive(true);
     }
 
     public void HideTextToolTip()

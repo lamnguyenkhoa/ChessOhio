@@ -113,7 +113,7 @@ public class Chessboard : MonoBehaviour
 
 
             // If we press right click
-            if (Input.GetMouseButtonDown(1) && !combineMode)
+            if (Input.GetMouseButtonDown(1) && !combineMode && !currentlyDragging)
             {
                 if (chessPieces[hitPosition.x, hitPosition.y] != null)
                 {
@@ -151,11 +151,8 @@ public class Chessboard : MonoBehaviour
                                 specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
                                 HighlightTiles();
                             }
-
                         }
-
                     }
-
                 }
                 // If already dragging, then check the valid of the move to release
                 else
@@ -180,39 +177,19 @@ public class Chessboard : MonoBehaviour
                 }
             }
 
-            // When we hover above a piece
+            // Tooltip when we hover above a piece
             if (chessPieces[hitPosition.x, hitPosition.y] != null)
             {
-                ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
-                GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
+                if (GameSetting.instance.showToolTip)
+                {
+                    ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
+                    GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
+                }
             }
             else
             {
                 GameManager.instance.HideTextToolTip();
             }
-
-            // If we release left click
-            // if (currentlyDragging != null && Input.GetMouseButtonUp(0))
-            // {
-            //     Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
-
-            //     bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
-            //     if (validMove)
-            //     {
-            //         PlayPiecePlacementSound();
-            //         if (!isLocalGame)
-            //         {
-            //             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
-            //         }
-            //     }
-            //     else
-            //     {
-            //         // Not valid move, return the piece to original position
-            //         currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
-            //     }
-            //     currentlyDragging = null;
-            //     RemoveHighlightTiles();
-            // }
         }
         else
         {
