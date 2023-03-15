@@ -122,21 +122,21 @@ public class Chessboard : MonoBehaviour
                 }
             }
 
-            // Did we hit a chess piece?
-            if (chessPieces[hitPosition.x, hitPosition.y] != null)
+            // If we press left click
+            if (Input.GetMouseButtonDown(0))
             {
-                ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
-                GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
-                // If we press left click
-                if (Input.GetMouseButtonDown(0) && !hitCp.lockedControl)
+                // If empty hand 
+                if (!currentlyDragging)
                 {
-                    // Is it our turn?
-                    if (hitCp.team == GameManager.instance.teamTurn)
+                    // If clicked a piece
+                    if (chessPieces[hitPosition.x, hitPosition.y] != null)
                     {
-                        // Am I the correct player (for LAN game)
-                        if (isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
+                        ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
+                        if (IsPieceLegalToInteract(hitCp))
                         {
-                            // If in combine mode, left click does not drag-n-drop piece, but select piece for combining instead
+                            // Then pick up a piece
+                            // If in combine mode, left click does not pick up piece for moving, 
+                            // but select piece for combining instead.
                             if (combineMode)
                             {
                                 ChessPiece selectedCp = hitCp;
@@ -153,9 +153,38 @@ public class Chessboard : MonoBehaviour
                             }
 
                         }
-                    }
-                }
 
+                    }
+
+                }
+                // If already dragging, then check the valid of the move to release
+                else
+                {
+                    Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
+                    bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
+                    if (validMove)
+                    {
+                        PlayPiecePlacementSound();
+                        if (!isLocalGame)
+                        {
+                            GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
+                        }
+                    }
+                    else
+                    {
+                        // Not valid move, return the piece to original position
+                        currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
+                    }
+                    currentlyDragging = null;
+                    RemoveHighlightTiles();
+                }
+            }
+
+            // When we hover above a piece
+            if (chessPieces[hitPosition.x, hitPosition.y] != null)
+            {
+                ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
+                GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
             }
             else
             {
@@ -163,27 +192,27 @@ public class Chessboard : MonoBehaviour
             }
 
             // If we release left click
-            if (currentlyDragging != null && Input.GetMouseButtonUp(0))
-            {
-                Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
+            // if (currentlyDragging != null && Input.GetMouseButtonUp(0))
+            // {
+            //     Vector2Int previousPosition = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
 
-                bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
-                if (validMove)
-                {
-                    PlayPiecePlacementSound();
-                    if (!isLocalGame)
-                    {
-                        GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
-                    }
-                }
-                else
-                {
-                    // Not valid move, return the piece to original position
-                    currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
-                }
-                currentlyDragging = null;
-                RemoveHighlightTiles();
-            }
+            //     bool validMove = MoveTo(currentlyDragging, hitPosition.x, hitPosition.y);
+            //     if (validMove)
+            //     {
+            //         PlayPiecePlacementSound();
+            //         if (!isLocalGame)
+            //         {
+            //             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         // Not valid move, return the piece to original position
+            //         currentlyDragging.SetPosition(GetTileCenter(previousPosition.x, previousPosition.y));
+            //     }
+            //     currentlyDragging = null;
+            //     RemoveHighlightTiles();
+            // }
         }
         else
         {
@@ -197,7 +226,7 @@ public class Chessboard : MonoBehaviour
                 currentHover = -Vector2Int.one;
             }
             // If we release the dragging piece here, revert it
-            if (currentlyDragging && Input.GetMouseButtonUp(0))
+            if (currentlyDragging && Input.GetMouseButtonDown(0))
             {
                 currentlyDragging.SetPosition(GetTileCenter(currentlyDragging.currentX, currentlyDragging.currentY));
                 currentlyDragging = null;
@@ -652,5 +681,33 @@ public class Chessboard : MonoBehaviour
     {
         audioSource.pitch = Random.Range(0.8f, 1.2f);
         audioSource.PlayOneShot(chessMoveSound);
+    }
+
+    public void SetCurrentlyDraggingPiece(ChessPiece piece)
+    {
+        if (IsPieceLegalToInteract(piece) && !combineMode)
+        {
+            currentlyDragging = piece;
+            // A list of basic movement of this piece
+            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+            // Get a list of special move
+            specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+            HighlightTiles();
+        }
+    }
+
+    private bool IsPieceLegalToInteract(ChessPiece piece)
+    {
+        // Is piece not locked?
+        if (!piece.lockedControl &&
+            // Is it my turn?
+            piece.team == GameManager.instance.teamTurn &&
+            // Am I the correct player (for LAN game)
+            (isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
+            )
+        {
+            return true;
+        }
+        return false;
     }
 }

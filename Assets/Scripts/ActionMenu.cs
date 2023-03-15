@@ -65,6 +65,14 @@ public class ActionMenu : MonoBehaviour
     public void OnInfoButton()
     {
         GameManager.instance.OpenInfoWindow(currentSelectPiece.profile);
+        currentSelectPiece = null;
+    }
+
+    public void OnMoveButton()
+    {
+        Chessboard.instance.SetCurrentlyDraggingPiece(currentSelectPiece);
+        GameManager.instance.CloseActionMenu();
+        currentSelectPiece = null;
     }
 
     public void OnInvertButton()
@@ -74,6 +82,7 @@ public class ActionMenu : MonoBehaviour
         {
             SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.invertAfter);
             GameManager.instance.CloseActionMenu();
+            currentSelectPiece = null;
         }
     }
 
@@ -84,6 +93,7 @@ public class ActionMenu : MonoBehaviour
         {
             GameRule.instance.StartCombineMode(rule, currentSelectPiece);
             GameManager.instance.CloseActionMenu();
+            currentSelectPiece = null;
         }
     }
 
@@ -94,6 +104,7 @@ public class ActionMenu : MonoBehaviour
         {
             SpecialActionHandler.instance.TransformPiece(currentSelectPiece, rule.promoAfter);
             GameManager.instance.CloseActionMenu();
+            currentSelectPiece = null;
         }
     }
 }
