@@ -23,7 +23,7 @@ public class GameSetting : NetworkBehaviour
     }
 #endif
 
-    public bool isLocalGame = false;
+    public bool isLocalGame = true;
     public string m_SceneName = "Ingame";
     public static GameSetting instance;
     public NetworkVariable<bool> hostConnected;
@@ -57,7 +57,10 @@ public class GameSetting : NetworkBehaviour
 
     private void Start()
     {
-        versionText.text = $"Version {Application.version}";
+        if (versionText)
+        {
+            versionText.text = $"Version {Application.version}";
+        }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             // Hide LAN game buttons
@@ -168,31 +171,29 @@ public class GameSetting : NetworkBehaviour
 
     private void OnGUI()
     {
-        if (!isLocalGame)
+        if (isLocalGame)
         {
-            GUILayout.BeginArea(new Rect(10, 10, 100, 200));
-            if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
-                StatusLabels();
-            GUILayout.EndArea();
+            return;
         }
+        GUILayout.BeginArea(new Rect(10, 10, 100, 200));
+        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer)
+            StatusLabels();
+        GUILayout.EndArea();
     }
 
     private void StatusLabels()
     {
-        string mode = "";
-        if (isLocalGame) mode = "Local";
-        else
+        if (isLocalGame)
         {
-            if (NetworkManager.Singleton.IsHost) mode = "Host";
-            else mode = "Client";
+            return;
         }
+        string mode = "";
+        if (NetworkManager.Singleton.IsHost) mode = "Host";
+        else mode = "Client";
 
         GUILayout.Label("Mode: " + mode);
-        if (!isLocalGame)
-        {
-            GUILayout.Label("Port: " +
-                NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port);
-        }
+        GUILayout.Label("Port: " +
+            NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Port);
         if (GUILayout.Button("Disconnect"))
         {
             NetworkManager.Singleton.Shutdown();
