@@ -187,6 +187,11 @@ public class GameSetting : NetworkBehaviour
         {
             return;
         }
+        // Only show Status in Lobby
+        if (SceneManager.GetActiveScene().name != "Lobby")
+        {
+            return;
+        }
         string mode = "";
         if (NetworkManager.Singleton.IsHost) mode = "Host";
         else mode = "Client";
