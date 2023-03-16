@@ -50,7 +50,7 @@ public class King : ChessPiece
         Vector2Int[] rightRookMove = moveList.Find(m => m[0].x == R_ROOK_X && m[0].y == ourY);
 
         // If king haven't move
-        if (kingMove == null && board[KING_X, ourY].type == PieceType.KING)
+        if (kingMove == null && (board[KING_X, ourY].type == PieceType.KING || board[KING_X, ourY].type == PieceType.EMPEROR))
         {
             // If left rook
             if (leftRookMove == null && board[L_ROOK_X, ourY].type == PieceType.ROOK && board[L_ROOK_X, ourY].team == team)
@@ -80,7 +80,7 @@ public class King : ChessPiece
                 }
             }
 
-            // Special case for bunker
+            // Special case for BUNKER
             if (leftRookMove == null && board[L_ROOK_X, ourY].type == PieceType.BUNKER && board[L_ROOK_X, ourY].team == team)
             {
                 availableMoves.Add(new Vector2Int(KING_X - 2, ourY));
