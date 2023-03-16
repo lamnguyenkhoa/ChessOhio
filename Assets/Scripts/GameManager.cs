@@ -17,6 +17,7 @@ public class GameManager : NetworkBehaviour
     public GameObject viewChosenRuleDisplay;
     private GameObject displayRuleCard;
     public InfoWindow infoWindow;
+    public GameObject helpWindow;
 
 
     private void Awake()
@@ -264,5 +265,19 @@ public class GameManager : NetworkBehaviour
     {
         displayRuleCard.GetComponent<RuleCard>().DisplayEmptyCard();
         displayRuleCard.SetActive(false);
+    }
+
+    public void OnHelpButton()
+    {
+        if (!helpWindow.activeSelf)
+        {
+            // Turn help window on so we pause game
+            Chessboard.instance.pauseGame = true;
+        }
+        else
+        {
+            Chessboard.instance.pauseGame = false;
+        }
+        helpWindow.SetActive(!helpWindow.activeSelf);
     }
 }

@@ -56,6 +56,8 @@ MonoBehaviour:
   blackCamera: {fileID: 0}
   exitCombineButton: {fileID: 0}
   viewChosenRuleDisplay: {fileID: 0}
+  infoWindow: {fileID: 0}
+  helpWindow: {fileID: 0}
 --- !u!114 &5138193932589567050
 MonoBehaviour:
   m_ObjectHideFlags: 0
