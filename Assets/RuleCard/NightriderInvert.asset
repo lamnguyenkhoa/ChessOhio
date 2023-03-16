@@ -16,12 +16,13 @@ MonoBehaviour:
   description: Invert a [Knight]. Nightrider can move like a Knight in any number
     of step in same direction.
   type: 1
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 914a92c42b691b34a981aea89fdbcce4, type: 3}
+  unlockRules: []
   invertBefore: 3
   invertAfter: 7
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 0
   promoAfter: 0
   promoRuleCode: 0

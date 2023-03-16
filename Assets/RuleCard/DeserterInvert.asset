@@ -16,12 +16,13 @@ MonoBehaviour:
   description: Invert a [Pawn]. Deserter can move backward, even on tile that already
     has unit (and capture them in process). Ally included.
   type: 1
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: d75328b6f69176343a9e60a132975364, type: 3}
+  unlockRules: []
   invertBefore: 1
   invertAfter: 8
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 0
   promoAfter: 0
   promoRuleCode: 0

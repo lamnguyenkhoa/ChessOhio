@@ -16,12 +16,13 @@ MonoBehaviour:
   description: Promote from [Bishop] after Bishop survived 30 turns. Can move like
     a Knight and Bishop combined.
   type: 3
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 9c97426de053db044ad54f8cd8fe5739, type: 3}
+  unlockRules: []
   invertBefore: 0
   invertAfter: 0
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 4
   promoAfter: 10
   promoRuleCode: 1

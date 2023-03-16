@@ -15,5 +15,5 @@ MonoBehaviour:
   pieceName: Nightrider
   description: Can move any number of steps as a knight in the same direction.
   type: 7
+  sprite: {fileID: 21300000, guid: 914a92c42b691b34a981aea89fdbcce4, type: 3}
   possiblePromoProfiles: []
-  specialAction: 

@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Empress
   description: Move like Queen. Can jump over units. End game if captured.
   type: 14
+  sprite: {fileID: 21300000, guid: cb4ad2efbc4476d46afd22fdc82283ed, type: 3}
   possiblePromoProfiles: []

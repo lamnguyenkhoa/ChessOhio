@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Combined from [King] and 2 Knights. Can move like King and Knight
     combined. Can castling like King.
   type: 2
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: a51996b13ded2fb4f843e168e3fbc734, type: 3}
   unlockRules: []
   invertBefore: 0
   invertAfter: 0

@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Queen
   description: A powerful piece. Move in 8 directions.
   type: 5
+  sprite: {fileID: 21300000, guid: 77b59e31b26cb9b4c9a17595fc9ab7b9, type: 3}
   possiblePromoProfiles: []

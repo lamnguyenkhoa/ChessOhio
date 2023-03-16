@@ -6278,7 +6278,7 @@ MonoBehaviour:
   profile: {fileID: 0}
   pieceName: {fileID: 298921193}
   pieceDescription: {fileID: 1712068191}
-  pieceMovementImage: {fileID: 1687364057}
+  pieceImage: {fileID: 1687364057}
 --- !u!1001 &1187764489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8889,7 +8889,7 @@ GameObject:
   - component: {fileID: 1687364058}
   - component: {fileID: 1687364057}
   m_Layer: 5
-  m_Name: PieceMovementImage
+  m_Name: PieceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

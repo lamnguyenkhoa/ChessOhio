@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Combined from [Queen] and King. Can move like Queen. Can jump over
     units. End game if captured.
   type: 2
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: cb4ad2efbc4476d46afd22fdc82283ed, type: 3}
   unlockRules: []
   invertBefore: 0
   invertAfter: 0

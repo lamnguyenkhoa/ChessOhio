@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Rook
   description: Move vertical and horizontal. Can castling with King.
   type: 2
+  sprite: {fileID: 21300000, guid: bc35af9c82367ba4f82e0b7a9160fb5c, type: 3}
   possiblePromoProfiles: []

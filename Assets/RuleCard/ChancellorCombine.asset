@@ -15,7 +15,7 @@ MonoBehaviour:
   ruleName: 'Combine: Chancellor'
   description: Combined from [Rook] and Knight. Can move like a Knight and Rook combined.
   type: 2
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 41be328cca233f34ab3c0e1d7976f9e3, type: 3}
   unlockRules: []
   invertBefore: 0
   invertAfter: 0

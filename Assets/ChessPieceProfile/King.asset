@@ -16,4 +16,5 @@ MonoBehaviour:
   description: Move 1 tile in any direction. Very important. End game if captured.
     Can castling.
   type: 6
+  sprite: {fileID: 21300000, guid: b4f4c273db85b58408e56a6bb47b6e79, type: 3}
   possiblePromoProfiles: []

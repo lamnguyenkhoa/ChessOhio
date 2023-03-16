@@ -16,13 +16,13 @@ MonoBehaviour:
   description: Promote from a [Cavalier] after reached enemy backline. Move like
     Knight. Can move again after capture an unit. Max 2 times.
   type: 3
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 1391c08a5c598874d8e91a07dc6004be, type: 3}
   unlockRules: []
   invertBefore: 0
   invertAfter: 0
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 11
   promoAfter: 12
   promoRuleCode: 3

@@ -10,7 +10,7 @@ public class RuleCardSO : ScriptableObject
     [TextArea(1, 5)]
     public string description;
     public RuleType type;
-    public Image image;
+    public Sprite sprite;
     // Unlock these rules if this rule card selected (prerequisite)
     public RuleCardSO[] unlockRules;
 

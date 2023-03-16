@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Chancellor
   description: Can move like Knight and Rook.
   type: 15
+  sprite: {fileID: 21300000, guid: 41be328cca233f34ab3c0e1d7976f9e3, type: 3}
   possiblePromoProfiles: []

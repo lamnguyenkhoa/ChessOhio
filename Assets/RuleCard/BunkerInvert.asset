@@ -17,12 +17,13 @@ MonoBehaviour:
     any pieces on the 2 castling tiles after castling. Both Bunker and King must
     not moved yet.
   type: 1
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 04fe0ae4cea1ee84181b3a9281b73507, type: 3}
+  unlockRules: []
   invertBefore: 2
   invertAfter: 9
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 0
   promoAfter: 0
   promoRuleCode: 0

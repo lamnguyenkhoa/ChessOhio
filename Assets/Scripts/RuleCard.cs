@@ -75,8 +75,8 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void RefreshCardInfo()
     {
-        if (profile.image)
-            image = profile.image;
+        if (profile.sprite)
+            image.sprite = profile.sprite;
         image.gameObject.SetActive(true);
         ruleName.text = profile.ruleName;
         description.text = profile.description;

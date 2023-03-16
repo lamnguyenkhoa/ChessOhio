@@ -7,6 +7,6 @@ public class ChessPieceProfileSO : ScriptableObject
     [TextArea(2, 5)]
     public string description;
     public PieceType type;
+    public Sprite sprite;
     public ChessPieceProfileSO[] possiblePromoProfiles;
-    // public SpecialAction[] specialAction;
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Bishop
   description: Move diagonally.
   type: 4
+  sprite: {fileID: 21300000, guid: 1524d89c3a8ae3848a22d5e9d24f8659, type: 3}
   possiblePromoProfiles: []

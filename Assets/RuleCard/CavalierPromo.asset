@@ -17,15 +17,14 @@ MonoBehaviour:
     in forward or sideway directions. Can move again after capture an unit. Max 1
     time.
   type: 3
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6bcbaac9df9b8254889702d2c0943459, type: 3}
   unlockRules:
   - {fileID: 11400000, guid: ea013ebb35a8976478e88182b443e9dc, type: 2}
-  conflictRules: []
   invertBefore: 0
   invertAfter: 0
-  combineMaterials: 
   combineStart: 0
   combineResult: 0
+  combineMaterials: 
   promoBefore: 3
   promoAfter: 11
   promoRuleCode: 2

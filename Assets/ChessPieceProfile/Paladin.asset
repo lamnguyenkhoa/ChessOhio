@@ -15,4 +15,5 @@ MonoBehaviour:
   pieceName: Paladin
   description: Move like Knight. If captured enemy piece, can move again. Max 2 times.
   type: 12
+  sprite: {fileID: 21300000, guid: 1391c08a5c598874d8e91a07dc6004be, type: 3}
   possiblePromoProfiles: []

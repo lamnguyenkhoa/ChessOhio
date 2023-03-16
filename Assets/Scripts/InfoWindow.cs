@@ -7,7 +7,7 @@ public class InfoWindow : MonoBehaviour
     public ChessPieceProfileSO profile;
     public TextMeshProUGUI pieceName;
     public TextMeshProUGUI pieceDescription;
-    public Image pieceMovementImage;
+    public Image pieceImage;
 
     public void ShowInfoWindow()
     {
@@ -26,6 +26,7 @@ public class InfoWindow : MonoBehaviour
             return;
         pieceName.text = profile.pieceName;
         pieceDescription.text = profile.description;
+        pieceImage.sprite = profile.sprite;
     }
 
     public void OnCloseButton()
