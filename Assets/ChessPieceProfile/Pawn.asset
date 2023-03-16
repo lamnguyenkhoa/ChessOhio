@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pawn
   m_EditorClassIdentifier: 
   pieceName: Pawn
-  description: Move one step ahead. Kill diagonal. Can promote. Can en passant.
+  description: Move one step ahead. Capture in 2 diagonal tiles ahead. Can be promoted
+    when reach enemy backline. Google en passant.
   type: 1
   possiblePromoProfiles:
   - {fileID: 11400000, guid: 8049d2816e80cf94883078d7f62254f8, type: 2}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Knight
   m_EditorClassIdentifier: 
   pieceName: Knight
-  description: Move in L shaped
+  description: Move in L shape (two squares vertically and one square horizontally,
+    or two squares horizontally and one square vertically). Can jump over other units.
   type: 3
-  possiblePromotions: 
+  possiblePromoProfiles: []

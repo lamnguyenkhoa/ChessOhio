@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bishop
   m_EditorClassIdentifier: 
   pieceName: Bishop
-  description: Move diagonal
+  description: Move diagonally.
   type: 4
-  possiblePromotions: 
+  possiblePromoProfiles: []

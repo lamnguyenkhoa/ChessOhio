@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Rook
   m_EditorClassIdentifier: 
   pieceName: Rook
-  description: Move vertical and horizontal.
+  description: Move vertical and horizontal. Can castling with King.
   type: 2
   possiblePromoProfiles: []
-  specialAction: 01000000

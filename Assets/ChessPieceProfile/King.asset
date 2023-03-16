@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: King
   m_EditorClassIdentifier: 
   pieceName: King
-  description: Very important
+  description: Move 1 tile in any direction. Very important. End game if captured.
+    Can castling.
   type: 6
-  possiblePromotions: 
+  possiblePromoProfiles: []

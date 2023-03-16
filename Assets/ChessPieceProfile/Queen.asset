@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Queen
   m_EditorClassIdentifier: 
   pieceName: Queen
-  description: Move in 8 direction.
+  description: A powerful piece. Move in 8 directions.
   type: 5
-  possiblePromotions: 
+  possiblePromoProfiles: []
