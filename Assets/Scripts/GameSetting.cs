@@ -7,6 +7,10 @@ using System.Net.Sockets;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Currently it's act more like a LobbyManager than a GameSetting. Will do
+/// refactor later (when I have implemented a Game setting menu).
+/// </summary>
 public class GameSetting : NetworkBehaviour
 {
     /// INFO: You can remove the #if UNITY_EDITOR code segment and make SceneName public,
@@ -28,8 +32,10 @@ public class GameSetting : NetworkBehaviour
     public static GameSetting instance;
     public NetworkVariable<bool> hostConnected;
     public NetworkVariable<bool> clientConnected;
-    private string ipAddress = "127.0.0.1";
+
+    [Header("Settings")]
     public PieceTeam hostChosenTeam = PieceTeam.WHITE;
+    private string ipAddress = "127.0.0.1";
     public int turnForNewRule = 5;
     public bool showToolTip = false;
 
@@ -40,7 +46,8 @@ public class GameSetting : NetworkBehaviour
     public Button connectButton;
     public TextMeshProUGUI versionText;
     [SerializeField] private GameObject[] hideIfWebGL;
-
+    public GameObject localWindow;
+    public GameObject LANWindow;
 
     private void Awake()
     {
@@ -115,7 +122,7 @@ public class GameSetting : NetworkBehaviour
         }
     }
 
-    public void OnLocalButton()
+    public void OnStartLocalButton()
     {
         isLocalGame = true;
         NetworkManager.Shutdown();
@@ -141,6 +148,20 @@ public class GameSetting : NetworkBehaviour
         NetworkManager.Singleton.StartClient();
         hostButton.interactable = false;
         connectButton.interactable = false;
+    }
+
+    public void ToggleLocalWindow()
+    {
+        LANWindow.SetActive(false);
+        ChangeTeam((int)PieceTeam.WHITE);
+        localWindow.SetActive(!localWindow.activeSelf);
+    }
+
+    public void ToggleLANWindow()
+    {
+        localWindow.SetActive(false);
+        ChangeTeam((int)PieceTeam.WHITE);
+        LANWindow.SetActive(!LANWindow.activeSelf);
     }
 
     public void OnQuitButton()
