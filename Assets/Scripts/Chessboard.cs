@@ -162,6 +162,7 @@ public class Chessboard : MonoBehaviour
                     if (validMove)
                     {
                         PlayPiecePlacementSound();
+                        currentlyDragging.UpdateTurnMoved();
                         if (!isLocalGame)
                         {
                             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
@@ -557,7 +558,10 @@ public class Chessboard : MonoBehaviour
     {
         Debug.Log($"Network: Other player made a move {before} to {after}");
         ChessPiece cp = chessPieces[before.x, before.y];
-        // Guaranteed to be valid
+        cp.UpdateTurnMoved();
+        PlayPiecePlacementSound();
+
+        // Guaranteed to be valid, but check just in case
         bool validMove = MoveTo(cp, after.x, after.y, true);
         if (!validMove)
         {

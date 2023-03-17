@@ -188,9 +188,9 @@ public class GameManager : NetworkBehaviour
         Chessboard.instance.disableRaycast = false;
     }
 
-    public void OpenInfoWindow(ChessPieceProfileSO profile)
+    public void OpenInfoWindow(ChessPiece piece)
     {
-        infoWindow.profile = profile;
+        infoWindow.piece = piece;
         infoWindow.ShowInfoWindow();
         CloseActionMenu();
     }

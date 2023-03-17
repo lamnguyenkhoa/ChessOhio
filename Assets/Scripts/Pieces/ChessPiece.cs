@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ChessPiece : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class ChessPiece : MonoBehaviour
     public bool lockedControl = false;
 
     [Header("Common Stat")]
-    public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>();
+    public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>(); // Not display in InfoWindow
+    private int turnMoved = 0;
 
     [Header("Logic stat")]
     public int timeMoveAgain; // How many time this piece move again (due to its ability)
@@ -96,6 +98,11 @@ public class ChessPiece : MonoBehaviour
         }
     }
 
+    public virtual void UpdateTurnMoved()
+    {
+        turnMoved += 1;
+    }
+
     public virtual bool CanMoveAgainAfterCapture()
     {
         return false;
@@ -114,5 +121,16 @@ public class ChessPiece : MonoBehaviour
     public virtual bool IsEssential()
     {
         return false;
+    }
+
+    public virtual int GetStatCapturedNumber()
+    {
+        int sum = captureHistory.Values.Sum();
+        return sum;
+    }
+
+    public virtual int GetStatTurnMoved()
+    {
+        return turnMoved;
     }
 }

@@ -64,7 +64,7 @@ public class ActionMenu : MonoBehaviour
 
     public void OnInfoButton()
     {
-        GameManager.instance.OpenInfoWindow(currentSelectPiece.profile);
+        GameManager.instance.OpenInfoWindow(currentSelectPiece);
         currentSelectPiece = null;
     }
 
