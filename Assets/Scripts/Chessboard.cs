@@ -389,6 +389,7 @@ public class Chessboard : MonoBehaviour
         TextMeshProUGUI victoryText = victoryScreen.transform.Find("VictoryText").GetComponent<TextMeshProUGUI>();
         victoryText.text = winningTeam == PieceTeam.WHITE ? "White team wins" : "Black team win";
         victoryScreen.SetActive(true);
+        pauseGame = true;
     }
     public void OnResetButton()
     {
