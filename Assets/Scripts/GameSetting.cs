@@ -38,6 +38,7 @@ public class GameSetting : NetworkBehaviour
     private string ipAddress = "127.0.0.1";
     public int turnForNewRule = 5;
     public bool showToolTip = false;
+    public bool muteBGM = false;
 
     [Header("Lobby stuff")]
     public Button whiteTeamButton;
@@ -115,11 +116,16 @@ public class GameSetting : NetworkBehaviour
     {
         if (hostConnected.Value && clientConnected.Value)
         {
-            if (IsHost)
-            {
-                NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
-            }
+            // Tell the host to load the ingame scene
+            LoadIngameSceneServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void LoadIngameSceneServerRpc()
+    {
+        Debug.Log("Load scene AAAAA");
+        NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
     }
 
     public void OnStartLocalButton()

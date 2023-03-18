@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Chessboard : MonoBehaviour
 {
@@ -391,43 +392,10 @@ public class Chessboard : MonoBehaviour
     }
     public void OnResetButton()
     {
-        // Fields reset
-        currentlyDragging = null;
-        availableMoves.Clear();
-        specialMoves.Clear();
-        moveList.Clear();
-        gameFinished = false;
-
-        // UI
-        victoryScreen.SetActive(false);
-
-        // Cleanup
-        for (int x = 0; x < TILE_COUNT_X; x++)
-        {
-            for (int y = 0; y < TILE_COUNT_Y; y++)
-            {
-                if (chessPieces[x, y] != null)
-                    Destroy(chessPieces[x, y].gameObject);
-                chessPieces[x, y] = null;
-            }
-        }
-
-        for (int i = 0; i < deadWhites.Count; i++)
-        {
-            Destroy(deadWhites[i].gameObject);
-        }
-        for (int i = 0; i < deadBlacks.Count; i++)
-        {
-            Destroy(deadBlacks[i].gameObject);
-        }
-
-        deadWhites.Clear();
-        deadBlacks.Clear();
-
-        // Respawn
-        SpawnAllPieces();
-        PositionAllPieces();
-        GameManager.instance.ResetGame();
+        if (isLocalGame)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        else
+            GameManager.instance.ResetLANGame();
     }
 
     public void EndTurn(bool sendNotification = false)

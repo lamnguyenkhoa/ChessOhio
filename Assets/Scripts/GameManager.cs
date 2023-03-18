@@ -19,6 +19,9 @@ public class GameManager : NetworkBehaviour
     public InfoWindow infoWindow;
     public GameObject helpWindow;
 
+    public bool hostResetConfirmed = false;
+    public bool clientResetConfirmed = false;
+
 
     private void Awake()
     {
@@ -50,10 +53,27 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    public void ResetGame()
+    public void ResetLANGame()
     {
-
+        // Wait until both player press the reset button
+        ConfirmResetServerRpc(IsHost);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ConfirmResetServerRpc(bool isHost)
+    {
+        if (isHost)
+            hostResetConfirmed = true;
+        else
+            clientResetConfirmed = true;
+        if (hostResetConfirmed && clientResetConfirmed)
+        {
+            hostResetConfirmed = false;
+            clientResetConfirmed = false;
+            GameSetting.instance.LoadIngameSceneServerRpc();
+        }
+    }
+
 
     [ClientRpc]
     private void SetupEachPlayerClientRpc(PieceTeam hostChosenTeam)
