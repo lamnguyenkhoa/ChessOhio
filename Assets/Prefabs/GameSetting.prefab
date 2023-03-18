@@ -62,6 +62,8 @@ MonoBehaviour:
   versionText: {fileID: 0}
   hideIfWebGL:
   - {fileID: 0}
+  localWindow: {fileID: 0}
+  LANWindow: {fileID: 0}
 --- !u!114 &2235959496845501378
 MonoBehaviour:
   m_ObjectHideFlags: 0

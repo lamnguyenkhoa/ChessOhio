@@ -1,24 +1,27 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PromotionScreen : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public GameObject buttonArea;
     public GameObject descriptionArea;
+    public Image image;
+    // Piece that about to be promoted
     public ChessPieceProfileSO pieceProfile;
 
     private void OnEnable()
     {
         if (pieceProfile == null)
             return;
+        image.gameObject.SetActive(false);
+        descriptionArea.GetComponent<TextMeshProUGUI>().text = "";
 
-        descriptionArea.GetComponent<TextMeshProUGUI>().text = pieceProfile.description;
         foreach (ChessPieceProfileSO promoProfile in pieceProfile.possiblePromoProfiles)
         {
             PromoButton promoButton = GameObject.Instantiate(buttonPrefab, buttonArea.transform).GetComponent<PromoButton>();
             promoButton.Setup(this, promoProfile);
-            promoButton.RefreshButtonData();
         }
     }
 
