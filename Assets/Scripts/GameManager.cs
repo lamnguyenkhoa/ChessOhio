@@ -275,7 +275,6 @@ public class GameManager : NetworkBehaviour
 
     public void SetDisplayCardProfile(RuleCardSO profile)
     {
-
         displayRuleCard.SetActive(true);
         displayRuleCard.GetComponent<RuleCard>().profile = profile;
         displayRuleCard.GetComponent<RuleCard>().RefreshCardInfo();

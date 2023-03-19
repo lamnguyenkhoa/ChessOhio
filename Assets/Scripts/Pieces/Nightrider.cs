@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Nightrider : ChessPiece
 {
-    public override List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    public override List<Vector2Int> GetNormalMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
 

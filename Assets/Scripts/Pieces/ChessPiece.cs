@@ -32,9 +32,35 @@ public class ChessPiece : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
     }
 
-    public virtual List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    public virtual List<Vector2Int> GetNormalMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = new List<Vector2Int>();
+        return availableMoves;
+    }
+
+    /// <summary>
+    /// Has rule-filtered moves.
+    /// </summary>
+    /// <returns></returns>
+    public List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    {
+        List<Vector2Int> availableMoves = GetNormalMoves(ref board, tileCountX, tileCountY);
+        if (GameRule.instance.activatedConstraintRule == UniqueRuleCode.CONSTRAINT_FORCE_CAPTURE)
+        {
+            List<Vector2Int> captureOnlyMoves = new List<Vector2Int>();
+            foreach (Vector2Int move in availableMoves)
+            {
+                //If this tile has enemy piece
+                if (board[move.x, move.y] != null && board[move.x, move.y].team != team)
+                {
+                    captureOnlyMoves.Add(move);
+                }
+            }
+            if (captureOnlyMoves.Count > 0)
+            {
+                availableMoves = captureOnlyMoves;
+            }
+        }
         return availableMoves;
     }
 

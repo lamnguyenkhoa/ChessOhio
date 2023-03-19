@@ -75,11 +75,14 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void RefreshCardInfo()
     {
-        if (profile.sprite)
-            image.sprite = profile.sprite;
+        image.sprite = profile.sprite;
         image.gameObject.SetActive(true);
         ruleName.text = profile.ruleName;
         description.text = profile.description;
+        if (profile.type == RuleType.CONSTRAINT_RULE)
+        {
+            transform.Find("Background").GetComponent<Image>().color = new Color(0.3f, 0.02f, 0.02f, 1); // Dark red color
+        }
     }
 
     public void DisplayHiddenCardInfo()

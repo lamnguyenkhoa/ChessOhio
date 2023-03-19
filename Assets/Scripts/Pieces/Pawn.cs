@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Pawn : ChessPiece
 {
-    public override List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    public override List<Vector2Int> GetNormalMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         int BLACK_PAWN_Y_START = tileCountY - 2;
         int WHITE_PAWN_Y_START = 1;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
   m_Name: ConstraintForceCapture
   m_EditorClassIdentifier: 
-  ruleName: 'Constraint: Force capture'
-  description: If your piece can capture another piece, you MUST do it.
+  ruleName: Chess but piece are bloodthirsty
+  description: If your pieces can capture another piece, you MUST do it.
   type: 4
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 72af56d556c97df4c9163ae07f4577c1, type: 3}
   unlockRules: []
   invertBefore: 0
   invertAfter: 0
