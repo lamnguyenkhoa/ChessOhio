@@ -1,8 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 using TMPro;
-
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -298,5 +297,10 @@ public class GameManager : NetworkBehaviour
             Chessboard.instance.pauseGame = false;
         }
         helpWindow.SetActive(!helpWindow.activeSelf);
+    }
+
+    public void OnMainMenuButton()
+    {
+        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
     }
 }
