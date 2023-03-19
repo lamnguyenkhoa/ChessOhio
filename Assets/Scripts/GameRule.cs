@@ -107,6 +107,7 @@ public class GameRule : MonoBehaviour
         activeRulePool.Remove(chosenRule);
         activatedRule.Add(chosenRule);
         RuleImplementinator(chosenRule);
+        GameManager.instance.QuickRefreshViewChosenRule(chosenRule);
         if (!Chessboard.instance.isLocalGame && sendNotification)
         {
             int ruleCardId = Array.FindIndex(availableRule, ruleCard => ruleCard.ruleName == chosenRule.ruleName);

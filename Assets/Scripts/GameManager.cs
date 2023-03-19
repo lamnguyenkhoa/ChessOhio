@@ -268,8 +268,22 @@ public class GameManager : NetworkBehaviour
         }
         displayRuleCard.SetActive(false);
         viewChosenRuleDisplay.SetActive(!viewChosenRuleDisplay.activeSelf);
+    }
 
-
+    /// <summary>
+    /// Use when select a rule card while "view all chosen rule card" is active
+    /// </summary>
+    public void QuickRefreshViewChosenRule(RuleCardSO ruleProfile)
+    {
+        Transform viewChosenRuleContent = viewChosenRuleDisplay.transform.Find("Scroll View").GetChild(0).GetChild(0);
+        if (viewChosenRuleDisplay.activeSelf)
+        {
+            RuleCard ruleCard = Instantiate(GameRule.instance.ruleCardPrefab, viewChosenRuleContent).GetComponent<RuleCard>();
+            ruleCard.profile = ruleProfile;
+            ruleCard.showDetails = true;
+            ruleCard.finished = true;
+            ruleCard.RefreshCardInfo();
+        }
     }
 
     public void SetDisplayCardProfile(RuleCardSO profile)
