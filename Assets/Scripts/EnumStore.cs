@@ -14,7 +14,7 @@ public enum UniqueRuleCode
     SP_PROMO_BISHOP_ARCHBISHOP,
     SP_PROMO_KNIGHT_CAVALIER,
     SP_PROMO_CAVALIER_PALADIN,
-
+    CONSTRAINT_FORCE_CAPTURE
 }
 
 public enum RuleType
@@ -27,10 +27,10 @@ public enum RuleType
     COMBINE_RULE,
     // Transform after doing something special. Can transform at a later time, doesn't have to be immediately.
     SPECIAL_PROMO_RULE,
-    // Modify base rule. Something like knight can only move to black square, or pawn can capture front.
-    MODIFICATION_RULE,
-    // UNIQUE: New rule, such as Monopoly housing, throw dice or move outside grid
-    UNIQUE_RULE
+    // Very special rule. Only 1 can be in effect. Check youtube ChessSimp for general idea.
+    CONSTRAINT_RULE,
+    // Funny rule, such as Monopoly housing, throw dice or move outside grid
+    OHIO_RULE
 }
 
 /// <summary>

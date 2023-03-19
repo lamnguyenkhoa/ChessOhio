@@ -124,7 +124,6 @@ public class GameSetting : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void LoadIngameSceneServerRpc()
     {
-        Debug.Log("Load scene AAAAA");
         NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
     }
 

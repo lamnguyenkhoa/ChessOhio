@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
+  m_Name: ConstraintForceCapture
+  m_EditorClassIdentifier: 
+  ruleName: 'Constraint: Force capture'
+  description: If your piece can capture another piece, you MUST do it.
+  type: 4
+  sprite: {fileID: 0}
+  unlockRules: []
+  invertBefore: 0
+  invertAfter: 0
+  combineStart: 0
+  combineResult: 0
+  combineMaterials: 
+  promoBefore: 0
+  promoAfter: 0
+  promoRuleCode: 0
+  constraintRuleCode: 4

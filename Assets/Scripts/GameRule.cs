@@ -11,6 +11,8 @@ public class GameRule : MonoBehaviour
     public Dictionary<PieceType, RuleCardSO> invertDict = new Dictionary<PieceType, RuleCardSO>();
     public Dictionary<PieceType, RuleCardSO> combineDict = new Dictionary<PieceType, RuleCardSO>();
     public Dictionary<PieceType, RuleCardSO> spPromoDict = new Dictionary<PieceType, RuleCardSO>();
+    public UniqueRuleCode activatedConstraintRule = UniqueRuleCode.NONE;
+
     // Every rulecardSO.
     public RuleCardSO[] availableRule;
     // Some default starting rulecardSO that can be draw. If certain conditions meet, some rule card
@@ -171,6 +173,18 @@ public class GameRule : MonoBehaviour
             }
             if (!activeUnits.Contains(chosenRule.promoAfter))
                 activeUnits.Add(chosenRule.promoAfter);
+        }
+
+        if (chosenRule.type == RuleType.CONSTRAINT_RULE)
+        {
+            // Remove current in effect (if has any) constraint rules (except the newly added rule)
+            List<RuleCardSO> constraintRules = activatedRule.FindAll(x => x.type == RuleType.CONSTRAINT_RULE);
+            foreach (RuleCardSO rule in constraintRules)
+            {
+                if (rule.constraintRuleCode != chosenRule.constraintRuleCode)
+                    activatedRule.Remove(rule);
+            }
+            activatedConstraintRule = chosenRule.constraintRuleCode;
         }
     }
 
