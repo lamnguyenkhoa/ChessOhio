@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieceName: Cavalier
   description: Move similar to Knight but only forward or sideway. If captured enemy
-    piece, can move again. Max 1 time.
+    piece, can move again (once per turn).
   type: 11
   sprite: {fileID: 21300000, guid: 6bcbaac9df9b8254889702d2c0943459, type: 3}
   possiblePromoProfiles: []
