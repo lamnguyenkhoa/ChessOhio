@@ -52,8 +52,12 @@ MonoBehaviour:
   turnDisplay: {fileID: 0}
   actionMenu: {fileID: 0}
   textTooltip: {fileID: 0}
-  whiteTeamStuff: []
-  blackTeamStuff: []
+  whiteTeamStuff:
+  - {fileID: 0}
+  - {fileID: 0}
+  blackTeamStuff:
+  - {fileID: 0}
+  - {fileID: 0}
   exitCombineButton: {fileID: 0}
   viewChosenRuleDisplay: {fileID: 0}
   infoWindow: {fileID: 0}
@@ -114,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd65193fc9a70f84a8c006ce849224de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ruleCardParentUI: {fileID: 0}
+  ruleCardSelectContent: {fileID: 0}
+  hideRuleCardBtnText: {fileID: 0}
   ruleCardPrefab: {fileID: 3336380986862039849, guid: fef38b6c8f3f56c4e9a47fb4f88a91cd,
     type: 3}
   activatedConstraintRule: 0

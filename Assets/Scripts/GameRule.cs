@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class GameRule : MonoBehaviour
 {
-    public GameObject ruleCardParentUI;
+    public GameObject ruleCardSelectContent;
+    public TextMeshProUGUI hideRuleCardBtnText;
     public GameObject ruleCardPrefab;
     public static GameRule instance;
     public Dictionary<PieceType, RuleCardSO> invertDict = new Dictionary<PieceType, RuleCardSO>();
@@ -56,7 +58,7 @@ public class GameRule : MonoBehaviour
             RuleCardSO[] drawedCards = MyHelper.GetRandomItems(activeRulePool, n_draw);
             for (int i = 0; i < drawedCards.Length; i++)
             {
-                RuleCard ruleCard = Instantiate(ruleCardPrefab, ruleCardParentUI.transform).GetComponent<RuleCard>();
+                RuleCard ruleCard = Instantiate(ruleCardPrefab, ruleCardSelectContent.transform).GetComponent<RuleCard>();
                 ruleCard.profile = drawedCards[i];
                 bool showDetails = GameSetting.instance.isLocalGame ||
                     GameManager.instance.GetCurrentPlayer().team == teamToChoseRule;
@@ -82,17 +84,17 @@ public class GameRule : MonoBehaviour
             teamToChoseRule = PieceTeam.WHITE;
         Chessboard.instance.pauseGame = true;
         DrawRuleCard();
-        ruleCardParentUI.SetActive(true);
+        ruleCardSelectContent.transform.parent.gameObject.SetActive(true);
     }
 
     public void CloseRuleCardMenu()
     {
         Chessboard.instance.pauseGame = false;
-        foreach (Transform child in ruleCardParentUI.transform)
+        foreach (Transform child in ruleCardSelectContent.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
-        ruleCardParentUI.SetActive(false);
+        ruleCardSelectContent.transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -277,5 +279,19 @@ public class GameRule : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void OnHideSelectRuleCardButton()
+    {
+        if (ruleCardSelectContent.activeSelf)
+        {
+            ruleCardSelectContent.SetActive(false);
+            hideRuleCardBtnText.text = "Show chessboard";
+        }
+        else
+        {
+            ruleCardSelectContent.SetActive(true);
+            hideRuleCardBtnText.text = "Show rule card selection";
+        }
     }
 }
