@@ -19468,6 +19468,12 @@ PrefabInstance:
       objectReference: {fileID: 1625825886}
     - target: {fileID: 5138193932589567029, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
+      propertyPath: davieCheck
+      value: 
+      objectReference: {fileID: 265340588261577764, guid: c99b3086534d128488a4b91c34cfc12e,
+        type: 3}
+    - target: {fileID: 5138193932589567029, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
       propertyPath: helpWindow
       value: 
       objectReference: {fileID: 1532067998}

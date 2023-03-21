@@ -167,6 +167,7 @@ public class Chessboard : MonoBehaviour
                         {
                             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
                         }
+                        TestIfCheck(currentlyDragging.team);
                     }
                     else
                     {
@@ -659,5 +660,33 @@ public class Chessboard : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void TestIfCheck(PieceTeam teamJustMoved)
+    {
+        PieceTeam otherTeam = teamJustMoved == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null && chessPieces[x, y].team == teamJustMoved)
+                {
+                    ChessPiece pieceToTest = chessPieces[x, y];
+                    List<Vector2Int> moves = pieceToTest.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                    foreach (Vector2Int pos in moves)
+                    {
+                        if (chessPieces[pos.x, pos.y] != null &&
+                            chessPieces[pos.x, pos.y].IsEssential() &&
+                            chessPieces[pos.x, pos.y].team == otherTeam)
+                        {
+                            // Other king / emperor / ...
+                            GameManager.instance.ShowDavieCheck();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

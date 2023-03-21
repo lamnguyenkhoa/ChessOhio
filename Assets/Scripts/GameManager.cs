@@ -17,6 +17,7 @@ public class GameManager : NetworkBehaviour
     private GameObject displayRuleCard;
     public InfoWindow infoWindow;
     public GameObject helpWindow;
+    public GameObject davieCheck;
 
     public bool hostResetConfirmed = false;
     public bool clientResetConfirmed = false;
@@ -204,7 +205,7 @@ public class GameManager : NetworkBehaviour
     public void CloseActionMenu()
     {
         actionMenu.SetActive(false);
-        Chessboard.instance.disableRaycastCount -= 0;
+        Chessboard.instance.disableRaycastCount -= 1;
     }
 
     public void OpenInfoWindow(ChessPiece piece)
@@ -316,5 +317,11 @@ public class GameManager : NetworkBehaviour
     public void OnMainMenuButton()
     {
         SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+    }
+
+    public void ShowDavieCheck()
+    {
+        Transform canvas = GameObject.Find("Canvas").transform;
+        GameObject go = Instantiate(davieCheck, canvas);
     }
 }
