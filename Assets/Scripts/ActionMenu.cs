@@ -30,13 +30,13 @@ public class ActionMenu : MonoBehaviour
         transform.Find("PieceName").GetComponent<TextMeshProUGUI>().text = chessPiece.profile.pieceName;
 
         PieceType currentType = currentSelectPiece.type;
-        infoButton.gameObject.SetActive(true);
+        infoButton.gameObject.SetActive(true); // Info button is alway available
         moveButton.gameObject.SetActive(false);
         invertButton.gameObject.SetActive(false);
         combineButton.gameObject.SetActive(false);
         specialPromoButton.gameObject.SetActive(false);
 
-        if (currentSelectPiece.team == GameManager.instance.teamTurn && !currentSelectPiece.lockedControl)
+        if (currentSelectPiece.team == GameManager.instance.teamTurn && !currentSelectPiece.lockedControl && !Chessboard.instance.pauseGame)
         {
             if (GameSetting.instance.isLocalGame || GameManager.instance.teamTurn == GameManager.instance.GetCurrentPlayer().team)
             {

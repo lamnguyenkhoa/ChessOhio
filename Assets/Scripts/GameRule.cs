@@ -83,6 +83,8 @@ public class GameRule : MonoBehaviour
         else
             teamToChoseRule = PieceTeam.WHITE;
         Chessboard.instance.pauseGame = true;
+        Chessboard.instance.disableRaycastCount += 1;
+
         DrawRuleCard();
         ruleCardSelectContent.transform.parent.gameObject.SetActive(true);
     }
@@ -90,6 +92,7 @@ public class GameRule : MonoBehaviour
     public void CloseRuleCardMenu()
     {
         Chessboard.instance.pauseGame = false;
+        Chessboard.instance.disableRaycastCount -= 1;
         foreach (Transform child in ruleCardSelectContent.transform)
         {
             GameObject.Destroy(child.gameObject);
@@ -286,12 +289,14 @@ public class GameRule : MonoBehaviour
         if (ruleCardSelectContent.activeSelf)
         {
             ruleCardSelectContent.SetActive(false);
-            hideRuleCardBtnText.text = "Show chessboard";
+            hideRuleCardBtnText.text = "Show rule card selection";
+            Chessboard.instance.disableRaycastCount -= 1;
         }
         else
         {
             ruleCardSelectContent.SetActive(true);
-            hideRuleCardBtnText.text = "Show rule card selection";
+            hideRuleCardBtnText.text = "Show chessboard";
+            Chessboard.instance.disableRaycastCount += 1;
         }
     }
 }

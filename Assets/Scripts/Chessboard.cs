@@ -27,8 +27,8 @@ public class Chessboard : MonoBehaviour
     [Header("Logic")]
     public bool isLocalGame = false;
     public bool gameStarted = false;
-    public bool disableRaycast = false;
-    public bool pauseGame = false;
+    public int disableRaycastCount = 0; // Totally stop the Update(). Count to for multiple disable still in effect
+    public bool pauseGame = false; // Prevent modify pieces (moving, promote, ..). 
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -70,7 +70,7 @@ public class Chessboard : MonoBehaviour
 
     private void Update()
     {
-        if (!gameStarted || disableRaycast || pauseGame)
+        if (!gameStarted || disableRaycastCount > 0)
         {
             return;
         }
@@ -112,7 +112,6 @@ public class Chessboard : MonoBehaviour
                 currentHover = hitPosition;
             }
 
-
             // If we press right click
             if (Input.GetMouseButtonDown(1) && !combineMode && !currentlyDragging)
             {
@@ -124,7 +123,7 @@ public class Chessboard : MonoBehaviour
             }
 
             // If we press left click
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !pauseGame)
             {
                 // If empty hand 
                 if (!currentlyDragging)
@@ -390,6 +389,7 @@ public class Chessboard : MonoBehaviour
         victoryText.text = winningTeam == PieceTeam.WHITE ? "White team wins" : "Black team win";
         victoryScreen.SetActive(true);
         pauseGame = true;
+        disableRaycastCount += 1;
     }
     public void OnResetButton()
     {

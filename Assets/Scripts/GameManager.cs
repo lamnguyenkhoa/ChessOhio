@@ -198,13 +198,13 @@ public class GameManager : NetworkBehaviour
         actionMenu.GetComponent<ActionMenu>().Setup(piece);
         actionMenu.transform.position = pos;
         actionMenu.SetActive(true);
-        Chessboard.instance.disableRaycast = true;
+        Chessboard.instance.disableRaycastCount += 1;
     }
 
     public void CloseActionMenu()
     {
         actionMenu.SetActive(false);
-        Chessboard.instance.disableRaycast = false;
+        Chessboard.instance.disableRaycastCount -= 0;
     }
 
     public void OpenInfoWindow(ChessPiece piece)
@@ -304,11 +304,11 @@ public class GameManager : NetworkBehaviour
         if (!helpWindow.activeSelf)
         {
             // Turn help window on so we pause game
-            Chessboard.instance.pauseGame = true;
+            Chessboard.instance.disableRaycastCount += 1;
         }
         else
         {
-            Chessboard.instance.pauseGame = false;
+            Chessboard.instance.disableRaycastCount -= 1;
         }
         helpWindow.SetActive(!helpWindow.activeSelf);
     }
