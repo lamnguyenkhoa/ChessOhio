@@ -10,8 +10,8 @@ public class GameManager : NetworkBehaviour
     public TextMeshProUGUI turnDisplay;
     public GameObject actionMenu;
     public GameObject textTooltip;
-    public GameObject whiteCamera;
-    public GameObject blackCamera;
+    public GameObject[] whiteTeamStuff;
+    public GameObject[] blackTeamStuff;
     public GameObject exitCombineButton;
     public GameObject viewChosenRuleDisplay;
     private GameObject displayRuleCard;

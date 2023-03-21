@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Black team
+  m_text: Vs Bot (not implemented)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5128,7 +5128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Choose team
+  m_text: Choose team (for Host)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6097,7 +6097,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.8901961, b: 0.45882353, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.15294123, g: 1, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -7435,7 +7435,7 @@ GameObject:
   - component: {fileID: 721475753}
   - component: {fileID: 721475756}
   m_Layer: 5
-  m_Name: WhiteTeamButton
+  m_Name: VsHumanButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7459,8 +7459,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -162, y: -121}
-  m_SizeDelta: {x: 300, y: 60}
+  m_AnchoredPosition: {x: -162, y: -133.99997}
+  m_SizeDelta: {x: 300, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &721475753
 MonoBehaviour:
@@ -7486,8 +7486,8 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.8901961, b: 0.45882353, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 0.9607843, g: 0.8901961, b: 0.45882353, a: 1}
+    m_DisabledColor: {r: 0.15294118, g: 1, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -7505,19 +7505,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 721475754}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1615700442}
-        m_TargetAssemblyTypeName: GameSetting, Assembly-CSharp
-        m_MethodName: ChangeTeam
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &721475754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13543,7 +13531,7 @@ GameObject:
   - component: {fileID: 1488180471}
   - component: {fileID: 1488180474}
   m_Layer: 5
-  m_Name: BlackTeamButton
+  m_Name: VsBotButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13567,8 +13555,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 162, y: -121}
-  m_SizeDelta: {x: 300, y: 60}
+  m_AnchoredPosition: {x: 162, y: -134}
+  m_SizeDelta: {x: 300, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488180471
 MonoBehaviour:
@@ -13609,23 +13597,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1488180472}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1615700442}
-        m_TargetAssemblyTypeName: GameSetting, Assembly-CSharp
-        m_MethodName: ChangeTeam
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1488180472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14066,7 +14042,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.8901961, b: 0.45882353, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.15294118, g: 1, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -14355,7 +14331,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: White team
+  m_text: Vs Human
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14444,7 +14420,7 @@ GameObject:
   - component: {fileID: 1657197799}
   - component: {fileID: 1657197798}
   m_Layer: 5
-  m_Name: Team Text
+  m_Name: GameModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14490,7 +14466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Choose team
+  m_text: Choose game mode
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15374,12 +15350,12 @@ PrefabInstance:
         type: 3}
       propertyPath: blackTeamButton
       value: 
-      objectReference: {fileID: 1488180471}
+      objectReference: {fileID: 1604094586}
     - target: {fileID: 2235959496845501377, guid: f9f5b1ae06442d947adfea37a608069c,
         type: 3}
       propertyPath: whiteTeamButton
       value: 
-      objectReference: {fileID: 721475753}
+      objectReference: {fileID: 397011938}
     - target: {fileID: 2235959496845501377, guid: f9f5b1ae06442d947adfea37a608069c,
         type: 3}
       propertyPath: hideIfWebGL.Array.data[0]

@@ -45,6 +45,8 @@ public class GameSetting : NetworkBehaviour
     public Button blackTeamButton;
     public Button hostButton;
     public Button connectButton;
+    public Button startButton;
+
     public TextMeshProUGUI versionText;
     [SerializeField] private GameObject[] hideIfWebGL;
     public GameObject localWindow;
@@ -171,7 +173,18 @@ public class GameSetting : NetworkBehaviour
 
     public void OnQuitButton()
     {
-        Application.Quit();
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            Application.OpenURL("about:blank");
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 
     public void ChangeTeam(int team)

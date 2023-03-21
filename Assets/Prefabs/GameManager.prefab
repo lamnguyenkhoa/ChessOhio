@@ -52,12 +52,14 @@ MonoBehaviour:
   turnDisplay: {fileID: 0}
   actionMenu: {fileID: 0}
   textTooltip: {fileID: 0}
-  whiteCamera: {fileID: 0}
-  blackCamera: {fileID: 0}
+  whiteTeamStuff: []
+  blackTeamStuff: []
   exitCombineButton: {fileID: 0}
   viewChosenRuleDisplay: {fileID: 0}
   infoWindow: {fileID: 0}
   helpWindow: {fileID: 0}
+  hostResetConfirmed: 0
+  clientResetConfirmed: 0
 --- !u!114 &5138193932589567050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +117,7 @@ MonoBehaviour:
   ruleCardParentUI: {fileID: 0}
   ruleCardPrefab: {fileID: 3336380986862039849, guid: fef38b6c8f3f56c4e9a47fb4f88a91cd,
     type: 3}
+  activatedConstraintRule: 0
   availableRule:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -126,6 +129,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d2d849b160a6c4d4f8f344cd82c5c6ba, type: 2}
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
   - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
+  - {fileID: 11400000, guid: 1f06bab08c52ca84a8d7a448061bc889, type: 2}
   activeRulePool:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -136,6 +140,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d2d849b160a6c4d4f8f344cd82c5c6ba, type: 2}
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
   - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
+  - {fileID: 11400000, guid: 1f06bab08c52ca84a8d7a448061bc889, type: 2}
   activatedRule: []
   activeUnits: 
   teamToChoseRule: 1

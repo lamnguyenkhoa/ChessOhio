@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEngine;
 
 public class ChessPlayer : NetworkBehaviour
 {
@@ -40,13 +41,17 @@ public class ChessPlayer : NetworkBehaviour
 
         if (team == PieceTeam.WHITE)
         {
-            GameManager.instance.whiteCamera.SetActive(true);
-            GameManager.instance.blackCamera.SetActive(false);
+            foreach (GameObject go in GameManager.instance.whiteTeamStuff)
+                go.SetActive(true);
+            foreach (GameObject go in GameManager.instance.blackTeamStuff)
+                go.SetActive(false);
         }
         else
         {
-            GameManager.instance.whiteCamera.SetActive(false);
-            GameManager.instance.blackCamera.SetActive(true);
+            foreach (GameObject go in GameManager.instance.whiteTeamStuff)
+                go.SetActive(false);
+            foreach (GameObject go in GameManager.instance.blackTeamStuff)
+                go.SetActive(true);
         }
     }
 
