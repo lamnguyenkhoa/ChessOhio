@@ -686,4 +686,49 @@ public class Chessboard : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// Get tiles that the King shouldn't move to.
+    /// </summary>
+    /// <returns></returns>
+    public List<Vector2Int> GetDangerousTiles(PieceTeam teamToMove)
+    {
+        PieceTeam otherTeam = teamToMove == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        List<Vector2Int> dangerousTiles = new List<Vector2Int>();
+
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null && chessPieces[x, y].team == otherTeam)
+                {
+                    List<Vector2Int> moves = chessPieces[x, y].GetNormalMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                    foreach (Vector2Int move in moves)
+                    {
+                        if (!dangerousTiles.Contains(move))
+                            dangerousTiles.Add(move);
+                    }
+                }
+            }
+        }
+
+        return dangerousTiles;
+    }
+
+    public ChessPiece FindEssentialPiece(PieceTeam team)
+    {
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null &&
+                    chessPieces[x, y].team == team &&
+                    chessPieces[x, y].IsEssential())
+                {
+                    return chessPieces[x, y];
+                }
+            }
+        }
+        return null;
+    }
 }

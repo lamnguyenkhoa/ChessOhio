@@ -65,7 +65,15 @@ public class ChessPiece : MonoBehaviour
         // Remove dangerous tiles
         if (IsEssential())
         {
-            // availableMoves = availableMoves.FindAll(move => !Chessboard.instance.TestIfCheck(team, false));
+            // First temporary remove the essential piece (king, empress,...)
+            ChessPiece essentialPiece = this;
+            board[this.currentX, this.currentY] = null;
+
+            List<Vector2Int> dangerousTiles = Chessboard.instance.GetDangerousTiles(team);
+            availableMoves = availableMoves.FindAll(x => !dangerousTiles.Contains(x));
+
+            // Now add the essential piece back
+            board[this.currentX, this.currentY] = this;
         }
         return availableMoves;
     }
