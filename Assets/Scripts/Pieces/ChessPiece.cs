@@ -61,6 +61,12 @@ public class ChessPiece : MonoBehaviour
                 availableMoves = captureOnlyMoves;
             }
         }
+
+        // Remove dangerous tiles
+        if (IsEssential())
+        {
+            // availableMoves = availableMoves.FindAll(move => !Chessboard.instance.TestIfCheck(team, false));
+        }
         return availableMoves;
     }
 

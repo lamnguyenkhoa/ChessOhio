@@ -169,7 +169,7 @@ public class Chessboard : MonoBehaviour
                         }
                         else
                         {
-                            TestIfCheck(currentlyDragging.team);
+                            TestIfCheck(currentlyDragging);
                         }
                     }
                     else
@@ -540,7 +540,7 @@ public class Chessboard : MonoBehaviour
         {
             Debug.LogError("Invalid move. Impossible, this should not happen.");
         }
-        TestIfCheck(cp.team);
+        TestIfCheck(cp);
     }
 
     /// <summary>
@@ -612,7 +612,6 @@ public class Chessboard : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Useful for when you want a piece move multiple time a turn. You lock
     /// all other pieces and unlock that piece only.
@@ -666,31 +665,25 @@ public class Chessboard : MonoBehaviour
         return false;
     }
 
-    public void TestIfCheck(PieceTeam teamJustMoved)
+    /// <summary>
+    /// Test if the this chess piece move going to check the enemy King
+    /// </summary>
+    /// <returns></returns>
+    public bool TestIfCheck(ChessPiece pieceJustMoved, bool showDavid = true)
     {
-        PieceTeam otherTeam = teamJustMoved == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
-
-        for (int x = 0; x < TILE_COUNT_X; x++)
+        PieceTeam otherTeam = pieceJustMoved.team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        List<Vector2Int> moves = pieceJustMoved.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+        foreach (Vector2Int pos in moves)
         {
-            for (int y = 0; y < TILE_COUNT_Y; y++)
+            if (chessPieces[pos.x, pos.y] != null &&
+                chessPieces[pos.x, pos.y].IsEssential() &&
+                chessPieces[pos.x, pos.y].team == otherTeam)
             {
-                if (chessPieces[x, y] != null && chessPieces[x, y].team == teamJustMoved)
-                {
-                    ChessPiece pieceToTest = chessPieces[x, y];
-                    List<Vector2Int> moves = pieceToTest.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-                    foreach (Vector2Int pos in moves)
-                    {
-                        if (chessPieces[pos.x, pos.y] != null &&
-                            chessPieces[pos.x, pos.y].IsEssential() &&
-                            chessPieces[pos.x, pos.y].team == otherTeam)
-                        {
-                            // Other king / emperor / ...
-                            GameManager.instance.ShowDavieCheck();
-                            break;
-                        }
-                    }
-                }
+                if (showDavid)
+                    GameManager.instance.ShowDavieCheck();
+                return true;
             }
         }
+        return false;
     }
 }
