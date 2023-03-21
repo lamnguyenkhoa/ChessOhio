@@ -167,7 +167,10 @@ public class Chessboard : MonoBehaviour
                         {
                             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
                         }
-                        TestIfCheck(currentlyDragging.team);
+                        else
+                        {
+                            TestIfCheck(currentlyDragging.team);
+                        }
                     }
                     else
                     {
@@ -537,6 +540,7 @@ public class Chessboard : MonoBehaviour
         {
             Debug.LogError("Invalid move. Impossible, this should not happen.");
         }
+        TestIfCheck(cp.team);
     }
 
     /// <summary>

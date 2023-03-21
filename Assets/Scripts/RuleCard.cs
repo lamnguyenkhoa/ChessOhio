@@ -83,6 +83,10 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             transform.Find("Background").GetComponent<Image>().color = new Color(0.3f, 0.02f, 0.02f, 1); // Dark red color
         }
+        else
+        {
+            transform.Find("Background").GetComponent<Image>().color = new Color(0.2352941f, 0.2352941f, 0.2352941f, 1); // Default gray color
+        }
     }
 
     public void DisplayHiddenCardInfo()
