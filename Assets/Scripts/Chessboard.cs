@@ -144,12 +144,7 @@ public class Chessboard : MonoBehaviour
                             }
                             else
                             {
-                                currentlyDragging = hitCp;
-                                // A list of basic movement of this piece
-                                availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-                                // Get a list of special move
-                                specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-                                HighlightTiles();
+                                SetCurrentlyDraggingPiece(hitCp);
                             }
                         }
                     }
@@ -512,7 +507,7 @@ public class Chessboard : MonoBehaviour
             cp.timeMoveAgain += 1;
             cp.lockedControl = false;
             // Check if any available move again to prevent stuck
-            List<Vector2Int> tmpMoves = cp.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+            List<Vector2Int> tmpMoves = cp.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
             if (tmpMoves.Count == 0)
             {
                 EndTurn(true);
@@ -601,6 +596,11 @@ public class Chessboard : MonoBehaviour
         return ref chessPieces;
     }
 
+    public ref List<Vector2Int[]> GetMoveList()
+    {
+        return ref moveList;
+    }
+
     public void IncreaseTurnCount()
     {
         turnCount += 1;
@@ -642,10 +642,7 @@ public class Chessboard : MonoBehaviour
         if (IsPieceLegalToInteract(piece) && !combineMode)
         {
             currentlyDragging = piece;
-            // A list of basic movement of this piece
-            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-            // Get a list of special move
-            specialMoves = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
             HighlightTiles();
         }
     }
@@ -672,7 +669,7 @@ public class Chessboard : MonoBehaviour
     public bool TestIfCheck(ChessPiece pieceJustMoved, bool showDavid = true)
     {
         PieceTeam otherTeam = pieceJustMoved.team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
-        List<Vector2Int> moves = pieceJustMoved.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+        List<Vector2Int> moves = pieceJustMoved.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
         foreach (Vector2Int pos in moves)
         {
             if (chessPieces[pos.x, pos.y] != null &&
@@ -702,7 +699,7 @@ public class Chessboard : MonoBehaviour
             {
                 if (chessPieces[x, y] != null && chessPieces[x, y].team == otherTeam)
                 {
-                    List<Vector2Int> moves = chessPieces[x, y].GetNormalMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+                    List<Vector2Int> moves = chessPieces[x, y].GetAttackMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
                     foreach (Vector2Int move in moves)
                     {
                         if (!dangerousTiles.Contains(move))
@@ -731,4 +728,5 @@ public class Chessboard : MonoBehaviour
         }
         return null;
     }
+
 }

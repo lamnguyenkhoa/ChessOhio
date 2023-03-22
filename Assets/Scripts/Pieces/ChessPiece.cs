@@ -42,9 +42,11 @@ public class ChessPiece : MonoBehaviour
     /// Has rule-filtered moves.
     /// </summary>
     /// <returns></returns>
-    public List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    public List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, ref List<SpecialMove> specialMoves, int tileCountX, int tileCountY)
     {
         List<Vector2Int> availableMoves = GetNormalMoves(ref board, tileCountX, tileCountY);
+        specialMoves = GetSpecialMoves(ref board, ref Chessboard.instance.GetMoveList(), ref availableMoves);
+
         if (GameRule.instance.activatedConstraintRule == UniqueRuleCode.CONSTRAINT_FORCE_CAPTURE)
         {
             List<Vector2Int> captureOnlyMoves = new List<Vector2Int>();
@@ -62,7 +64,7 @@ public class ChessPiece : MonoBehaviour
             }
         }
 
-        // Remove dangerous tiles
+        // Remove dangerous tiles for essential piece.
         if (IsEssential())
         {
             // First temporary remove the essential piece (king, empress,...)
@@ -172,5 +174,16 @@ public class ChessPiece : MonoBehaviour
     public virtual int GetStatTurnMoved()
     {
         return turnMoved;
+    }
+
+    /// <summary>
+    /// Tile that this piece can potentially reach and capture the King.
+    /// Example: Pawn has 3 tiles: front, front left and front right.
+    /// We don't check if there any enemy piece on the front left or front right tile.
+    /// </summary>
+    /// <returns></returns>
+    public virtual List<Vector2Int> GetAttackMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    {
+        return GetNormalMoves(ref board, tileCountX, tileCountY);
     }
 }

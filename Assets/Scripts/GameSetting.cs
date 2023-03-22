@@ -173,11 +173,7 @@ public class GameSetting : NetworkBehaviour
 
     public void OnQuitButton()
     {
-        if (Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        else if (Application.platform == RuntimePlatform.WebGLPlayer)
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             Application.OpenURL("about:blank");
         }

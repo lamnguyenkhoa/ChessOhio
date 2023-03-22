@@ -114,4 +114,24 @@ public class Pawn : ChessPiece
             PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK };
         return possiblePromotions;
     }
+
+    public override List<Vector2Int> GetAttackMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
+    {
+        List<Vector2Int> attackMoves = new List<Vector2Int>();
+        int BLACK_PAWN_Y_START = tileCountY - 2;
+        int direction = (team == PieceTeam.WHITE) ? 1 : -1;
+        if (WithinBoundaryAfterMove(0, direction))
+        {
+            if (currentX != tileCountX - 1)
+            {
+                attackMoves.Add(new Vector2Int(currentX + 1, currentY + direction));
+            }
+            if (currentX != 0)
+            {
+                attackMoves.Add(new Vector2Int(currentX - 1, currentY + direction));
+            }
+        }
+
+        return attackMoves;
+    }
 }
