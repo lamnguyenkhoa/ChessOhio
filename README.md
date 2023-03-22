@@ -1,6 +1,6 @@
 # Chess in Ohio
 
-Chess but every x turn a new rule is added. Chaos ensured.
+Chess but every 5 turn a new rule is added. Chaos ensured.
 
 ## Download links
 

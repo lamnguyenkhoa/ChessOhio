@@ -72,7 +72,7 @@ public class ChessPiece : MonoBehaviour
             board[this.currentX, this.currentY] = null;
 
             List<Vector2Int> dangerousTiles = Chessboard.instance.GetDangerousTiles(team);
-            availableMoves = availableMoves.FindAll(x => !dangerousTiles.Contains(x));
+            availableMoves = availableMoves.FindAll(x => !Chessboard.instance.IsThisTileDangerous(x, team));
 
             // Now add the essential piece back
             board[this.currentX, this.currentY] = this;

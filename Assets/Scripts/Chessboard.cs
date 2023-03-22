@@ -729,4 +729,32 @@ public class Chessboard : MonoBehaviour
         return null;
     }
 
+    public bool IsThisTileDangerous(Vector2Int pos, PieceTeam teamToMove)
+    {
+        PieceTeam otherTeam = teamToMove == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        ChessPiece tmp = chessPieces[pos.x, pos.y];
+
+        // If this tile is the enemy essential piece (which mean wining the game)
+        // then it's not dangerous anymore.
+        if (tmp != null && tmp.IsEssential() && tmp.team == otherTeam)
+        {
+            return false;
+        }
+
+        // Temporary remove unit
+        chessPieces[pos.x, pos.y] = null;
+
+        List<Vector2Int> dangerouseTiles = GetDangerousTiles(teamToMove);
+        if (dangerouseTiles.Contains(pos))
+        {
+            chessPieces[pos.x, pos.y] = tmp;
+            return true;
+        }
+
+        // Return piece back to board
+        chessPieces[pos.x, pos.y] = tmp;
+
+        return false;
+    }
+
 }
