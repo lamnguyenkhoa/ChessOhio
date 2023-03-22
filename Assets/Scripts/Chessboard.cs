@@ -663,25 +663,25 @@ public class Chessboard : MonoBehaviour
     }
 
     /// <summary>
-    /// Test if the this chess piece move going to check the enemy King
+    /// Test if after this move, are we going to check the enemy essential piece?
     /// </summary>
     /// <returns></returns>
     public bool TestIfCheck(ChessPiece pieceJustMoved, bool showDavid = true)
     {
         PieceTeam otherTeam = pieceJustMoved.team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
-        List<Vector2Int> moves = pieceJustMoved.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
-        foreach (Vector2Int pos in moves)
+        ChessPiece enemyTarget = FindEssentialPiece(otherTeam);
+        bool isDangerous = IsThisTileDangerous(new Vector2Int(enemyTarget.currentX, enemyTarget.currentY), otherTeam);
+        if (isDangerous && showDavid)
         {
-            if (chessPieces[pos.x, pos.y] != null &&
-                chessPieces[pos.x, pos.y].IsEssential() &&
-                chessPieces[pos.x, pos.y].team == otherTeam)
-            {
-                if (showDavid)
-                    GameManager.instance.ShowDavieCheck();
-                return true;
-            }
+            GameManager.instance.ShowDavieCheck();
+            // List<ChessPiece> attackers = WhoTargetThisPiece(enemyTarget);
+            // foreach (ChessPiece attacker in attackers)
+            // {
+            //     Debug.Log($"Attacker {attacker}");
+            // }
         }
-        return false;
+
+        return isDangerous;
     }
 
     /// <summary>
@@ -755,6 +755,28 @@ public class Chessboard : MonoBehaviour
         chessPieces[pos.x, pos.y] = tmp;
 
         return false;
+    }
+
+    public List<ChessPiece> WhoTargetThisPiece(ChessPiece targetedPiece)
+    {
+        List<ChessPiece> attackers = new List<ChessPiece>();
+        PieceTeam otherTeam = targetedPiece.team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null &&
+                    chessPieces[x, y].team == otherTeam)
+                {
+                    List<Vector2Int> moves = chessPieces[x, y].GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
+                    if (moves.Contains(new Vector2Int(targetedPiece.currentX, targetedPiece.currentY)))
+                    {
+                        attackers.Add(chessPieces[x, y]);
+                    }
+                }
+            }
+        }
+        return attackers;
     }
 
 }
