@@ -133,7 +133,6 @@ public class GameRule : MonoBehaviour
 
     public void RuleImplementinator(RuleCardSO chosenRule)
     {
-
         if (chosenRule.type == RuleType.INVERT_RULE)
         {
             if (!invertDict.ContainsKey(chosenRule.invertBefore))
@@ -192,6 +191,8 @@ public class GameRule : MonoBehaviour
             }
             activatedConstraintRule = chosenRule.constraintRuleCode;
         }
+
+        SceneMainLight.instance.UpdateSceneLight();
     }
 
     public void AddOrRemovePiecesToCombine(ChessPiece cp)

@@ -2,6 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : NetworkBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : NetworkBehaviour
     public InfoWindow infoWindow;
     public GameObject helpWindow;
     public GameObject davieCheck;
+    public Light mainLight;
 
     public bool hostResetConfirmed = false;
     public bool clientResetConfirmed = false;
