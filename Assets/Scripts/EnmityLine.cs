@@ -42,17 +42,13 @@ public class EnmityLine : MonoBehaviour
             return;
         // Delay a bit to wait the piece fully positioned.
         attacker.hasEnmityLine = true;
-        StartCoroutine(ShowTheRedLine());
-    }
-
-    IEnumerator ShowTheRedLine()
-    {
-        yield return new WaitForSeconds(0.2f);
-        Vector3 start = attacker.transform.position;
-        Vector3 end = receiver.transform.position;
+        Vector3 start = Chessboard.instance.GetTileCenter(attacker.currentX, attacker.currentY, true);
+        Vector3 end = Chessboard.instance.GetTileCenter(receiver.currentX, receiver.currentY, true);
 
         line.positionCount = 2;
         line.SetPosition(0, start);
         line.SetPosition(1, end);
+
     }
+
 }

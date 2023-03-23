@@ -166,10 +166,7 @@ public class Chessboard : MonoBehaviour
                         {
                             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
                         }
-                        else
-                        {
-                            TestIfCheck(currentlyDragging.team);
-                        }
+                        TestIfCheck(currentlyDragging.team);
                     }
                     else
                     {
@@ -353,10 +350,17 @@ public class Chessboard : MonoBehaviour
         chessPieces[x, y].currentY = y;
         chessPieces[x, y].SetPosition(GetTileCenter(x, y), instant);
     }
-    public Vector3 GetTileCenter(int x, int y)
+    public Vector3 GetTileCenter(int x, int y, bool worldSpace = false)
     {
-        return new Vector3(x * tileSize, yOffset, y * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2);
+        Vector3 localPosition = new Vector3(x * tileSize, yOffset, y * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2);
+        if (worldSpace)
+        {
+            Vector3 worldPosition = transform.TransformPoint(localPosition);
+            return worldPosition;
+        }
+        return localPosition;
     }
+
     private void HighlightTiles()
     {
         for (int i = 0; i < availableMoves.Count; i++)
