@@ -85,8 +85,8 @@ public class GameRule : MonoBehaviour
         Chessboard.instance.pauseGame = true;
         Chessboard.instance.disableRaycastCount += 1;
 
-        DrawRuleCard();
         ruleCardSelectContent.transform.parent.gameObject.SetActive(true);
+        DrawRuleCard();
     }
 
     public void CloseRuleCardMenu()
