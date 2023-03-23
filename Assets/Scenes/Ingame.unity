@@ -18780,6 +18780,12 @@ PrefabInstance:
       propertyPath: victoryScreen
       value: 
       objectReference: {fileID: 520614264}
+    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
+        type: 3}
+      propertyPath: enmityLinePrefab
+      value: 
+      objectReference: {fileID: 1501376258485295409, guid: 6beb745fedd28834ab68fbe1c12040f8,
+        type: 3}
     - target: {fileID: 2132279431527156416, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: m_RootOrder

@@ -23,6 +23,10 @@ public class Chessboard : MonoBehaviour
     [Header("Prefabs & Materials")]
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
+    [SerializeField] private GameObject enmityLinePrefab;
+    [SerializeField] private List<EnmityLine> enmityLines;
+
+
 
     [Header("Logic")]
     public bool isLocalGame = false;
@@ -164,7 +168,7 @@ public class Chessboard : MonoBehaviour
                         }
                         else
                         {
-                            TestIfCheck(currentlyDragging);
+                            TestIfCheck(currentlyDragging.team);
                         }
                     }
                     else
@@ -507,7 +511,7 @@ public class Chessboard : MonoBehaviour
             cp.timeMoveAgain += 1;
             cp.lockedControl = false;
             // Check if any available move again to prevent stuck
-            List<Vector2Int> tmpMoves = cp.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
+            List<Vector2Int> tmpMoves = cp.GetAvailableMoves();
             if (tmpMoves.Count == 0)
             {
                 EndTurn(true);
@@ -535,7 +539,7 @@ public class Chessboard : MonoBehaviour
         {
             Debug.LogError("Invalid move. Impossible, this should not happen.");
         }
-        TestIfCheck(cp);
+        TestIfCheck(cp.team);
     }
 
     /// <summary>
@@ -571,6 +575,7 @@ public class Chessboard : MonoBehaviour
 
     public void AddToDeadList(ChessPiece otherCp)
     {
+        otherCp.dead = true;
         if (otherCp.team == PieceTeam.WHITE)
         {
             deadWhites.Add(otherCp);
@@ -596,9 +601,14 @@ public class Chessboard : MonoBehaviour
         return ref chessPieces;
     }
 
-    public ref List<Vector2Int[]> GetMoveList()
+    public ref List<Vector2Int[]> GetMoveListRef()
     {
         return ref moveList;
+    }
+
+    public ref List<SpecialMove> GetSpecialMovesRef()
+    {
+        return ref specialMoves;
     }
 
     public void IncreaseTurnCount()
@@ -642,7 +652,7 @@ public class Chessboard : MonoBehaviour
         if (IsPieceLegalToInteract(piece) && !combineMode)
         {
             currentlyDragging = piece;
-            availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
+            availableMoves = currentlyDragging.GetAvailableMoves();
             HighlightTiles();
         }
     }
@@ -666,19 +676,30 @@ public class Chessboard : MonoBehaviour
     /// Test if after this move, are we going to check the enemy essential piece?
     /// </summary>
     /// <returns></returns>
-    public bool TestIfCheck(ChessPiece pieceJustMoved, bool showDavid = true)
+    public bool TestIfCheck(PieceTeam teamJustMoved, bool showDavid = true)
     {
-        PieceTeam otherTeam = pieceJustMoved.team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        // Update enmity line
+        foreach (EnmityLine line in enmityLines)
+        {
+            if (!line.CheckIfStillRelevent())
+            {
+                Destroy(line.gameObject, 0.1f);
+            }
+        }
+        enmityLines.RemoveAll(line => !line.CheckIfStillRelevent());
+
+        PieceTeam otherTeam = teamJustMoved == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
         ChessPiece enemyTarget = FindEssentialPiece(otherTeam);
         bool isDangerous = IsThisTileDangerous(new Vector2Int(enemyTarget.currentX, enemyTarget.currentY), otherTeam);
         if (isDangerous && showDavid)
         {
             GameManager.instance.ShowDavieCheck();
-            // List<ChessPiece> attackers = WhoTargetThisPiece(enemyTarget);
-            // foreach (ChessPiece attacker in attackers)
-            // {
-            //     Debug.Log($"Attacker {attacker}");
-            // }
+            List<ChessPiece> attackers = WhoTargetThisPiece(enemyTarget);
+            foreach (ChessPiece attacker in attackers)
+            {
+                if (!attacker.hasEnmityLine)
+                    SpawnEnmityLine(attacker, enemyTarget);
+            }
         }
 
         return isDangerous;
@@ -768,7 +789,7 @@ public class Chessboard : MonoBehaviour
                 if (chessPieces[x, y] != null &&
                     chessPieces[x, y].team == otherTeam)
                 {
-                    List<Vector2Int> moves = chessPieces[x, y].GetAvailableMoves(ref chessPieces, ref specialMoves, TILE_COUNT_X, TILE_COUNT_Y);
+                    List<Vector2Int> moves = chessPieces[x, y].GetAvailableMoves();
                     if (moves.Contains(new Vector2Int(targetedPiece.currentX, targetedPiece.currentY)))
                     {
                         attackers.Add(chessPieces[x, y]);
@@ -777,6 +798,15 @@ public class Chessboard : MonoBehaviour
             }
         }
         return attackers;
+    }
+
+    public void SpawnEnmityLine(ChessPiece attacker, ChessPiece receiver)
+    {
+        EnmityLine line = Instantiate(enmityLinePrefab, attacker.transform).GetComponent<EnmityLine>();
+        enmityLines.Add(line);
+        line.attacker = attacker;
+        line.receiver = receiver;
+        line.RefreshData();
     }
 
 }

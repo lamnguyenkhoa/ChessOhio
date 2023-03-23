@@ -13,6 +13,8 @@ public class ChessPiece : MonoBehaviour
     public List<PieceType> possiblePromotions = new List<PieceType>();
     public ChessPieceProfileSO profile;
     public bool lockedControl = false;
+    public bool hasEnmityLine = false;
+    public bool dead = false;
 
     [Header("Common Stat")]
     public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>(); // Not display in InfoWindow
@@ -42,10 +44,15 @@ public class ChessPiece : MonoBehaviour
     /// Has rule-filtered moves.
     /// </summary>
     /// <returns></returns>
-    public List<Vector2Int> GetAvailableMoves(ref ChessPiece[,] board, ref List<SpecialMove> specialMoves, int tileCountX, int tileCountY)
+    public List<Vector2Int> GetAvailableMoves()
     {
+        ChessPiece[,] board = Chessboard.instance.GetBoardRef();
+        List<SpecialMove> specialMoves = Chessboard.instance.GetSpecialMovesRef();
+        int tileCountX = Chessboard.TILE_COUNT_X;
+        int tileCountY = Chessboard.TILE_COUNT_Y;
+
         List<Vector2Int> availableMoves = GetNormalMoves(ref board, tileCountX, tileCountY);
-        specialMoves = GetSpecialMoves(ref board, ref Chessboard.instance.GetMoveList(), ref availableMoves);
+        specialMoves = GetSpecialMoves(ref board, ref Chessboard.instance.GetMoveListRef(), ref availableMoves);
 
         if (GameRule.instance.activatedConstraintRule == UniqueRuleCode.CONSTRAINT_FORCE_CAPTURE)
         {
@@ -185,4 +192,5 @@ public class ChessPiece : MonoBehaviour
     {
         return GetNormalMoves(ref board, tileCountX, tileCountY);
     }
+
 }
