@@ -378,7 +378,7 @@ public class Chessboard : MonoBehaviour
     /// Checkmate
     /// </summary>
     /// <param name="team">Team that got checkmated</param>
-    private void CheckMate(PieceTeam team)
+    public void CheckMate(PieceTeam team)
     {
         if (team == PieceTeam.WHITE)
             DisplayVictory(PieceTeam.BLACK);

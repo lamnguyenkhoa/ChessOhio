@@ -326,4 +326,27 @@ public class GameManager : NetworkBehaviour
         Transform canvas = GameObject.Find("Canvas").transform;
         GameObject go = Instantiate(davieCheck, canvas);
     }
+
+    public void NotifySurrender(PieceTeam teamThatSurrender)
+    {
+        if (IsHost)
+            NotifySurrenderClientRpc(teamThatSurrender);
+        else
+            NotifySurrenderServerRpc(teamThatSurrender);
+    }
+
+    [ClientRpc]
+    private void NotifySurrenderClientRpc(PieceTeam teamThatSurrender)
+    {
+        if (!IsHost)
+        {
+            Chessboard.instance.CheckMate(teamThatSurrender);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void NotifySurrenderServerRpc(PieceTeam teamThatSurrender)
+    {
+        Chessboard.instance.CheckMate(teamThatSurrender);
+    }
 }
