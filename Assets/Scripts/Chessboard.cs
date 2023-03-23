@@ -32,7 +32,7 @@ public class Chessboard : MonoBehaviour
     public bool isLocalGame = false;
     public bool gameStarted = false;
     public int disableRaycastCount = 0; // Totally stop the Update(). Count to for multiple disable still in effect
-    public bool pauseGame = false; // Prevent modify pieces (moving, promote, ..). 
+    public bool pauseGame = false; // Prevent modify pieces (moving, promote, ..).
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
@@ -88,7 +88,7 @@ public class Chessboard : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                combineMode = false;
+                GameRule.instance.ExitCombineMode();
             }
         }
 
@@ -129,7 +129,7 @@ public class Chessboard : MonoBehaviour
             // If we press left click
             if (Input.GetMouseButtonDown(0) && !pauseGame)
             {
-                // If empty hand 
+                // If empty hand
                 if (!currentlyDragging)
                 {
                     // If clicked a piece
@@ -139,7 +139,7 @@ public class Chessboard : MonoBehaviour
                         if (IsPieceLegalToInteract(hitCp))
                         {
                             // Then pick up a piece
-                            // If in combine mode, left click does not pick up piece for moving, 
+                            // If in combine mode, left click does not pick up piece for moving,
                             // but select piece for combining instead.
                             if (combineMode)
                             {
@@ -317,7 +317,6 @@ public class Chessboard : MonoBehaviour
         {
             if (child.name == "Model")
                 child.GetComponent<MeshRenderer>().material = teamMaterials[(int)team];
-
         }
 
         return cp;
@@ -368,13 +367,26 @@ public class Chessboard : MonoBehaviour
             tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Highlight");
         }
     }
-    private void RemoveHighlightTiles()
+
+    public void RemoveHighlightTiles()
     {
         for (int i = 0; i < availableMoves.Count; i++)
         {
             tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Tile");
         }
         availableMoves.Clear();
+
+        // for (int x = 0; x < TILE_COUNT_X; x++)
+        // {
+        //     for (int y = 0; y < TILE_COUNT_Y; y++)
+        //     {
+        //         if (tiles[x, y].layer == LayerMask.NameToLayer("Highlight"))
+        //         {
+        //             tiles[x, y].layer = LayerMask.NameToLayer("Tile");
+        //         }
+        //     }
+        // }
+        // availableMoves.Clear();
     }
 
 
@@ -438,6 +450,7 @@ public class Chessboard : MonoBehaviour
         }
         return false;
     }
+
     private Vector2Int LookupTileIndex(GameObject hitInfo)
     {
         for (int x = 0; x < TILE_COUNT_X; x++)
@@ -452,6 +465,7 @@ public class Chessboard : MonoBehaviour
         }
         return -Vector2Int.one; // Invalid
     }
+
     /// <summary>
     /// Move the chess piece to the target position.
     /// </summary>
@@ -813,4 +827,28 @@ public class Chessboard : MonoBehaviour
         line.RefreshData();
     }
 
+    public void HighlightCombinableChessPieces(PieceType type, PieceTeam team)
+    {
+        // Find requested pieces
+        List<ChessPiece> pieces = new List<ChessPiece>();
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null &&
+                    chessPieces[x, y].team == team &&
+                    chessPieces[x, y].type == type)
+                {
+                    pieces.Add(chessPieces[x, y]);
+                }
+            }
+        }
+
+        // Highlight tile of those pieces
+        foreach (ChessPiece piece in pieces)
+        {
+            availableMoves.Add(new Vector2Int(piece.currentX, piece.currentY));
+            HighlightTiles();
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -93,6 +94,11 @@ public class ActionMenu : MonoBehaviour
         {
             GameRule.instance.StartCombineMode(rule, currentSelectPiece);
             GameManager.instance.CloseActionMenu();
+            List<PieceType> typesToHighlight = GameRule.instance.GetPieceTypeToHighlightInCombineMode();
+            foreach (PieceType type in typesToHighlight)
+            {
+                Chessboard.instance.HighlightCombinableChessPieces(type, GameManager.instance.teamTurn);
+            }
             currentSelectPiece = null;
         }
     }

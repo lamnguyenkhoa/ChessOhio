@@ -214,7 +214,7 @@ public class GameRule : MonoBehaviour
             cp.SetPosition(originalLocalPos + Vector3.up * Chessboard.instance.dragOffset);
             GameRule.instance.piecesToCombine.Add(cp);
 
-            // Check if fulfiled recipe materials
+            // Check if fulfilled recipe materials
             if (piecesToCombine.Count == currentCombineRecipe.combineMaterials.Length)
             {
                 PieceType[] setA = piecesToCombine.Select((piece) => piece.type).ToArray<PieceType>();
@@ -256,6 +256,7 @@ public class GameRule : MonoBehaviour
     {
         currentCombineRecipe = null;
         Chessboard.instance.combineMode = false;
+        Chessboard.instance.RemoveHighlightTiles();
         piecesToCombine.Clear();
         Chessboard.instance.PositionAllPieces(false);
         GameManager.instance.exitCombineButton.SetActive(false);
@@ -299,5 +300,19 @@ public class GameRule : MonoBehaviour
             hideRuleCardBtnText.text = "Show chessboard";
             Chessboard.instance.disableRaycastCount += 1;
         }
+    }
+
+    public List<PieceType> GetPieceTypeToHighlightInCombineMode()
+    {
+        List<PieceType> toHighlight = new List<PieceType>();
+        foreach (PieceType piece in currentCombineRecipe.combineMaterials)
+        {
+            if (!toHighlight.Contains(piece))
+            {
+                toHighlight.Add(piece);
+            }
+        }
+        toHighlight.Remove(currentCombineRecipe.combineStart);
+        return toHighlight;
     }
 }
