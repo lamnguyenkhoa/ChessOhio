@@ -46,8 +46,8 @@ public class ChessPiece : MonoBehaviour
     /// <returns></returns>
     public List<Vector2Int> GetAvailableMoves()
     {
-        ChessPiece[,] board = Chessboard.instance.GetBoardRef();
-        List<SpecialMove> specialMoves = Chessboard.instance.GetSpecialMovesRef();
+        ref ChessPiece[,] board = ref Chessboard.instance.GetBoardRef();
+        ref List<SpecialMove> specialMoves = ref Chessboard.instance.GetSpecialMovesRef();
         int tileCountX = Chessboard.TILE_COUNT_X;
         int tileCountY = Chessboard.TILE_COUNT_Y;
 

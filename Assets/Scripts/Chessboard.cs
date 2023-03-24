@@ -228,6 +228,7 @@ public class Chessboard : MonoBehaviour
             }
         }
 
+        // Highlight normal movement range
         if (currentTileHover != -Vector2Int.one)
         {
             if (currentlyHovering != chessPieces[currentTileHover.x, currentTileHover.y] &&
