@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RuleCardSO profile;
@@ -79,13 +80,18 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         image.gameObject.SetActive(true);
         ruleName.text = profile.ruleName;
         description.text = profile.description;
-        if (profile.type == RuleType.CONSTRAINT_RULE)
+
+        switch (profile.type)
         {
-            transform.Find("Background").GetComponent<Image>().color = new Color(0.3f, 0.02f, 0.02f, 1); // Dark red color
-        }
-        else
-        {
-            transform.Find("Background").GetComponent<Image>().color = new Color(0.2352941f, 0.2352941f, 0.2352941f, 1); // Default gray color
+            case RuleType.CONSTRAINT_RULE:
+                transform.Find("Background").GetComponent<Image>().color = RuleCardColors.DarkRed;
+                break;
+            case RuleType.OHIO_RULE:
+                transform.Find("Background").GetComponent<Image>().color = RuleCardColors.DarkBlue; // Dark blue color
+                break;
+            default:
+                transform.Find("Background").GetComponent<Image>().color = RuleCardColors.DefaultGrey; // Default gray color
+                break;
         }
     }
 

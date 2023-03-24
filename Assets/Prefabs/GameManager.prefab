@@ -62,6 +62,9 @@ MonoBehaviour:
   viewChosenRuleDisplay: {fileID: 0}
   infoWindow: {fileID: 0}
   helpWindow: {fileID: 0}
+  davieCheck: {fileID: 265340588261577764, guid: c99b3086534d128488a4b91c34cfc12e,
+    type: 3}
+  mainLight: {fileID: 0}
   hostResetConfirmed: 0
   clientResetConfirmed: 0
 --- !u!114 &5138193932589567050
@@ -135,6 +138,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
   - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
   - {fileID: 11400000, guid: 1f06bab08c52ca84a8d7a448061bc889, type: 2}
+  - {fileID: 11400000, guid: 787bec4357d8a7e42889141f611748b0, type: 2}
   activeRulePool:
   - {fileID: 11400000, guid: 800271c83a67c534bb70aeba63e08506, type: 2}
   - {fileID: 11400000, guid: 5aea349ca7b70ce44b11ff3bab779fb5, type: 2}
@@ -146,6 +150,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdad0c7e599e5bd4bb04238c154a8fd9, type: 2}
   - {fileID: 11400000, guid: c29f47f278315fe4888f2696694c0e10, type: 2}
   - {fileID: 11400000, guid: 1f06bab08c52ca84a8d7a448061bc889, type: 2}
+  - {fileID: 11400000, guid: 787bec4357d8a7e42889141f611748b0, type: 2}
   activatedRule: []
   activeUnits: 
   teamToChoseRule: 1

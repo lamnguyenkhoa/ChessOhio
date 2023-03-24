@@ -192,6 +192,16 @@ public class GameRule : MonoBehaviour
             activatedConstraintRule = chosenRule.constraintRuleCode;
         }
 
+        if (chosenRule.type == RuleType.OHIO_RULE)
+        {
+            // Resolve case-by-case 
+            if (chosenRule.ohioRuleCode == UniqueRuleCode.OHIO_PAWN_HUB)
+            {
+                RuleDecoration.instance.ShowPawnHub();
+                Debug.Log("PawnHub");
+            }
+        }
+
         SceneMainLight.instance.UpdateSceneLight();
     }
 

@@ -35,7 +35,7 @@ public class SceneMainLight : MonoBehaviour
     {
         if (GameRule.instance.activatedRule.Find(x => x.constraintRuleCode == UniqueRuleCode.CONSTRAINT_FORCE_CAPTURE))
         {
-            StartCoroutine(ColorShiftCoroutine(new Color(0.6f, 0, 0, 1), 0.4f, 2f));
+            StartCoroutine(ColorShiftCoroutine(new Color(0.7f, 0, 0, 1), 0.4f, 2f));
         }
         else
         {
