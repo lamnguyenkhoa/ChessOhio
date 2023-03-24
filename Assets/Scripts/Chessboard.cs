@@ -228,19 +228,6 @@ public class Chessboard : MonoBehaviour
             }
         }
 
-        // If you are hovering above a valid chess piece, show its move
-        // if (currentTileHover != -Vector2Int.one &&
-        //     currentlyHovering != chessPieces[currentTileHover.x, currentTileHover.y] &&
-        //     currentlyDragging == null && !combineMode)
-        // {
-        //     RemoveHighlightTiles();
-        //     currentlyHovering = chessPieces[currentTileHover.x, currentTileHover.y];
-        //     if (currentlyHovering != null)
-        //     {
-        //         availableMoves = currentlyHovering.GetAvailableMoves();
-        //         HighlightTiles();
-        //     }
-        // }
         if (currentTileHover != -Vector2Int.one)
         {
             if (currentlyHovering != chessPieces[currentTileHover.x, currentTileHover.y] &&
@@ -277,6 +264,7 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+
     private GameObject GenerateSingleTile(float tileSize, int x, int y)
     {
         GameObject tileObject = new GameObject($"X:{x} Y:{y}");
@@ -735,7 +723,9 @@ public class Chessboard : MonoBehaviour
 
         PieceTeam otherTeam = teamJustMoved == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
         ChessPiece enemyTarget = FindEssentialPiece(otherTeam);
-        bool isDangerous = IsThisTileDangerous(new Vector2Int(enemyTarget.currentX, enemyTarget.currentY), otherTeam);
+        bool isDangerous = false;
+        if (enemyTarget != null)
+            isDangerous = IsThisTileDangerous(new Vector2Int(enemyTarget.currentX, enemyTarget.currentY), otherTeam);
         if (isDangerous && showDavid)
         {
             GameManager.instance.ShowDavieCheck();

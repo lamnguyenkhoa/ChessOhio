@@ -35,4 +35,7 @@ public class RuleCardSO : ScriptableObject
     [ShowIf("type", RuleType.CONSTRAINT_RULE)]
     public UniqueRuleCode constraintRuleCode;
 
+    [ShowIf("type", RuleType.OHIO_RULE)]
+    public UniqueRuleCode ohioRuleCode;
+
 }
