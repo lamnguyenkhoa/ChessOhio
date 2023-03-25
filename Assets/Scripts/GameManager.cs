@@ -53,12 +53,29 @@ public class GameManager : NetworkBehaviour
         {
             SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
         }
+
+        // Observer pattern
+        Chessboard.instance.onEndTurn.AddListener(UpdateChangeTurn);
     }
 
     public void ResetLANGame()
     {
         // Wait until both player press the reset button
         ConfirmResetServerRpc(IsHost);
+    }
+
+    public void UpdateChangeTurn()
+    {
+        if (teamTurn == PieceTeam.WHITE)
+        {
+            teamTurn = PieceTeam.BLACK;
+            turnDisplay.text = "Black's turn";
+        }
+        else
+        {
+            teamTurn = PieceTeam.WHITE;
+            turnDisplay.text = "White's turn";
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

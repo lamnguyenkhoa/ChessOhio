@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Chessboard : MonoBehaviour
@@ -25,7 +25,6 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private Material[] teamMaterials;
     [SerializeField] private GameObject enmityLinePrefab;
     [SerializeField] private List<EnmityLine> enmityLines;
-
 
 
     [Header("Logic")]
@@ -52,6 +51,7 @@ public class Chessboard : MonoBehaviour
     public int turnCount;
     public bool combineMode = false;
     public bool gameFinished = false;
+    public UnityEvent onEndTurn;
 
 
     private void Awake()
@@ -437,21 +437,15 @@ public class Chessboard : MonoBehaviour
     public void EndTurn(bool sendNotification = false)
     {
         ChangeLockControlAllPiece(false);
-        if (GameManager.instance.teamTurn == PieceTeam.WHITE)
-        {
-            GameManager.instance.teamTurn = PieceTeam.BLACK;
-            GameManager.instance.turnDisplay.text = "Black's turn";
-        }
-        else
-        {
-            GameManager.instance.teamTurn = PieceTeam.WHITE;
-            GameManager.instance.turnDisplay.text = "White's turn";
-        }
+
         Chessboard.instance.IncreaseTurnCount();
         if (!Chessboard.instance.isLocalGame && sendNotification)
         {
             GameManager.instance.NotifyEndTurn();
         }
+
+        // Observer pattern
+        onEndTurn.Invoke();
     }
 
     // Operation
