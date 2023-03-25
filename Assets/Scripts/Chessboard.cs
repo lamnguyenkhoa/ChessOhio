@@ -329,6 +329,7 @@ public class Chessboard : MonoBehaviour
             chessPieces[i, 6] = SpawnSinglePiece(PieceType.PAWN, PieceTeam.BLACK);
         }
     }
+
     public ChessPiece SpawnSinglePiece(PieceType type, PieceTeam team)
     {
         GameObject gameObject = Instantiate(prefabs[(int)type - 1], transform);
@@ -348,6 +349,17 @@ public class Chessboard : MonoBehaviour
         }
 
         return cp;
+    }
+
+    public bool TrySpawnSinglePieceAt(PieceType type, PieceTeam team, Vector2Int pos, bool force = false)
+    {
+        if (chessPieces[pos.x, pos.y] != null && !force)
+        {
+            return false;
+        }
+        chessPieces[pos.x, pos.y] = SpawnSinglePiece(type, team);
+        PositionSinglePiece(pos.x, pos.y, true);
+        return true;
     }
 
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OhioPawnHub
   m_EditorClassIdentifier: 
   ruleName: Pawn Hub
-  description: Every 3 turn, spawn a new pawn at your bottom row if there any empty
+  description: Every 7 turns, spawn a new pawn at your bottom row if there any empty
     space. Prioritize from A to H.
   type: 5
   sprite: {fileID: 21300000, guid: 1b0baf6640f328146bf6458d722dce96, type: 3}
