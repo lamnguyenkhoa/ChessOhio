@@ -83,5 +83,6 @@ public enum PieceType
     EMPEROR,
     EMPRESS,
     CHANCELLOR,
-    SPY
+    SPY,
+    MOON
 }
