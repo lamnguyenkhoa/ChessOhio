@@ -274,24 +274,32 @@ public class GameRule : MonoBehaviour
 
     public bool ResolveSpecialPromoCondition(ChessPiece cp, RuleCardSO rule)
     {
-        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_BISHOP_ARCHBISHOP)
+        switch (rule.promoRuleCode)
         {
-            if (Chessboard.instance.turnCount > 30)
-                return true;
-        }
-        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_KNIGHT_CAVALIER)
-        {
-            if (cp.captureHistory.ContainsKey(PieceType.KNIGHT) &&
-                cp.captureHistory[PieceType.KNIGHT] >= 1)
-                return true;
-        }
-        if (rule.promoRuleCode == UniqueRuleCode.SP_PROMO_CAVALIER_PALADIN)
-        {
-            int otherSideY = cp.team == PieceTeam.WHITE ? 7 : 0;
-            if (cp.currentY == otherSideY)
-            {
-                return true;
-            }
+            case UniqueRuleCode.SP_PROMO_BISHOP_ARCHBISHOP:
+                if (Chessboard.instance.turnCount > 30)
+                    return true;
+                break;
+            case UniqueRuleCode.SP_PROMO_KNIGHT_CAVALIER:
+                if (cp.captureHistory.ContainsKey(PieceType.KNIGHT) &&
+                    cp.captureHistory[PieceType.KNIGHT] >= 1)
+                    return true;
+                break;
+            case UniqueRuleCode.SP_PROMO_CAVALIER_PALADIN:
+                int otherSideY = cp.team == PieceTeam.WHITE ? 7 : 0;
+                if (cp.currentY == otherSideY)
+                {
+                    return true;
+                }
+                break;
+            case UniqueRuleCode.SP_PROMO_DESERTER_SPY:
+                if (cp.captureHistory.Count > 0)
+                {
+                    return true;
+                }
+                break;
+            default:
+                break;
         }
         return false;
     }

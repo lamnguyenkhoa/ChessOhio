@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
-  m_Name: DeserterInvert
+  m_Name: SpyPromo
   m_EditorClassIdentifier: 
-  ruleName: 'Invert: Deserter'
-  description: Invert a [Pawn]. Deserter can move backward, even on tile that already
-    has unit (and capture them in process). Ally included.
-  type: 1
-  sprite: {fileID: 21300000, guid: d75328b6f69176343a9e60a132975364, type: 3}
-  unlockRules:
-  - {fileID: 11400000, guid: b133d55b109f6ea4e826053db4153421, type: 2}
-  invertBefore: 1
-  invertAfter: 8
+  ruleName: 'Promotion: Spy'
+  description: Promote from [Deserter] after captured an unit. Can move 2 tiles forward
+    or 1 tile in any other direction.
+  type: 3
+  sprite: {fileID: 21300000, guid: 5a86482efd1937b4faf9e95a31317b0c, type: 3}
+  unlockRules: []
+  invertBefore: 0
+  invertAfter: 0
   combineStart: 0
   combineResult: 0
   combineMaterials: 
-  promoBefore: 0
-  promoAfter: 0
-  promoRuleCode: 0
+  promoBefore: 8
+  promoAfter: 16
+  promoRuleCode: 6
   constraintRuleCode: 0
   ohioRuleCode: 0

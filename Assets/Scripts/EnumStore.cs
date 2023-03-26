@@ -16,6 +16,7 @@ public enum UniqueRuleCode
     SP_PROMO_CAVALIER_PALADIN,
     CONSTRAINT_FORCE_CAPTURE,
     OHIO_PAWN_HUB,
+    SP_PROMO_DESERTER_SPY,
 }
 
 public enum RuleType
@@ -81,5 +82,6 @@ public enum PieceType
     PALADIN,
     EMPEROR,
     EMPRESS,
-    CHANCELLOR
+    CHANCELLOR,
+    SPY
 }

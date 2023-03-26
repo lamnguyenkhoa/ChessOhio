@@ -108,13 +108,6 @@ public class Pawn : ChessPiece
         return false;
     }
 
-    public override List<PieceType> GetPossiblePromotions()
-    {
-        List<PieceType> possiblePromotions = new List<PieceType> { PieceType.QUEEN,
-            PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK };
-        return possiblePromotions;
-    }
-
     public override List<Vector2Int> GetAttackMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> attackMoves = new List<Vector2Int>();

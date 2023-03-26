@@ -10,7 +10,6 @@ public class ChessPiece : MonoBehaviour
     public int currentY;
     private Vector3 desiredPosition;
     private Vector3 desiredScale = Vector3.one;
-    public List<PieceType> possiblePromotions = new List<PieceType>();
     public ChessPieceProfileSO profile;
     public bool lockedControl = false;
     public bool hasEnmityLine = false;

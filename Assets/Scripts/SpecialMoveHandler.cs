@@ -108,7 +108,7 @@ public class SpecialMoveHandler : MonoBehaviour
     {
         Vector2Int[] lastMove = moveList[moveList.Count - 1];
         ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
-        if (targetPawn.type == PieceType.PAWN)
+        if (targetPawn.profile.possiblePromoProfiles.Length > 0)
         {
             int ourY = lastMove[1].y;
             if (ourY == 0 || ourY == 7)
