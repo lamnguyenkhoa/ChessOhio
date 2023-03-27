@@ -797,8 +797,8 @@ public class Chessboard : MonoBehaviour
         PieceTeam otherTeam = teamToMove == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
         ChessPiece tmp = chessPieces[pos.x, pos.y];
 
-        // If this tile is the enemy essential piece (which mean wining the game)
-        // then it's not dangerous anymore.
+        // If this tile is the enemy essential piece (which mean moving here will 
+        // win the game) then it's not dangerous anymore.
         if (tmp != null && tmp.IsEssential() && tmp.team == otherTeam)
         {
             return false;

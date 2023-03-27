@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rook : ChessPiece
+public class Cannon : ChessPiece
 {
     public override List<Vector2Int> GetNormalMoves(ref ChessPiece[,] board, int tileCountX, int tileCountY)
     {
@@ -20,21 +20,29 @@ public class Rook : ChessPiece
         {
             dirX = directions[i].x;
             dirY = directions[i].y;
+            bool capturing = false;
             while (WithinBoundaryAfterMove(dirX, dirY))
             {
                 x = currentX + dirX;
                 y = currentY + dirY;
                 if (board[x, y] == null)
                 {
-                    availableMoves.Add(new Vector2Int(x, y));
-                }
-                if (board[x, y] != null)
-                {
-                    if (board[x, y].team != team)
+                    if (!capturing)
                     {
                         availableMoves.Add(new Vector2Int(x, y));
                     }
-                    break;
+                }
+                else if (board[x, y] != null)
+                {
+                    if (!capturing)
+                    {
+                        capturing = true;
+                    }
+                    else if (board[x, y].team != team)
+                    {
+                        availableMoves.Add(new Vector2Int(x, y));
+                        break;
+                    }
                 }
                 dirX += directions[i].x;
                 dirY += directions[i].y;
@@ -43,5 +51,4 @@ public class Rook : ChessPiece
 
         return availableMoves;
     }
-
 }

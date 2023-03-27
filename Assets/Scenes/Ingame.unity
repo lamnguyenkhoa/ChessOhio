@@ -9396,7 +9396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1040852652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20129,23 +20129,6 @@ PrefabInstance:
       propertyPath: victoryScreen
       value: 
       objectReference: {fileID: 520614264}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: enmityLinePrefab
-      value: 
-      objectReference: {fileID: 1501376258485295409, guid: 6beb745fedd28834ab68fbe1c12040f8,
-        type: 3}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: prefabs.Array.size
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
-        type: 3}
-      propertyPath: prefabs.Array.data[16]
-      value: 
-      objectReference: {fileID: 8768970095247141984, guid: 9817a0f3544c7ad45a6e391e7a2d3410,
-        type: 3}
     - target: {fileID: 2132279431527156416, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: m_RootOrder
@@ -20793,28 +20776,6 @@ PrefabInstance:
       propertyPath: ruleCardSelectContent
       value: 
       objectReference: {fileID: 1147858537}
-    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
-        type: 3}
-      propertyPath: availableRule.Array.size
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
-        type: 3}
-      propertyPath: activeRulePool.Array.size
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
-        type: 3}
-      propertyPath: availableRule.Array.data[13]
-      value: 
-      objectReference: {fileID: 11400000, guid: 57cf59368a2e65c4ab0d46738cb49e84,
-        type: 2}
-    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
-        type: 3}
-      propertyPath: activeRulePool.Array.data[11]
-      value: 
-      objectReference: {fileID: 11400000, guid: 57cf59368a2e65c4ab0d46738cb49e84,
-        type: 2}
     - target: {fileID: 5138193932589567029, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
       propertyPath: actionMenu
