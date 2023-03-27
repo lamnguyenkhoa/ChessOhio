@@ -18,6 +18,8 @@ MonoBehaviour:
   type: 1
   sprite: {fileID: 21300000, guid: 7a856e0644e49c34fbaf4ebef5c47923, type: 3}
   unlockRules: []
+  conflictRules:
+  - {fileID: 11400000, guid: 09a7634c6b5e42a408c41486c0de904a, type: 2}
   invertBefore: 2
   invertAfter: 18
   combineStart: 0

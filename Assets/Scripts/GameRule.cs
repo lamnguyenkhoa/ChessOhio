@@ -125,6 +125,14 @@ public class GameRule : MonoBehaviour
             if (!activeRulePool.Contains(unlockRule))
                 activeRulePool.Add(unlockRule);
         }
+
+        // Remove conflict rules
+        foreach (RuleCardSO unlockRule in chosenRule.conflictRules)
+        {
+            if (activeRulePool.Contains(unlockRule))
+                activeRulePool.Remove(unlockRule);
+        }
+
         CloseRuleCardMenu();
 
         // Speedup the BGM a bit for fun

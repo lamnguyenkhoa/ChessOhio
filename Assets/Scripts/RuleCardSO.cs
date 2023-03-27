@@ -12,6 +12,9 @@ public class RuleCardSO : ScriptableObject
     // Unlock these rules if this rule card selected (prerequisite)
     public RuleCardSO[] unlockRules;
 
+    // Prevent these rule cards from drawed / Removed from pool (conflict)
+    public RuleCardSO[] conflictRules;
+
 
     [ShowIf("type", RuleType.INVERT_RULE)]
     public PieceType invertBefore;

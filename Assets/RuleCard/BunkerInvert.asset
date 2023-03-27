@@ -19,6 +19,8 @@ MonoBehaviour:
   type: 1
   sprite: {fileID: 21300000, guid: 04fe0ae4cea1ee84181b3a9281b73507, type: 3}
   unlockRules: []
+  conflictRules:
+  - {fileID: 11400000, guid: 0c45ee83ea9b231448819a6e790f8cc7, type: 2}
   invertBefore: 2
   invertAfter: 9
   combineStart: 0
@@ -27,3 +29,5 @@ MonoBehaviour:
   promoBefore: 0
   promoAfter: 0
   promoRuleCode: 0
+  constraintRuleCode: 0
+  ohioRuleCode: 0
