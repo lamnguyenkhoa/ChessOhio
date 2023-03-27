@@ -26,6 +26,7 @@ public class EnmityLine : MonoBehaviour
         Vector2Int receiverPos = new Vector2Int(receiver.currentX, receiver.currentY);
         if (moves.Contains(receiverPos))
         {
+            RefreshData();
             return true;
         }
         attacker.hasEnmityLine = false;
