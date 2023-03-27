@@ -170,6 +170,7 @@ public class Chessboard : MonoBehaviour
                             GameManager.instance.NotifyMadeAMove(previousPosition, hitPosition);
                         }
                         TestIfCheck(currentlyDragging.team);
+                        TestIfEnemyCantMakeAnyMove(currentlyDragging.team);
                     }
                     else
                     {
@@ -438,6 +439,16 @@ public class Chessboard : MonoBehaviour
         pauseGame = true;
         disableRaycastCount += 1;
     }
+
+    private void DisplayDraw()
+    {
+        TextMeshProUGUI victoryText = victoryScreen.transform.Find("VictoryText").GetComponent<TextMeshProUGUI>();
+        victoryText.text = "Draw!";
+        victoryScreen.SetActive(true);
+        pauseGame = true;
+        disableRaycastCount += 1;
+    }
+
     public void OnResetButton()
     {
         if (isLocalGame)
@@ -580,6 +591,7 @@ public class Chessboard : MonoBehaviour
             Debug.LogError("Invalid move. Impossible, this should not happen.");
         }
         TestIfCheck(cp.team);
+        TestIfEnemyCantMakeAnyMove(cp.team);
     }
 
     /// <summary>
@@ -745,6 +757,36 @@ public class Chessboard : MonoBehaviour
         }
 
         return isDangerous;
+    }
+
+    public void TestIfEnemyCantMakeAnyMove(PieceTeam teamJustMoved)
+    {
+        bool canMove = false;
+        PieceTeam otherTeam = teamJustMoved == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            if (canMove) break;
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (canMove) break;
+                if (chessPieces[x, y] != null && chessPieces[x, y].team == otherTeam)
+                {
+                    List<Vector2Int> moves = chessPieces[x, y].GetAvailableMoves();
+                    if (moves.Count > 0)
+                    {
+                        canMove = true;
+                    }
+
+                }
+            }
+        }
+
+
+        if (!canMove)
+        {
+            gameFinished = true;
+            DisplayDraw();
+        }
     }
 
     /// <summary>
