@@ -85,5 +85,6 @@ public enum PieceType
     CHANCELLOR,
     SPY,
     MOON,
-    CANNON
+    CANNON,
+    GRU
 }

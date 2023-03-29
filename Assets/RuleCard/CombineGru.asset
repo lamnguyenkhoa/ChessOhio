@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
-  m_Name: MoonInvert
+  m_Name: CombineGru
   m_EditorClassIdentifier: 
-  ruleName: 'Invert: Moon'
-  description: Invert a [Bishop]. Moon can move in a circular pattern.
-  type: 1
-  sprite: {fileID: 21300000, guid: d6fcb3e286a258d41b1558804134e37a, type: 3}
-  unlockRules:
-  - {fileID: 11400000, guid: d497da140b6f2f94abdec88fa85c81da, type: 2}
+  ruleName: 'Combine: Gru'
+  description: Combined from [Moon] and a Pawn. Move in a circular pattern. After
+    this piece is moved, minify a random enemy piece for fun.
+  type: 2
+  sprite: {fileID: 21300000, guid: 7670b5637ecff884bbf5438db2da3922, type: 3}
+  unlockRules: []
   conflictRules: []
-  invertBefore: 4
-  invertAfter: 17
-  combineStart: 0
-  combineResult: 0
-  combineMaterials: 
+  invertBefore: 0
+  invertAfter: 0
+  combineStart: 17
+  combineResult: 19
+  combineMaterials: 1100000001000000
   promoBefore: 0
   promoAfter: 0
   promoRuleCode: 0

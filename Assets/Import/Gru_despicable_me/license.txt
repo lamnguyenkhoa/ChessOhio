@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gru despicable me
+* source:	https://sketchfab.com/3d-models/gru-despicable-me-53f0e642bfbc406c9be8d2b6f97de0da
+* author:	joshuagoldenburgh (https://sketchfab.com/joshuagoldenburgh)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gru despicable me" (https://sketchfab.com/3d-models/gru-despicable-me-53f0e642bfbc406c9be8d2b6f97de0da) by joshuagoldenburgh (https://sketchfab.com/joshuagoldenburgh) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

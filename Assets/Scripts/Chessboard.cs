@@ -549,6 +549,8 @@ public class Chessboard : MonoBehaviour
         moveList.Add(new Vector2Int[] { previousPosition, new Vector2Int(x, y) });
         bool dontEndTurn = SpecialMoveHandler.instance.ProcessSpecialMoves(ref moveList, ref specialMoves, ref chessPieces, otherPlayer);
 
+        cp.ResolveAfterMove();
+
         // If nothing special, end the turn
         if (!otherPlayer && !dontEndTurn && !canMoveAgain)
         {

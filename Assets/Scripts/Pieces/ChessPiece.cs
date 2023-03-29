@@ -192,4 +192,9 @@ public class ChessPiece : MonoBehaviour
         return GetNormalMoves(ref board, tileCountX, tileCountY);
     }
 
+    public virtual void ResolveAfterMove()
+    {
+
+    }
+
 }
