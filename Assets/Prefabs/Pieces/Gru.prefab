@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 7533509775163863471}
   - component: {fileID: 853748965697703582}
   - component: {fileID: 4069796593053827737}
+  - component: {fileID: 3067957815713417253}
   m_Layer: 0
   m_Name: Moon
   m_TagString: Untagged
@@ -257,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4451889356262209607}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 3.53, z: 0}
+  m_LocalPosition: {x: 0.579, y: 3.601, z: 0.313}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -329,6 +330,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3067957815713417253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451889356262209607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7277ccecfeee0bf48bc219aa90bfd225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {fileID: 8930691667706060611}
+  speed: 50
 --- !u!1 &6248593491403929664
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6248593491403929664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.996, y: 0, z: 0}
+  m_LocalPosition: {x: -1.134, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -625,7 +640,7 @@ MonoBehaviour:
   team: 0
   currentX: 0
   currentY: 0
-  profile: {fileID: 0}
+  profile: {fileID: 11400000, guid: 73f57e037aaa5d04b978b2bed2ca5d61, type: 2}
   lockedControl: 0
   hasEnmityLine: 0
   dead: 0
