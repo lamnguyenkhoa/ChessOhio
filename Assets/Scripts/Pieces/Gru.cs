@@ -56,9 +56,38 @@ public class Gru : ChessPiece
         MinifyEnemyPiece();
     }
 
+
+    /// <summary>
+    /// This run once after the Gru piece is moved / capture enemy
+    /// </summary>
     private void MinifyEnemyPiece()
     {
-        Debug.Log("Minify an enemy piece");
-        // This run once after the Gru piece is moved / capture enemy
+        PieceTeam otherTeam = team == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
+        ref ChessPiece[,] board = ref Chessboard.instance.GetBoardRef();
+        List<ChessPiece> piecePool = new List<ChessPiece>();
+
+        for (int x = 0; x < Chessboard.TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < Chessboard.TILE_COUNT_Y; y++)
+            {
+                if (board[x, y] != null &&
+                    board[x, y].team == otherTeam)
+                {
+                    if (!board[x, y].isGruMinified)
+                    {
+                        piecePool.Add(board[x, y]);
+                    }
+                }
+            }
+        }
+
+        int randomIndex = Random.Range(0, piecePool.Count);
+        ChessPiece pieceToMinify = piecePool[randomIndex];
+        Chessboard.instance.GruMinifyPiece(pieceToMinify.currentX, pieceToMinify.currentY);
+        if (!GameSetting.instance.isLocalGame)
+        {
+            GameManager.instance.NotifyGruMinify(pieceToMinify.currentX, pieceToMinify.currentY);
+        }
+
     }
 }

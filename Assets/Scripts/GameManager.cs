@@ -379,4 +379,28 @@ public class GameManager : NetworkBehaviour
         Chessboard.instance.disableRaycastCount += 1;
         disconnectScreen.SetActive(true);
     }
+
+    public void NotifyGruMinify(int x, int y)
+    {
+        if (IsHost)
+            NotifyGruMinifyClientRpc(x, y);
+        else
+            NotifyGruMinifyServerRpc(x, y);
+    }
+
+    [ClientRpc]
+    private void NotifyGruMinifyClientRpc(int x, int y)
+    {
+        if (!IsHost)
+        {
+            Chessboard.instance.GruMinifyPiece(x, y);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void NotifyGruMinifyServerRpc(int x, int y)
+    {
+        Chessboard.instance.GruMinifyPiece(x, y);
+    }
+
 }

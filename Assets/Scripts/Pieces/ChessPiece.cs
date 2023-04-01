@@ -21,6 +21,7 @@ public class ChessPiece : MonoBehaviour
 
     [Header("Logic stat")]
     public int timeMoveAgain; // How many time this piece move again (due to its ability)
+    public bool isGruMinified = false;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class ChessPiece : MonoBehaviour
 
     private void Update()
     {
+        // Should be more optimized here
         transform.localPosition = Vector3.Lerp(transform.localPosition, desiredPosition, Time.deltaTime * 10);
         transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
     }

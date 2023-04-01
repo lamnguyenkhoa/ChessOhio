@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieceName: Gru
   description: Move in a circular pattern. After this piece is moved, minify a random
-    enemy piece for fun.
+    piece for fun.
   type: 19
   sprite: {fileID: 21300000, guid: 7670b5637ecff884bbf5438db2da3922, type: 3}
   possiblePromoProfiles: []

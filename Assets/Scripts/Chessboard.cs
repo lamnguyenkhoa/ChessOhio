@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -917,6 +918,16 @@ public class Chessboard : MonoBehaviour
         {
             availableMoves.Add(new Vector2Int(piece.currentX, piece.currentY));
             HighlightTiles();
+        }
+    }
+
+    public void GruMinifyPiece(int x, int y)
+    {
+        if (chessPieces[x, y] != null && !chessPieces[x, y].isGruMinified)
+        {
+            chessPieces[x, y].isGruMinified = true;
+            float targetScale = 0.3f;
+            chessPieces[x, y].SetScale(new Vector3(targetScale, targetScale, targetScale));
         }
     }
 }
