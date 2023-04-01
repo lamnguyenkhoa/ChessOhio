@@ -245,7 +245,7 @@ public class GameSetting : NetworkBehaviour
 
     private void ClientDisconected(ulong id)
     {
-        ShowDisconnectMessage();
+        GameManager.instance.ShowDisconnectScreen();
     }
 
     private IEnumerator PollServerConnection()
@@ -255,16 +255,10 @@ public class GameSetting : NetworkBehaviour
             yield return new WaitForSeconds(1f);
             if (!NetworkManager.Singleton.IsConnectedClient)
             {
-                ShowDisconnectMessage();
+                GameManager.instance.ShowDisconnectScreen();
                 yield break;
             }
         }
-    }
-
-    private void ShowDisconnectMessage()
-    {
-        Debug.Log("Other player disconnected");
-        GameManager.instance.ReturnToLobby();
     }
 
     [ClientRpc]

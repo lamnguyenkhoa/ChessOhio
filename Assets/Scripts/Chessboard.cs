@@ -31,7 +31,7 @@ public class Chessboard : MonoBehaviour
     public bool isLocalGame = false;
     public bool gameStarted = false;
     public int disableRaycastCount = 0; // Totally stop the Update(). Count to for multiple disable still in effect
-    public bool pauseGame = false; // Prevent modify pieces (moving, promote, ..).
+    public bool pauseGame = false; // Prevent modify pieces (moving, promote, ..). Can still use Info button.
     private ChessPiece[,] chessPieces;
     private ChessPiece currentlyDragging;
     public ChessPiece currentlyHovering;

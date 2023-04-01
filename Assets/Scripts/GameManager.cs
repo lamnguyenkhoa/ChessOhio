@@ -17,8 +17,8 @@ public class GameManager : NetworkBehaviour
     private GameObject displayRuleCard;
     public InfoWindow infoWindow;
     public GameObject helpWindow;
+    public GameObject disconnectScreen;
     public GameObject davieCheck;
-    public Light mainLight;
 
     public bool hostResetConfirmed = false;
     public bool clientResetConfirmed = false;
@@ -372,5 +372,11 @@ public class GameManager : NetworkBehaviour
         Destroy(NetworkManager.Singleton.gameObject);
         NetworkManager.Singleton.Shutdown();
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void ShowDisconnectScreen()
+    {
+        Chessboard.instance.disableRaycastCount += 1;
+        disconnectScreen.SetActive(true);
     }
 }
