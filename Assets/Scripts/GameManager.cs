@@ -2,7 +2,6 @@ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameManager : NetworkBehaviour
 {
@@ -365,5 +364,13 @@ public class GameManager : NetworkBehaviour
     private void NotifySurrenderServerRpc(PieceTeam teamThatSurrender)
     {
         Chessboard.instance.CheckMate(teamThatSurrender);
+    }
+
+    public void ReturnToLobby()
+    {
+        Destroy(GameSetting.instance.gameObject);
+        Destroy(NetworkManager.Singleton.gameObject);
+        NetworkManager.Singleton.Shutdown();
+        SceneManager.LoadScene("Lobby");
     }
 }

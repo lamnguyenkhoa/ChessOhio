@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 /// <summary>
 /// Currently it's act more like a LobbyManager than a GameSetting. Will do
@@ -118,7 +119,7 @@ public class GameSetting : NetworkBehaviour
     {
         if (hostConnected.Value && clientConnected.Value)
         {
-            // Tell the host to load the ingame scene
+            BindDisconnectHandlerClientRpc();
             LoadIngameSceneServerRpc();
         }
     }
@@ -239,6 +240,43 @@ public class GameSetting : NetworkBehaviour
             NetworkManager.Singleton.Shutdown();
             hostButton.interactable = true;
             connectButton.interactable = true;
+        }
+    }
+
+    private void ClientDisconected(ulong id)
+    {
+        ShowDisconnectMessage();
+    }
+
+    private IEnumerator PollServerConnection()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (!NetworkManager.Singleton.IsConnectedClient)
+            {
+                ShowDisconnectMessage();
+                yield break;
+            }
+        }
+    }
+
+    private void ShowDisconnectMessage()
+    {
+        Debug.Log("Other player disconnected");
+        GameManager.instance.ReturnToLobby();
+    }
+
+    [ClientRpc]
+    private void BindDisconnectHandlerClientRpc()
+    {
+        if (IsHost)
+        {
+            NetworkManager.Singleton.OnClientDisconnectCallback += ClientDisconected;
+        }
+        else
+        {
+            StartCoroutine(PollServerConnection());
         }
     }
 }
