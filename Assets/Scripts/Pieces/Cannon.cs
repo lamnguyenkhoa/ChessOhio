@@ -38,9 +38,12 @@ public class Cannon : ChessPiece
                     {
                         capturing = true;
                     }
-                    else if (board[x, y].team != team)
+                    else
                     {
-                        availableMoves.Add(new Vector2Int(x, y));
+                        if (board[x, y].team != team)
+                        {
+                            availableMoves.Add(new Vector2Int(x, y));
+                        }
                         break;
                     }
                 }
