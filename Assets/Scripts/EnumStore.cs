@@ -17,6 +17,7 @@ public enum UniqueRuleCode
     CONSTRAINT_FORCE_CAPTURE,
     OHIO_PAWN_HUB,
     SP_PROMO_DESERTER_SPY,
+    CONSTRAINT_BALENCIAGA_CATWALK,
 }
 
 public enum RuleType

@@ -67,6 +67,12 @@ public class GameManager : NetworkBehaviour
 
     public void UpdateChangeTurn()
     {
+        // Constraint rule
+        if (GameRule.instance.activatedConstraintRule == UniqueRuleCode.CONSTRAINT_BALENCIAGA_CATWALK)
+        {
+            Chessboard.instance.ResolveBalenciagaCatwalk(teamTurn);
+        }
+
         if (teamTurn == PieceTeam.WHITE)
         {
             teamTurn = PieceTeam.BLACK;

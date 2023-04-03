@@ -206,7 +206,6 @@ public class GameRule : MonoBehaviour
             if (chosenRule.ohioRuleCode == UniqueRuleCode.OHIO_PAWN_HUB)
             {
                 RuleDecoration.instance.ShowPawnHub();
-                Debug.Log("PawnHub");
             }
         }
 

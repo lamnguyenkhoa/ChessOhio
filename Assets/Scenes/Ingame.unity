@@ -21566,6 +21566,28 @@ PrefabInstance:
       propertyPath: ruleCardSelectContent
       value: 
       objectReference: {fileID: 1147858537}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
+      propertyPath: availableRule.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
+      propertyPath: activeRulePool.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
+      propertyPath: availableRule.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: bcc54087787bd3744a133f15d4bda4db,
+        type: 2}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
+      propertyPath: activeRulePool.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: bcc54087787bd3744a133f15d4bda4db,
+        type: 2}
     - target: {fileID: 5138193932589567029, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
       propertyPath: actionMenu

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
+  m_Name: ConstraintBalenciaga
+  m_EditorClassIdentifier: 
+  ruleName: 'Balenciaga: Catwalk'
+  description: At the end of your turn, all pawns will move one tile up (if possible).
+    Pawns will finished their catwalk when reach the other side of board and go home.
+  type: 4
+  sprite: {fileID: 21300000, guid: e259ab2f6c113414c99e52484924c75c, type: 3}
+  unlockRules: []
+  conflictRules: []
+  invertBefore: 0
+  invertAfter: 0
+  combineStart: 0
+  combineResult: 0
+  combineMaterials: 
+  promoBefore: 0
+  promoAfter: 0
+  promoRuleCode: 0
+  constraintRuleCode: 7
+  ohioRuleCode: 0

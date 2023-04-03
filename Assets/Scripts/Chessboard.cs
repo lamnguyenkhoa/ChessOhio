@@ -379,6 +379,7 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// Move the piece in chessPieces[x,y] to actual position on the physical chess board.
     /// </summary>
@@ -391,6 +392,7 @@ public class Chessboard : MonoBehaviour
         chessPieces[x, y].currentY = y;
         chessPieces[x, y].SetPosition(GetTileCenter(x, y), instant);
     }
+
     public Vector3 GetTileCenter(int x, int y, bool worldSpace = false)
     {
         Vector3 localPosition = new Vector3(x * tileSize, yOffset, y * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2);
@@ -628,23 +630,23 @@ public class Chessboard : MonoBehaviour
         }
     }
 
-    public void AddToDeadList(ChessPiece otherCp)
+    public void AddToDeadList(ChessPiece piece)
     {
-        otherCp.dead = true;
-        if (otherCp.team == PieceTeam.WHITE)
+        piece.dead = true;
+        if (piece.team == PieceTeam.WHITE)
         {
-            deadWhites.Add(otherCp);
-            otherCp.SetScale(Vector3.one * deathSize);
-            otherCp.SetPosition(new Vector3(TILE_COUNT_X * tileSize, yOffset, -1 * tileSize)
+            deadWhites.Add(piece);
+            piece.SetScale(Vector3.one * deathSize);
+            piece.SetPosition(new Vector3(TILE_COUNT_X * tileSize, yOffset, -1 * tileSize)
                 - bounds
                 + new Vector3(tileSize / 2, 0, tileSize / 2)
                 + (Vector3.forward * deathSpacing) * deadWhites.Count);
         }
         else
         {
-            deadBlacks.Add(otherCp);
-            otherCp.SetScale(Vector3.one * deathSize);
-            otherCp.SetPosition(new Vector3(-1 * tileSize, yOffset, TILE_COUNT_X * tileSize)
+            deadBlacks.Add(piece);
+            piece.SetScale(Vector3.one * deathSize);
+            piece.SetPosition(new Vector3(-1 * tileSize, yOffset, TILE_COUNT_X * tileSize)
                 - bounds
                 + new Vector3(tileSize / 2, 0, tileSize / 2)
                 + (Vector3.back * deathSpacing) * deadBlacks.Count);
@@ -931,4 +933,50 @@ public class Chessboard : MonoBehaviour
             chessPieces[x, y].SetScale(new Vector3(targetScale, targetScale, targetScale));
         }
     }
+
+    public void ResolveBalenciagaCatwalk(PieceTeam team)
+    {
+        int direction = (team == PieceTeam.WHITE) ? 1 : -1;
+        List<ChessPiece> pawnsToMove = new List<ChessPiece>();
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                ChessPiece piece = chessPieces[x, y];
+                // Is it a pawn of this team
+                if (piece != null &&
+                    piece.team == team &&
+                    piece.type == PieceType.PAWN)
+                {
+                    // Is the forward tile out-of-bound or empty
+                    if ((y + direction > 7 || y + direction < 0) ||
+                        chessPieces[x, y + direction] == null)
+                    {
+                        pawnsToMove.Add(piece);
+                    }
+                }
+            }
+        }
+
+        foreach (ChessPiece piece in pawnsToMove)
+        {
+            int x = piece.currentX;
+            int y = piece.currentY;
+            chessPieces[x, y] = null;
+
+            // If next forward tile is out-of-bound
+            if (y + direction > 7 || y + direction < 0)
+            {
+                AddToDeadList(piece);
+            }
+            else
+            {
+                chessPieces[x, y + direction] = piece;
+                PositionSinglePiece(x, y + direction);
+                moveList.Add(new Vector2Int[] { new Vector2Int(x, y), new Vector2Int(x, y + direction) });
+                piece.ResolveAfterMove();
+            }
+        }
+    }
 }
+
