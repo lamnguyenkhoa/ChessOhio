@@ -23,6 +23,7 @@ public class GameManager : NetworkBehaviour
     public bool hostResetConfirmed = false;
     public bool clientResetConfirmed = false;
 
+    private RpcHandler rpcHandler;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class GameManager : NetworkBehaviour
     private void Start()
     {
         teamTurn = PieceTeam.WHITE;
+        rpcHandler = GetComponent<RpcHandler>();
         if (displayRuleCard == null)
         {
             displayRuleCard = viewChosenRuleDisplay.transform.Find("DisplayCard").gameObject;
@@ -47,10 +49,10 @@ public class GameManager : NetworkBehaviour
         {
             Chessboard.instance.StartGame(true);
         }
-        StartGameClientRpc();
+        rpcHandler.StartGameClientRpc();
         if (IsHost)
         {
-            SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
+            rpcHandler.SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
         }
 
         // Observer pattern
@@ -60,7 +62,7 @@ public class GameManager : NetworkBehaviour
     public void ResetLANGame()
     {
         // Wait until both player press the reset button
-        ConfirmResetServerRpc(IsHost);
+        rpcHandler.ConfirmResetServerRpc(IsHost);
     }
 
     public void UpdateChangeTurn()
@@ -77,28 +79,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void ConfirmResetServerRpc(bool isHost)
-    {
-        if (isHost)
-            hostResetConfirmed = true;
-        else
-            clientResetConfirmed = true;
-        if (hostResetConfirmed && clientResetConfirmed)
-        {
-            hostResetConfirmed = false;
-            clientResetConfirmed = false;
-            GameSetting.instance.LoadIngameSceneServerRpc();
-        }
-    }
-
-
-    [ClientRpc]
-    private void SetupEachPlayerClientRpc(PieceTeam hostChosenTeam)
-    {
-        GetCurrentPlayer().GetComponent<ChessPlayer>().SetTeamAndCamera(hostChosenTeam);
-    }
-
     public ChessPlayer GetCurrentPlayer()
     {
         ulong id = NetworkManager.Singleton.LocalClientId;
@@ -113,103 +93,33 @@ public class GameManager : NetworkBehaviour
     public void NotifyMadeAMove(Vector2Int before, Vector2Int after)
     {
         if (IsHost)
-            MadeAMoveClientRpc(before, after);
+            rpcHandler.MadeAMoveClientRpc(before, after);
         else
-            MadeAMoveServerRpc(before, after);
-    }
-
-    [ClientRpc]
-    private void MadeAMoveClientRpc(Vector2Int before, Vector2Int after)
-    {
-        if (!IsHost)
-        {
-            Chessboard.instance.MovePiece(before, after);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void MadeAMoveServerRpc(Vector2Int before, Vector2Int after)
-    {
-        Chessboard.instance.MovePiece(before, after);
+            rpcHandler.MadeAMoveServerRpc(before, after);
     }
 
     public void NotifyChangePiece(Vector2Int pos, PieceType type)
     {
         if (IsHost)
-            ChangePieceClientRpc(pos, type);
+            rpcHandler.ChangePieceClientRpc(pos, type);
         else
-            ChangePieceServerRpc(pos, type);
-    }
-
-    [ClientRpc]
-    private void ChangePieceClientRpc(Vector2Int pos, PieceType type)
-    {
-        if (!IsHost)
-        {
-            Debug.Log($"NotifyChangePiece {pos} {type}");
-            Chessboard.instance.ChangePiece(pos, type);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangePieceServerRpc(Vector2Int pos, PieceType type)
-    {
-        Debug.Log($"NotifyChangePiece {pos} {type}");
-        Chessboard.instance.ChangePiece(pos, type);
+            rpcHandler.ChangePieceServerRpc(pos, type);
     }
 
     public void NotifyChosenRuleCard(int ruleCardId)
     {
         if (IsHost)
-            ChosenRuleCardClientRpc(ruleCardId);
+            rpcHandler.ChosenRuleCardClientRpc(ruleCardId);
         else
-            ChosenRuleCardServerRpc(ruleCardId);
-    }
-
-    [ClientRpc]
-    public void ChosenRuleCardClientRpc(int ruleCardId)
-    {
-        if (!IsHost)
-        {
-            RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
-            GameRule.instance.ChoseThisRule(ruleCard);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void ChosenRuleCardServerRpc(int ruleCardId)
-    {
-        RuleCardSO ruleCard = GameRule.instance.availableRule[ruleCardId];
-        GameRule.instance.ChoseThisRule(ruleCard);
-    }
-
-    [ClientRpc]
-    public void StartGameClientRpc()
-    {
-        Chessboard.instance.StartGame(false);
+            rpcHandler.ChosenRuleCardServerRpc(ruleCardId);
     }
 
     public void NotifyEndTurn()
     {
         if (IsHost)
-            EndTurnClientRpc();
+            rpcHandler.EndTurnClientRpc();
         else
-            EndTurnServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void EndTurnServerRpc()
-    {
-        Chessboard.instance.EndTurn();
-    }
-
-    [ClientRpc]
-    private void EndTurnClientRpc()
-    {
-        if (!IsHost)
-        {
-            Chessboard.instance.EndTurn();
-        };
+            rpcHandler.EndTurnServerRpc();
     }
 
     public void OpenActionMenu(Vector2 pos, ChessPiece piece)
@@ -346,24 +256,9 @@ public class GameManager : NetworkBehaviour
     public void NotifySurrender(PieceTeam teamThatSurrender)
     {
         if (IsHost)
-            NotifySurrenderClientRpc(teamThatSurrender);
+            rpcHandler.NotifySurrenderClientRpc(teamThatSurrender);
         else
-            NotifySurrenderServerRpc(teamThatSurrender);
-    }
-
-    [ClientRpc]
-    private void NotifySurrenderClientRpc(PieceTeam teamThatSurrender)
-    {
-        if (!IsHost)
-        {
-            Chessboard.instance.CheckMate(teamThatSurrender);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void NotifySurrenderServerRpc(PieceTeam teamThatSurrender)
-    {
-        Chessboard.instance.CheckMate(teamThatSurrender);
+            rpcHandler.NotifySurrenderServerRpc(teamThatSurrender);
     }
 
     public void ReturnToLobby()
@@ -383,24 +278,8 @@ public class GameManager : NetworkBehaviour
     public void NotifyGruMinify(int x, int y)
     {
         if (IsHost)
-            NotifyGruMinifyClientRpc(x, y);
+            rpcHandler.NotifyGruMinifyClientRpc(x, y);
         else
-            NotifyGruMinifyServerRpc(x, y);
+            rpcHandler.NotifyGruMinifyServerRpc(x, y);
     }
-
-    [ClientRpc]
-    private void NotifyGruMinifyClientRpc(int x, int y)
-    {
-        if (!IsHost)
-        {
-            Chessboard.instance.GruMinifyPiece(x, y);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void NotifyGruMinifyServerRpc(int x, int y)
-    {
-        Chessboard.instance.GruMinifyPiece(x, y);
-    }
-
 }

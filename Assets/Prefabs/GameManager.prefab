@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7167469528819777242}
   - component: {fileID: 5138193933207963127}
   - component: {fileID: 1119181904575268525}
+  - component: {fileID: 5138193933207963129}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -62,9 +63,9 @@ MonoBehaviour:
   viewChosenRuleDisplay: {fileID: 0}
   infoWindow: {fileID: 0}
   helpWindow: {fileID: 0}
+  disconnectScreen: {fileID: 0}
   davieCheck: {fileID: 265340588261577764, guid: c99b3086534d128488a4b91c34cfc12e,
     type: 3}
-  mainLight: {fileID: 0}
   hostResetConfirmed: 0
   clientResetConfirmed: 0
 --- !u!114 &5138193932589567050
@@ -162,3 +163,15 @@ MonoBehaviour:
   teamToChoseRule: 1
   piecesToCombine: []
   sourcePiece: {fileID: 0}
+--- !u!114 &5138193933207963129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5138193932589567049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20b823b1bd173b46b1c0ba31619bcc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
