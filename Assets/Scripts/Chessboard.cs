@@ -898,6 +898,7 @@ public class Chessboard : MonoBehaviour
 
     public void HighlightCombinableChessPieces(PieceType type, PieceTeam team)
     {
+        RemoveHighlightTiles();
         // Find requested pieces
         List<ChessPiece> pieces = new List<ChessPiece>();
         for (int x = 0; x < TILE_COUNT_X; x++)
