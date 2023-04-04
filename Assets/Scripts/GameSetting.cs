@@ -46,12 +46,12 @@ public class GameSetting : NetworkBehaviour
     public Button blackTeamButton;
     public Button hostButton;
     public Button connectButton;
-    public Button startButton;
-
     public TextMeshProUGUI versionText;
     [SerializeField] private GameObject[] hideIfWebGL;
     public GameObject localWindow;
     public GameObject LANWindow;
+    public GameObject creditWindow;
+
 
     private void Awake()
     {
@@ -161,6 +161,7 @@ public class GameSetting : NetworkBehaviour
     public void ToggleLocalWindow()
     {
         LANWindow.SetActive(false);
+        creditWindow.SetActive(false);
         ChangeTeam((int)PieceTeam.WHITE);
         localWindow.SetActive(!localWindow.activeSelf);
     }
@@ -168,6 +169,7 @@ public class GameSetting : NetworkBehaviour
     public void ToggleLANWindow()
     {
         localWindow.SetActive(false);
+        creditWindow.SetActive(false);
         ChangeTeam((int)PieceTeam.WHITE);
         LANWindow.SetActive(!LANWindow.activeSelf);
     }
@@ -183,6 +185,14 @@ public class GameSetting : NetworkBehaviour
             Application.Quit();
         }
     }
+
+    public void ToggleCreditButton()
+    {
+        LANWindow.SetActive(false);
+        localWindow.SetActive(false);
+        creditWindow.SetActive(!creditWindow.activeSelf);
+    }
+
 
     public void ChangeTeam(int team)
     {
@@ -273,4 +283,5 @@ public class GameSetting : NetworkBehaviour
             StartCoroutine(PollServerConnection());
         }
     }
+
 }
