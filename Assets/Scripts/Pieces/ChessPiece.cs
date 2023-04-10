@@ -17,7 +17,7 @@ public class ChessPiece : MonoBehaviour
 
     [Header("Common Stat")]
     public Dictionary<PieceType, int> captureHistory = new Dictionary<PieceType, int>(); // Not display in InfoWindow
-    private int turnMoved = 0;
+    public int turnMoved = 0;
 
     [Header("Logic stat")]
     public int timeMoveAgain; // How many time this piece move again (due to its ability)
@@ -157,11 +157,15 @@ public class ChessPiece : MonoBehaviour
         return false;
     }
 
+    public virtual bool CanMoveAgain()
+    {
+        return false;
+    }
+
     public virtual int MaxTimeMoveAgain()
     {
         return 0;
     }
-
 
     /// <summary>
     /// End game if captured

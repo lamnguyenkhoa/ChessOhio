@@ -556,6 +556,11 @@ public class Chessboard : MonoBehaviour
             }
         }
 
+        if (!canMoveAgain)
+        {
+            canMoveAgain = cp.CanMoveAgain();
+        }
+
         chessPieces[x, y] = cp;
         chessPieces[previousPosition.x, previousPosition.y] = null;
         PositionSinglePiece(x, y);

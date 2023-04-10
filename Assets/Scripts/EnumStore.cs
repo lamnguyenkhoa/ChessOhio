@@ -18,6 +18,7 @@ public enum UniqueRuleCode
     OHIO_PAWN_HUB,
     SP_PROMO_DESERTER_SPY,
     CONSTRAINT_BALENCIAGA_CATWALK,
+    SP_PROMO_KNIGHT_JUAN
 }
 
 public enum RuleType
@@ -33,7 +34,7 @@ public enum RuleType
     // Very special rule. Only 1 can be in effect. Check youtube ChessSimp for general idea.
     CONSTRAINT_RULE,
     // Funny rule, such as Monopoly housing, throw dice or move outside grid
-    OHIO_RULE
+    OHIO_RULE,
 }
 
 /// <summary>
@@ -87,5 +88,6 @@ public enum PieceType
     SPY,
     MOON,
     CANNON,
-    GRU
+    GRU,
+    JUAN
 }

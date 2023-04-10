@@ -21,12 +21,14 @@ public class RuleCardSO : ScriptableObject
     [ShowIf("type", RuleType.INVERT_RULE)]
     public PieceType invertAfter;
 
+
     [ShowIf("type", RuleType.COMBINE_RULE)]
     public PieceType combineStart;
     [ShowIf("type", RuleType.COMBINE_RULE)]
     public PieceType combineResult;
     [ShowIf("type", RuleType.COMBINE_RULE)]
     public PieceType[] combineMaterials;
+
 
     [ShowIf("type", RuleType.SPECIAL_PROMO_RULE)]
     public PieceType promoBefore;
@@ -35,8 +37,10 @@ public class RuleCardSO : ScriptableObject
     [ShowIf("type", RuleType.SPECIAL_PROMO_RULE)]
     public UniqueRuleCode promoRuleCode;
 
+
     [ShowIf("type", RuleType.CONSTRAINT_RULE)]
     public UniqueRuleCode constraintRuleCode;
+
 
     [ShowIf("type", RuleType.OHIO_RULE)]
     public UniqueRuleCode ohioRuleCode;

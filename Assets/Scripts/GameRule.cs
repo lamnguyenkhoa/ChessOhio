@@ -305,6 +305,12 @@ public class GameRule : MonoBehaviour
                     return true;
                 }
                 break;
+            case UniqueRuleCode.SP_PROMO_KNIGHT_JUAN:
+                if (cp.turnMoved >= 7)
+                {
+                    return true;
+                }
+                break;
             default:
                 break;
         }

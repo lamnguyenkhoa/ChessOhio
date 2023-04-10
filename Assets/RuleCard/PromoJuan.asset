@@ -10,25 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d37618950702705478926c823f6dc4ee, type: 3}
-  m_Name: CavalierPromo
+  m_Name: PromoJuan
   m_EditorClassIdentifier: 
-  ruleName: 'Promotion: Cavalier'
-  description: Promote from a [Knight] after capture an enemy Knight. Can only move
-    in forward or sideway directions. Can move again after capture an unit (once
-    per turn).
+  ruleName: 'Promotion: Juan'
+  description: Promote from [Knight] after moving the piece 7 times. Juan throw off
+    his rider, so now he can move faster, twice per turn.
   type: 3
-  sprite: {fileID: 21300000, guid: 6bcbaac9df9b8254889702d2c0943459, type: 3}
-  unlockRules:
-  - {fileID: 11400000, guid: ea013ebb35a8976478e88182b443e9dc, type: 2}
+  sprite: {fileID: 21300000, guid: 53a49b7b687767e4d8d87f635cf3c452, type: 3}
+  unlockRules: []
   conflictRules:
-  - {fileID: 11400000, guid: ec48c9aac22fa2941abc526ece7b5b83, type: 2}
+  - {fileID: 11400000, guid: 0860d974b9e9f4e4f9a598d7017f0099, type: 2}
   invertBefore: 0
   invertAfter: 0
   combineStart: 0
   combineResult: 0
   combineMaterials: 
   promoBefore: 3
-  promoAfter: 11
-  promoRuleCode: 2
+  promoAfter: 20
+  promoRuleCode: 8
   constraintRuleCode: 0
   ohioRuleCode: 0

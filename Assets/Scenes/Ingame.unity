@@ -19944,13 +19944,19 @@ PrefabInstance:
     - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: prefabs.Array.size
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
       propertyPath: prefabs.Array.data[18]
       value: 
       objectReference: {fileID: 8768970095247141984, guid: 10a7e94d7facb8e4999d12f3f14a765e,
+        type: 3}
+    - target: {fileID: 2132279431527081366, guid: 143a4c61323517a4c806a3655383c1cf,
+        type: 3}
+      propertyPath: prefabs.Array.data[19]
+      value: 
+      objectReference: {fileID: 1381248741649428780, guid: b2fe42f39d1773d4f8dbecf14b9bff81,
         type: 3}
     - target: {fileID: 2132279431527156416, guid: 143a4c61323517a4c806a3655383c1cf,
         type: 3}
@@ -20609,12 +20615,12 @@ PrefabInstance:
     - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
       propertyPath: availableRule.Array.size
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
       propertyPath: activeRulePool.Array.size
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
@@ -20624,9 +20630,21 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
+      propertyPath: availableRule.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: ec48c9aac22fa2941abc526ece7b5b83,
+        type: 2}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
       propertyPath: activeRulePool.Array.data[13]
       value: 
       objectReference: {fileID: 11400000, guid: bcc54087787bd3744a133f15d4bda4db,
+        type: 2}
+    - target: {fileID: 1119181904575268525, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
+        type: 3}
+      propertyPath: activeRulePool.Array.data[14]
+      value: 
+      objectReference: {fileID: 11400000, guid: ec48c9aac22fa2941abc526ece7b5b83,
         type: 2}
     - target: {fileID: 5138193932589567029, guid: bf8eaae7b7a448f4bb1ab11c7b39234a,
         type: 3}
