@@ -452,6 +452,17 @@ public class Chessboard : MonoBehaviour
         disableRaycastCount += 1;
     }
 
+    private void DisplayCheckmate(PieceTeam winningTeam)
+    {
+        TextMeshProUGUI victoryText = victoryScreen.transform.Find("VictoryText").GetComponent<TextMeshProUGUI>();
+        victoryText.text = "Checkmate! ";
+        victoryText.text += winningTeam == PieceTeam.WHITE ? "White team wins" : "Black team win";
+        // Add davie sound effect here
+        victoryScreen.SetActive(true);
+        pauseGame = true;
+        disableRaycastCount += 1;
+    }
+
     public void OnResetButton()
     {
         if (isLocalGame)
@@ -790,7 +801,15 @@ public class Chessboard : MonoBehaviour
         if (!canMove)
         {
             gameFinished = true;
-            DisplayDraw();
+            ChessPiece essentialPiece = FindEssentialPiece(otherTeam);
+            if (IsThisTileDangerous(new Vector2Int(essentialPiece.currentX, essentialPiece.currentY), teamJustMoved))
+            {
+                DisplayCheckmate(teamJustMoved);
+            }
+            else
+            {
+                DisplayDraw();
+            }
         }
     }
 
@@ -839,6 +858,11 @@ public class Chessboard : MonoBehaviour
         return null;
     }
 
+
+    /// <summary>
+    /// teamToMove is team that about to attack.
+    /// </summary>
+    /// <returns></returns>
     public bool IsThisTileDangerous(Vector2Int pos, PieceTeam teamToMove)
     {
         PieceTeam otherTeam = teamToMove == PieceTeam.WHITE ? PieceTeam.BLACK : PieceTeam.WHITE;
