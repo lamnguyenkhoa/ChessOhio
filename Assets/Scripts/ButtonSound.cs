@@ -18,15 +18,18 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerDownHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!audioSource)
+            audioSource = GameObject.Find("SFX").GetComponent<AudioSource>();
         if (button.interactable)
             audioSource.PlayOneShot(hoverSound);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!audioSource)
+            audioSource = GameObject.Find("SFX").GetComponent<AudioSource>();
         if (button.interactable)
             audioSource.PlayOneShot(clickSound);
     }
-
 
 }

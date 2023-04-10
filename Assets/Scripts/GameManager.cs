@@ -154,11 +154,6 @@ public class GameManager : NetworkBehaviour
         infoWindow.CloseInfoWindow();
     }
 
-    public void OnToggleTooltipButton()
-    {
-        GameSetting.instance.showToolTip = !GameSetting.instance.showToolTip;
-    }
-
     public void ShowTextToolTip(string content, Vector3 worldPosition)
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);

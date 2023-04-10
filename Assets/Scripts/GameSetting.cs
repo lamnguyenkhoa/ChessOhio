@@ -39,7 +39,14 @@ public class GameSetting : NetworkBehaviour
     private string ipAddress = "127.0.0.1";
     public int turnForNewRule = 5;
     public bool showToolTip = false;
-    public bool muteBGM = false;
+    public float bgmVol = 1f;
+    public float soundVol = 1f;
+
+    public GameObject settingMenu;
+
+    [Header("Component")]
+    private AudioSource bgmAudioSource;
+    private AudioSource soundAudioSource;
 
     [Header("Lobby stuff")]
     public Button whiteTeamButton;
@@ -51,7 +58,6 @@ public class GameSetting : NetworkBehaviour
     public GameObject localWindow;
     public GameObject LANWindow;
     public GameObject creditWindow;
-
 
     private void Awake()
     {
@@ -80,6 +86,19 @@ public class GameSetting : NetworkBehaviour
                 go.SetActive(false);
             }
         }
+
+        bgmAudioSource = GameObject.Find("BGM").GetComponent<AudioSource>();
+        soundAudioSource = GameObject.Find("SFX").GetComponent<AudioSource>();
+        SceneManager.activeSceneChanged += ChangedActiveScene;
+    }
+
+    private void ChangedActiveScene(Scene current, Scene next)
+    {
+        bgmAudioSource = GameObject.Find("BGM").GetComponent<AudioSource>();
+        soundAudioSource = GameObject.Find("SFX").GetComponent<AudioSource>();
+        bgmAudioSource.volume = bgmVol;
+        soundAudioSource.volume = soundVol;
+        GameObject.Find("Canvas/SettingButton").GetComponent<Button>().onClick.AddListener(OnSettingMenuButton);
     }
 
     public string GetLocalIPAddress()
@@ -282,6 +301,39 @@ public class GameSetting : NetworkBehaviour
         {
             StartCoroutine(PollServerConnection());
         }
+    }
+
+    public void OnToggleTooltip(bool change)
+    {
+        showToolTip = change;
+    }
+
+    public void OnMusicSliderChanged(float vol)
+    {
+        bgmVol = vol;
+        bgmAudioSource.volume = bgmVol;
+    }
+
+    public void OnSoundSliderChanged(float vol)
+    {
+        soundVol = vol;
+        soundAudioSource.volume = soundVol;
+    }
+
+    public void OnSettingMenuButton()
+    {
+        if (Chessboard.instance)
+        {
+            if (settingMenu.activeSelf)
+            {
+                Chessboard.instance.disableRaycastCount -= 1;
+            }
+            else
+            {
+                Chessboard.instance.disableRaycastCount += 1;
+            }
+        }
+        settingMenu.SetActive(!settingMenu.activeSelf);
     }
 
 }
