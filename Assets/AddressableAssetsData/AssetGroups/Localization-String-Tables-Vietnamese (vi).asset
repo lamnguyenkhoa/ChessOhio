@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-Vietnamese (vi)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-String-Tables-Vietnamese (vi)
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 81beccd3a0aa56e45827ba198791f132
+  m_SerializeEntries:
+  - m_GUID: 94f92c6dc48cc2149917641ce2085777
+    m_Address: UIText_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
+  - m_GUID: 509372d942b945c439caa1c9c70f61e8
+    m_Address: CardText_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 9f698d6d3cd0d304785efa942433cd70, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6195cf96cda78e74eb8782632cb1abdf, type: 2}
+    - {fileID: 11400000, guid: 9ead1ae0212dd8945b560a5252b4663d, type: 2}

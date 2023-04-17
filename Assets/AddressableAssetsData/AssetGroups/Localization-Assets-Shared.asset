@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 843fcdcb11a409f44a301dedce900ca2
+  m_SerializeEntries:
+  - m_GUID: fa14969052f51464e97e1a1fb140d46b
+    m_Address: Assets/LocalSettings/Tables/UIText Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 5917d96dee584d248ba8974d5ced9b6f
+    m_Address: Assets/LocalSettings/Tables/CardText Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 9f698d6d3cd0d304785efa942433cd70, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9a6ac130ba98daa489664e6ead751afd, type: 2}
+    - {fileID: 11400000, guid: ebe24dc8563ceed4093fda35a41893fe, type: 2}

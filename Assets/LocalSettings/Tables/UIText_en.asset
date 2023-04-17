@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UIText_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: fa14969052f51464e97e1a1fb140d46b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6392635392
+    m_Localized: Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5367552008192
+    m_Localized: Help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5460162240512
+    m_Localized: View activated rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5585571930112
+    m_Localized: White's turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5670087155712
+    m_Localized: Black's turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6067824615424
+    m_Localized: 'Turn: {turnNumber}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6253640671232
+    m_Localized: Surrender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6316257435648
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6317977100288
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12546673729536
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12579875840000
+    m_Localized: Sound effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12611471532032
+    m_Localized: Tooltip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13574546644992
+    m_Localized: Play (Local)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13703148199936
+    m_Localized: Play (LAN)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13776003260416
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13797880750080
+    m_Localized: Credit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14422735577088
+    m_Localized: Chess in Ohio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14906577903616
+    m_Localized: Choose game mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14997497831424
+    m_Localized: Vs Human
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15015847911424
+    m_Localized: Vs Bot (not implemented)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15032184725504
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15511383957504
+    m_Localized: Choose team (for Host)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15535941607424
+    m_Localized: Enter IPv4 address (for Connect)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15574428540928
+    m_Localized: White team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15660223029248
+    m_Localized: Black team
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15685502099456
+    m_Localized: Host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15700412850176
+    m_Localized: Connect
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
