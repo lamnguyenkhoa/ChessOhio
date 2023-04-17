@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: fa14969052f51464e97e1a1fb140d46b, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 3405728867691790343
   m_TableData:
   - m_Id: 6392635392
     m_Localized: Setting
@@ -39,9 +40,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6067824615424
-    m_Localized: 'Turn: {turnNumber}'
+    m_Localized: 'Turn: {0}'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 3405728867691790343
   - m_Id: 6253640671232
     m_Localized: Surrender
     m_Metadata:
@@ -126,6 +128,81 @@ MonoBehaviour:
     m_Localized: Connect
     m_Metadata:
       m_Items: []
+  - m_Id: 67871594504192
+    m_Localized: Control
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68114885107712
+    m_Localized: 'Left-click a chess piece to pick it up, left-click again on a tile
+      to put it down. Right-click a piece to open its Action Menu (which allow you
+      to Invert, Combine or Special Promotion it.
+
+
+      Hold right mouse button
+      and move mouse to move camera around. Use the mouse scrollwheel to zoom in
+      or out.
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69010104770560
+    m_Localized: Rule card system
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69091952418816
+    m_Localized: 'Every 5 turns, 3 (or less) rule cards will be drawn from the pool.
+      You can select one of them. You can view all selected rules card with the button
+      in top left corner.
+
+      
+
+      Gray rule cards are new units. Blue rule
+      cards are new mechanic or effect in game. Red rule cards are similar to blue,
+      but their effect are stronger and there can be only one red rule card in effect.
+      Both player are affected by the selected rule cards.
+
+      
+
+      For combining
+      (from gray rule card), start combine mode by right click the piece mentioned
+      in square bracket and select Combine in its Action Menu. Then select another
+      piece to combine them together. For example, "combine [Bishop] with Knight"
+      mean you right-click a Bishop piece to open its Action Menu, select Combine,
+      then select a Knight piece to finish combining.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71314736406528
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71757847846912
+    m_Localized: Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71787589656576
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71802148085760
+    m_Localized: Invert
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71815636967424
+    m_Localized: Combine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71827372630016
+    m_Localized: Special Promotion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72631932411904
+    m_Localized: Exit Combine mode
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3405728867691790343
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00e087c684050000

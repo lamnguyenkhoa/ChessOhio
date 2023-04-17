@@ -15,68 +15,8 @@ MonoBehaviour:
   m_TableCollectionName: UIText
   m_TableCollectionNameGuidString: fa14969052f51464e97e1a1fb140d46b
   m_Entries:
-  - m_Id: 6392635392
-    m_Key: settingKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5367552008192
-    m_Key: helpKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5460162240512
-    m_Key: viewActivatedRulesKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5585571930112
-    m_Key: turnWhiteKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 5670087155712
-    m_Key: turnBlackKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6067824615424
-    m_Key: turnNumberKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6253640671232
-    m_Key: surrenderKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6316257435648
-    m_Key: yesKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6317977100288
-    m_Key: noKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 12546673729536
-    m_Key: musicKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 12579875840000
-    m_Key: soundEffectKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 12611471532032
-    m_Key: tooltipKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 13574546644992
-    m_Key: playLocalKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 13703148199936
-    m_Key: playLANKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 13776003260416
-    m_Key: exitKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 13797880750080
-    m_Key: creditKey
+  - m_Id: 15660223029248
+    m_Key: blackTeamKey
     m_Metadata:
       m_Items: []
   - m_Id: 14422735577088
@@ -87,40 +27,144 @@ MonoBehaviour:
     m_Key: chooseGameModeKey
     m_Metadata:
       m_Items: []
-  - m_Id: 14997497831424
-    m_Key: vsHumanKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 15015847911424
-    m_Key: vsBotKey
-    m_Metadata:
-      m_Items: []
-  - m_Id: 15032184725504
-    m_Key: startKey
-    m_Metadata:
-      m_Items: []
   - m_Id: 15511383957504
     m_Key: chooseTeamKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15700412850176
+    m_Key: connectGameKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13797880750080
+    m_Key: creditKey
     m_Metadata:
       m_Items: []
   - m_Id: 15535941607424
     m_Key: enterIPKey
     m_Metadata:
       m_Items: []
-  - m_Id: 15574428540928
-    m_Key: whiteTeamKey
+  - m_Id: 13776003260416
+    m_Key: exitKey
     m_Metadata:
       m_Items: []
-  - m_Id: 15660223029248
-    m_Key: blackTeamKey
+  - m_Id: 5367552008192
+    m_Key: helpKey
     m_Metadata:
       m_Items: []
   - m_Id: 15685502099456
     m_Key: hostGameKey
     m_Metadata:
       m_Items: []
-  - m_Id: 15700412850176
-    m_Key: connectGameKey
+  - m_Id: 12546673729536
+    m_Key: musicKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67871594504192
+    m_Key: controlKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6317977100288
+    m_Key: noKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13703148199936
+    m_Key: playLANKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13574546644992
+    m_Key: playLocalKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6392635392
+    m_Key: settingKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12579875840000
+    m_Key: soundEffectKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15032184725504
+    m_Key: startKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6253640671232
+    m_Key: surrenderKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12611471532032
+    m_Key: tooltipKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5670087155712
+    m_Key: turnBlackKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6067824615424
+    m_Key: turnNumberKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5585571930112
+    m_Key: turnWhiteKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5460162240512
+    m_Key: viewActivatedRulesKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15015847911424
+    m_Key: vsBotKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14997497831424
+    m_Key: vsHumanKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15574428540928
+    m_Key: whiteTeamKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6316257435648
+    m_Key: yesKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68114885107712
+    m_Key: controlExplainKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69010104770560
+    m_Key: ruleCardSystemKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69091952418816
+    m_Key: ruleCardSystemExplainKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71314736406528
+    m_Key: closeKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71757847846912
+    m_Key: infoKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71787589656576
+    m_Key: moveKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71802148085760
+    m_Key: invertKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71815636967424
+    m_Key: combineKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71827372630016
+    m_Key: specialPromotionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72631932411904
+    m_Key: exitCombineModeKey
     m_Metadata:
       m_Items: []
   m_Metadata:

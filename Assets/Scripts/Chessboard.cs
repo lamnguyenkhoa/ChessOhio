@@ -481,7 +481,8 @@ public class Chessboard : MonoBehaviour
             GameManager.instance.NotifyEndTurn();
         }
 
-        // Observer pattern
+        // Observer pattern. I just want to try it out so some functions
+        // (like above) are not re-implemented with Observer pattern.
         onEndTurn.Invoke();
     }
 

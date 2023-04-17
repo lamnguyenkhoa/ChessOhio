@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: vi
   m_SharedData: {fileID: 11400000, guid: fa14969052f51464e97e1a1fb140d46b, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 3405728867691790344
   m_TableData:
   - m_Id: 6392635392
     m_Localized: "C\xE0i \u0111\u1EB7t"
@@ -39,9 +40,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6067824615424
-    m_Localized: "L\u01B0\u1EE3t: {turnNumber}"
+    m_Localized: "L\u01B0\u1EE3t: {0}"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 3405728867691790344
   - m_Id: 6253640671232
     m_Localized: "\u0110\u1EA7u h\xE0ng"
     m_Metadata:
@@ -126,6 +128,79 @@ MonoBehaviour:
     m_Localized: "K\u1EBFt n\u1ED1i"
     m_Metadata:
       m_Items: []
+  - m_Id: 67871594504192
+    m_Localized: "\u0110i\u1EC1u khi\u1EC3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68114885107712
+    m_Localized: "Click chu\u1ED9t tr\xE1i l\xEAn qu\xE2n c\u1EDD \u0111\u1EC3 c\u1EA7m
+      n\xF3 l\xEAn, click tr\xE1i l\u1EA1i l\u1EA7n n\u1EEFa \u0111\u1EC3 \u0111\u1EB7t
+      n\xF3 xu\u1ED1ng. Click chu\u1ED9t ph\u1EA3i tr\xEAn qu\xE2n c\u1EDD \u0111\u1EC3
+      m\u1EDF Menu H\xE0nh \u0111\u1ED9ng c\u1EE7a qu\xE2n \u0111\xF3 (cho ph\xE9p
+      L\u1EADt Ng\u01B0\u1EE3c, K\u1EBFt h\u1EE3p, Si\xEAu phong c\u1EA5p).\n\nGi\u1EEF
+      chu\u1ED9t ph\u1EA3i v\xE0 di chuy\u1EC3n chu\u1ED9t \u0111\u1EC3 xoay camera.
+      L\u0103n con l\u0103n chu\u1ED9t gi\u1EEFa \u0111\u1EC3 ph\xF3ng to/thu nh\u1ECF."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69010104770560
+    m_Localized: "H\u1EC7 th\u1ED1ng th\u1EBB lu\u1EADt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69091952418816
+    m_Localized: "M\u1ED7i 5 l\u01B0\u1EE3t, 3 (ho\u1EB7c \xEDt h\u01A1n) th\u1EBB
+      lu\u1EADt s\u1EBD \u0111\u01B0\u1EE3c l\u1EA5y ra. Ng\u01B0\u1EDDi ch\u01A1i
+      c\xF3 th\u1EC3 ch\u1ECDn 1 l\xE1. S\u1EED d\u1EE5ng n\xFAt \u1EDF tr\xEAn g\xF3c
+      tr\xE1i \u0111\u1EC3 xem nh\u1EEFng l\xE1 \u0111\xE3 \u0111\u01B0\u1EE3c ch\u1ECDn.\r\n\r\nTh\u1EBB
+      x\xE1m th\xEAm qu\xE2n c\u1EDD m\u1EDBi. Th\u1EBB xanh lam th\xEAm c\u01A1
+      ch\u1EBF ho\u1EB7c hi\u1EC7u \u1EE9ng \u0111\u1EB7c bi\u1EC7t trong game. Th\u1EBB
+      \u0111\u1ECF t\u01B0\u01A1ng t\u1EF1 nh\u01B0 th\u1EBB xanh, nh\u01B0ng t\xEDch
+      n\u0103ng c\u1EE7a n\xF3 m\u1EA1nh h\u01A1n, v\xE0 ch\u1EC9 c\xF3 th\u1EC3
+      c\xF3 m\u1ED9t th\u1EBB \u0111\u1ECF \u0111\u01B0\u1EE3c k\xEDch ho\u1EB7t
+      trong tr\xF2 ch\u01A1i. C\xE1c l\xE1 b\xE0i \u0111\u01B0\u1EE3c ch\u1ECDn \u0111\u1EC1u
+      t\xE1c d\u1EE5ng l\xEAn c\u1EA3 hai ng\u01B0\u1EDDi ch\u01A1i.\r\n\r\n\u0110\u1EC3
+      k\u1EBFt h\u1EE3p (t\u1EEB c\xE1c th\u1EBB x\xE1m), b\u1EAFt \u0111\u1EA7u
+      ch\u1EBF \u0111\u1ED9 k\u1EBFt h\u1EE3p b\u1EB1ng c\xE1ch click ph\u1EA3i qu\xE2n
+      c\u1EDD \u0111\u01B0\u1EE3c nh\u1EAFc \u0111\u1EBFn trong ngo\u1EB7c vu\xF4ng,
+      r\u1ED3i ch\u1ECDn n\xFAt K\u1EBFt h\u1EE3p trong Menu H\xE0nh \u0111\u1ED9ng.
+      Sau \u0111\xF3, ch\u1ECDn nh\u1EEFng qu\xE2n kh\xE1c \u0111\u1EC3 ho\xE0n th\xE0nh.
+      V\xED d\u1EE5, \"k\u1EBFt h\u1EE3p [T\u01B0\u1EE3ng] v\u1EDBi M\xE3\" ngh\u0129a
+      l\xE0 ng\u01B0\u1EDDi ch\u01A1i click ph\u1EA3i qu\xE2n T\u01B0\u1EE3ng r\u1ED3i
+      m\u1EDF Menu H\xE0nh \u0111\u1ED9ng, ch\u1ECDn K\u1EBFt h\u1EE3p r\u1ED3i ch\u1ECDn
+      qu\xE2n M\xE3 l\xE0 xong."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71314736406528
+    m_Localized: "\u0110\xF3ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71757847846912
+    m_Localized: "Th\xF4ng tin"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71787589656576
+    m_Localized: "Di chuy\u1EC3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71802148085760
+    m_Localized: "L\u1EADt ng\u01B0\u1EE3c"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71815636967424
+    m_Localized: "K\u1EBFt h\u1EE3p"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 71827372630016
+    m_Localized: "Si\xEAu phong c\u1EA5p"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72631932411904
+    m_Localized: "H\u1EE7y k\u1EBFt h\u1EE3p"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3405728867691790344
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00e087c684050000

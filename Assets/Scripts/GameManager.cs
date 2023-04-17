@@ -2,6 +2,8 @@ using Unity.Netcode;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Components;
+using System;
 
 public class GameManager : NetworkBehaviour
 {
@@ -19,9 +21,13 @@ public class GameManager : NetworkBehaviour
     public GameObject helpWindow;
     public GameObject disconnectScreen;
     public GameObject davieCheck;
-
     public bool hostResetConfirmed = false;
     public bool clientResetConfirmed = false;
+
+    [Header("UI")]
+    [SerializeField] private LocalizeStringEvent localizedTurnDisplay;
+    [SerializeField] private LocalizeStringEvent localizedTurnCount;
+
 
     private RpcHandler rpcHandler;
 
@@ -54,10 +60,13 @@ public class GameManager : NetworkBehaviour
         {
             rpcHandler.SetupEachPlayerClientRpc(GameSetting.instance.hostChosenTeam);
         }
+        localizedTurnCount.StringReference.Arguments = new object[] { Chessboard.instance.turnCount };
 
         // Observer pattern
         Chessboard.instance.onEndTurn.AddListener(UpdateChangeTurn);
     }
+
+
 
     public void ResetLANGame()
     {
@@ -76,13 +85,16 @@ public class GameManager : NetworkBehaviour
         if (teamTurn == PieceTeam.WHITE)
         {
             teamTurn = PieceTeam.BLACK;
-            turnDisplay.text = "Black's turn";
+            localizedTurnDisplay.StringReference.SetReference("UIText", "turnBlackKey");
         }
         else
         {
             teamTurn = PieceTeam.WHITE;
-            turnDisplay.text = "White's turn";
+            localizedTurnDisplay.StringReference.SetReference("UIText", "turnWhiteKey");
         }
+
+        localizedTurnCount.StringReference.Arguments[0] = Chessboard.instance.turnCount;
+        localizedTurnCount.RefreshString();
     }
 
     public ChessPlayer GetCurrentPlayer()
