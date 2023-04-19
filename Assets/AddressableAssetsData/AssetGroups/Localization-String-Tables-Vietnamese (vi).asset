@@ -24,7 +24,13 @@ MonoBehaviour:
     - Locale-vi
     - Preload
   - m_GUID: 509372d942b945c439caa1c9c70f61e8
-    m_Address: CardText_vi
+    m_Address: PieceProfileText_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
+  - m_GUID: 15896bab77507754889061b41f885ce9
+    m_Address: RuleCardText_vi
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-vi

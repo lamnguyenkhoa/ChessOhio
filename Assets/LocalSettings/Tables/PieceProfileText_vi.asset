@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: CardText_vi
+  m_Name: PieceProfileText_vi
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: vi
@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 128631431168
-    m_Localized: "M\xE3"
+    m_Localized: "Hi\u1EC7p s\u0129"
     m_Metadata:
       m_Items: []
   - m_Id: 715115595292672
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 715579468537856
-    m_Localized: "T\u01B0\u1EE3ng"
+    m_Localized: "Gi\xE1m m\u1EE5c"
     m_Metadata:
       m_Items: []
   - m_Id: 715591812374528
@@ -71,6 +71,24 @@ MonoBehaviour:
       2 \xF4 ch\xE9o ph\xEDa tr\u01B0\u1EDBc. C\xF3 th\u1EC3 th\u0103ng c\u1EA5p
       n\u1EBFu \u0111\u1EBFn cu\u1ED1i b\xE0n c\u1EDD b\xEAn \u0111\u1ECBch. Google
       \"B\u1EAFt t\u1ED1t qua \u0111\u01B0\u1EDDng\"."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721990390898688
+    m_Localized: "T\u1ED5ng gi\xE1m m\u1EE5c"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722088214650880
+    m_Localized: "L\xF4 c\u1ED1t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722049341841408
+    m_Localized: "\u0110i nh\u01B0 Hi\u1EC7p s\u0129 v\xE0 Gi\xE1m m\u1EE5c k\u1EBFt
+      h\u1EE3p."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722103456751616
+    m_Localized: "\u0110i nh\u01B0 Xe. C\xF3 th\u1EC3 nh\u1EADp th\xE0nh k\u1EC3
+      c\u1EA3 khi c\xF3 qu\xE2n c\u1EDD \u1EDF gi\u1EEFa."
     m_Metadata:
       m_Items: []
   references:

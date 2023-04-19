@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/LocalSettings/Tables/CardText Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 141cd3389af14164595d15a0733806f6
+    m_Address: Assets/LocalSettings/Tables/RuleCardText Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 9f698d6d3cd0d304785efa942433cd70, type: 2}
   m_SchemaSet:

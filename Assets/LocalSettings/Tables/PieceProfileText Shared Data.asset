@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: CardText Shared Data
+  m_Name: PieceProfileText Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: CardText
+  m_TableCollectionName: PieceProfileText
   m_TableCollectionNameGuidString: 5917d96dee584d248ba8974d5ced9b6f
   m_Entries:
   - m_Id: 128631431168
@@ -61,6 +61,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 715624737660928
     m_Key: pawnDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721990390898688
+    m_Key: archbishopKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722049341841408
+    m_Key: archbishopDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722088214650880
+    m_Key: bunkerKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 722103456751616
+    m_Key: bunkerDescriptionKey
     m_Metadata:
       m_Items: []
   m_Metadata:

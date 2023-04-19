@@ -24,7 +24,13 @@ MonoBehaviour:
     - Locale-en
     - Preload
   - m_GUID: d79ea07e820b33d47bfbec2db01449b9
-    m_Address: CardText_en
+    m_Address: PieceProfileText_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    - Preload
+  - m_GUID: c89d5e907a09f8540ab97b630531fe98
+    m_Address: RuleCardText_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en

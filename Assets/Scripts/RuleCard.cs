@@ -78,8 +78,8 @@ public class RuleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         image.sprite = profile.sprite;
         image.gameObject.SetActive(true);
-        ruleName.text = profile.ruleName;
-        description.text = profile.description;
+        ruleName.text = profile.GetLocalizedName();
+        description.text = profile.GetLocalizedDescription();
 
         switch (profile.type)
         {

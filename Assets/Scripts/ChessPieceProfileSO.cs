@@ -16,7 +16,7 @@ public class ChessPieceProfileSO : ScriptableObject
 
 
     /// <summary>
-    /// Get the key of this chess piece profile. If not specified, it will
+    /// Get the name key of this chess piece profile. If not specified, it will
     /// guess it as [pieceName]Key.
     /// </summary>
     /// <returns></returns>
@@ -35,15 +35,21 @@ public class ChessPieceProfileSO : ScriptableObject
     /// <returns></returns>
     public string GetLocalizedName()
     {
-        AsyncOperationHandle<string> op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("CardText", GetLocalizedNameKey());
+        AsyncOperationHandle<string> op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("PieceProfileText", GetLocalizedNameKey());
         if (op.IsDone)
+        {
+            if (op.Result.Contains("No translation"))
+            {
+                return pieceName;
+            }
             return op.Result;
+        }
         else
             return pieceName;
     }
 
     /// <summary>
-    /// Get the key of this chess piece profile. If not specified, it will
+    /// Get the description key of this chess piece profile. If not specified, it will
     /// guess it as [pieceName]DescriptionKey.
     /// </summary>
     /// <returns></returns>
@@ -62,13 +68,17 @@ public class ChessPieceProfileSO : ScriptableObject
     /// <returns></returns>
     public string GetLocalizedDescription()
     {
-        AsyncOperationHandle<string> op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("CardText", GetLocalizedDescriptionKey());
+        AsyncOperationHandle<string> op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("PieceProfileText", GetLocalizedDescriptionKey());
         if (op.IsDone)
+        {
+            if (op.Result.Contains("No translation"))
+            {
+                return description;
+            }
             return op.Result;
+        }
         else
             return description;
     }
-
-
 
 }

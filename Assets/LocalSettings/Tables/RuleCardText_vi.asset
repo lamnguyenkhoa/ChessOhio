@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: RuleCardText_vi
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: vi
+  m_SharedData: {fileID: 11400000, guid: 141cd3389af14164595d15a0733806f6, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 2222457348096
+    m_Localized: "K\u1EBFt h\u1EE3p: T\u1ED5ng gi\xE1m m\u1EE5c"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2253952376832
+    m_Localized: "K\u1EBFt h\u1EE3p t\u1EEB [Gi\xE1m m\u1EE5c] v\xE0 Hi\u1EC7p s\u0129.
+      \u0110i nh\u01B0 Hi\u1EC7p s\u0129 v\xE0 Gi\xE1m m\u1EE5c k\u1EBFt h\u1EE3p
+      l\u1EA1i."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4634702241792
+    m_Localized: "Th\u0103ng c\u1EA5p: K\u1ECB s\u0129"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4698573103104
+    m_Localized: "Th\u0103ng c\u1EA5p t\u1EEB [Hi\u1EC7p s\u0129] sau khi b\u1EAFt
+      \u0111\u01B0\u1EE3c qu\xE2n Hi\u1EC7p s\u0129 c\u1EE7a \u0111\u1ED1i ph\u01B0\u01A1ng.
+      Ch\u1EC9 c\xF3 th\u1EC3 \u0111i v\xE8 ph\xEDa tr\u01B0\u1EDBc ho\u1EB7c ngang
+      h\xE0ng. C\xF3 th\u1EC3 \u0111i l\u1EA1i sau khi b\u1EAFt \u0111\u01B0\u1EE3c
+      m\u1ED9t qu\xE2n (m\u1ED9t l\u1EA7n m\u1ED7i l\u01B0\u1EE3t)."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
