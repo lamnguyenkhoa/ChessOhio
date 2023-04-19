@@ -19,6 +19,50 @@ MonoBehaviour:
     m_Key: knightKey
     m_Metadata:
       m_Items: []
+  - m_Id: 715115595292672
+    m_Key: knightDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715454016905216
+    m_Key: kingKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715473042268160
+    m_Key: kingDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715494261252096
+    m_Key: queenKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715511671808000
+    m_Key: queenDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715551270232064
+    m_Key: rookKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715562351583232
+    m_Key: rookDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715579468537856
+    m_Key: bishopKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715591812374528
+    m_Key: bishopDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715613362708480
+    m_Key: pawnKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715624737660928
+    m_Key: pawnDescriptionKey
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

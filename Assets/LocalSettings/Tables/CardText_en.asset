@@ -22,6 +22,52 @@ MonoBehaviour:
     m_Localized: Knight
     m_Metadata:
       m_Items: []
+  - m_Id: 715115595292672
+    m_Localized: Move in L shape. Can jump over other units.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715454016905216
+    m_Localized: King
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715473042268160
+    m_Localized: Move 1 tile in any direction. Very important. End game if captured.
+      Can castling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715494261252096
+    m_Localized: Queen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715511671808000
+    m_Localized: A powerful piece. Move in 8 directions.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715551270232064
+    m_Localized: Rook
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715562351583232
+    m_Localized: Move vertical and horizontal. Can castling with King.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715579468537856
+    m_Localized: Bishop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715591812374528
+    m_Localized: Move diagonally.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715613362708480
+    m_Localized: Pawn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715624737660928
+    m_Localized: Move one step ahead. Capture in 2 diagonal tiles ahead. Can be promoted
+      when reach enemy backline. Google en passant.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -22,6 +22,57 @@ MonoBehaviour:
     m_Localized: "M\xE3"
     m_Metadata:
       m_Items: []
+  - m_Id: 715115595292672
+    m_Localized: "Di chuy\u1EC3n theo h\xECnh ch\u1EEF L. C\xF3 th\u1EC3 nh\u1EA3y
+      qua c\xE1c qu\xE2n kh\xE1c."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715454016905216
+    m_Localized: Vua
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715473042268160
+    m_Localized: "\u0110i 1 \xF4 theo h\u01B0\u1EDBng b\u1EA5t k\xEC. R\u1EA5t quan
+      tr\u1ECDng. Game k\u1EBFt th\xFAc n\u1EBFu b\u1ECB b\u1EAFt. C\xF3 th\u1EC3
+      nh\u1EADp th\xE0nh."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715494261252096
+    m_Localized: "H\u1EADu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715511671808000
+    m_Localized: "M\u1ED9t qu\xE2n c\u1EDD m\u1EA1nh. C\xF3 th\u1EC3 \u0111i 8 h\u01B0\u1EDBng."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715551270232064
+    m_Localized: Xe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715562351583232
+    m_Localized: "\u0110i ngang v\xE0 d\u1ECDc. C\xF3 th\u1EC3 nh\u1EADp th\xE0nh
+      v\u1EDBi Vua."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715579468537856
+    m_Localized: "T\u01B0\u1EE3ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715591812374528
+    m_Localized: "\u0110i ch\xE9o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715613362708480
+    m_Localized: "T\u1ED1t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715624737660928
+    m_Localized: "\u0110i t\u1EDBi 1 \xF4. C\xF3 th\u1EC3 b\u1EAFt qu\xE2n \u1EDF
+      2 \xF4 ch\xE9o ph\xEDa tr\u01B0\u1EDBc. C\xF3 th\u1EC3 th\u0103ng c\u1EA5p
+      n\u1EBFu \u0111\u1EBFn cu\u1ED1i b\xE0n c\u1EDD b\xEAn \u0111\u1ECBch. Google
+      \"B\u1EAFt t\u1ED1t qua \u0111\u01B0\u1EDDng\"."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

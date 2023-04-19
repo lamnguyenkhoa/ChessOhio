@@ -31,8 +31,8 @@ public class InfoWindow : MonoBehaviour
         if (!piece)
             return;
         ChessPieceProfileSO profile = piece.profile;
-        pieceName.text = profile.pieceName;
-        pieceDescription.text = profile.description;
+        pieceName.text = profile.GetLocalizedName();
+        pieceDescription.text = profile.GetLocalizedDescription();
         localizedPieceStat.StringReference.Arguments = new object[] { piece.GetStatCapturedNumber(), piece.GetStatTurnMoved() };
         localizedPieceStat.RefreshString();
         pieceImage.sprite = profile.sprite;
