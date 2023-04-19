@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 
 public class Chessboard : MonoBehaviour
@@ -436,8 +437,16 @@ public class Chessboard : MonoBehaviour
     }
     private void DisplayVictory(PieceTeam winningTeam)
     {
-        TextMeshProUGUI victoryText = victoryScreen.transform.Find("VictoryText").GetComponent<TextMeshProUGUI>();
-        victoryText.text = winningTeam == PieceTeam.WHITE ? "White team wins" : "Black team win";
+        LocalizeStringEvent localizedVictoryText = victoryScreen.transform.Find("VictoryText").GetComponent<LocalizeStringEvent>();
+        if (winningTeam == PieceTeam.WHITE)
+        {
+            localizedVictoryText.StringReference.SetReference("UIText", "whiteTeamWinKey");
+        }
+        else
+        {
+            localizedVictoryText.StringReference.SetReference("UIText", "blackTeamWinKey");
+        }
+
         victoryScreen.SetActive(true);
         pauseGame = true;
         disableRaycastCount += 1;

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class InfoWindow : MonoBehaviour
@@ -7,8 +8,12 @@ public class InfoWindow : MonoBehaviour
     public ChessPiece piece;
     public TextMeshProUGUI pieceName;
     public TextMeshProUGUI pieceDescription;
-    public TextMeshProUGUI pieceStat;
+    [SerializeField] private LocalizeStringEvent localizedPieceStat;
     public Image pieceImage;
+
+    void Start()
+    {
+    }
 
     public void ShowInfoWindow()
     {
@@ -28,7 +33,8 @@ public class InfoWindow : MonoBehaviour
         ChessPieceProfileSO profile = piece.profile;
         pieceName.text = profile.pieceName;
         pieceDescription.text = profile.description;
-        pieceStat.text = $"Captured: {piece.GetStatCapturedNumber()} | Moved: {piece.GetStatTurnMoved()}";
+        localizedPieceStat.StringReference.Arguments = new object[] { piece.GetStatCapturedNumber(), piece.GetStatTurnMoved() };
+        localizedPieceStat.RefreshString();
         pieceImage.sprite = profile.sprite;
     }
 

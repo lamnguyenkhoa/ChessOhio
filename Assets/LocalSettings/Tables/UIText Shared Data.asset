@@ -167,6 +167,30 @@ MonoBehaviour:
     m_Key: exitCombineModeKey
     m_Metadata:
       m_Items: []
+  - m_Id: 712388051984384
+    m_Key: pieceStatKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712713848741888
+    m_Key: otherPlayerDisconnectKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712782660493312
+    m_Key: backToLobbyKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721116230836224
+    m_Key: newGameKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721219150667776
+    m_Key: whiteTeamWinKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721524139483136
+    m_Key: blackTeamWinKey
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -154,14 +154,14 @@ MonoBehaviour:
       You can select one of them. You can view all selected rules card with the button
       in top left corner.
 
-      
 
-      Gray rule cards are new units. Blue rule
-      cards are new mechanic or effect in game. Red rule cards are similar to blue,
-      but their effect are stronger and there can be only one red rule card in effect.
+
+      Gray rule cards are new units. Blue rule cards
+      are new mechanic or effect in game. Red rule cards are similar to blue, but
+      their effect are stronger and there can be only one red rule card in effect.
       Both player are affected by the selected rule cards.
 
-      
+
 
       For combining
       (from gray rule card), start combine mode by right click the piece mentioned
@@ -199,10 +199,35 @@ MonoBehaviour:
     m_Localized: Exit Combine mode
     m_Metadata:
       m_Items: []
+  - m_Id: 712388051984384
+    m_Localized: 'Capture: {0} | Move: {1}'
+    m_Metadata:
+      m_Items:
+      - rid: 3405728867691790343
+  - m_Id: 712713848741888
+    m_Localized: The other player has disconnected.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712782660493312
+    m_Localized: Back to lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721116230836224
+    m_Localized: New game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721219150667776
+    m_Localized: White team win!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721524139483136
+    m_Localized: Black team win!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 3405728867691790343
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e087c684050000
+        m_Entries: 00e087c68405000000e0c7c4e9870200

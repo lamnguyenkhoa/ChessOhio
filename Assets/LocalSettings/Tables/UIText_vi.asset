@@ -197,10 +197,35 @@ MonoBehaviour:
     m_Localized: "H\u1EE7y k\u1EBFt h\u1EE3p"
     m_Metadata:
       m_Items: []
+  - m_Id: 712388051984384
+    m_Localized: "B\u1EAFt: {0} | Di chuy\u1EC3n: {1}"
+    m_Metadata:
+      m_Items:
+      - rid: 3405728867691790344
+  - m_Id: 712713848741888
+    m_Localized: "\u0110\u1ED1i th\u1EE7 \u0111\xE3 m\u1EA5t k\u1EBFt n\u1ED1i."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712782660493312
+    m_Localized: "Quay l\u1EA1i ph\xF2ng ch\u1EDD"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721116230836224
+    m_Localized: "Ch\u01A1i l\u1EA1i"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721219150667776
+    m_Localized: "Qu\xE2n tr\u1EAFng th\u1EAFng!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721524139483136
+    m_Localized: "Qu\xE2n \u0111en th\u1EAFng!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 3405728867691790344
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e087c684050000
+        m_Entries: 00e087c68405000000e0c7c4e9870200
