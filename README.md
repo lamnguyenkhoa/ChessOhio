@@ -4,7 +4,7 @@ Chess but every 5 turn a new rule is added. Chaos ensured.
 
 ## Download links
 
-<https://johnminer.itch.io/chess-in-ohio>
+<https://johnminer.itch.io/chess-in-ohio> (changed name to tempetus-cabinet)
 
 ## Tags
 
