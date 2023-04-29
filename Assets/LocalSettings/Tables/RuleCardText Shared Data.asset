@@ -31,6 +31,134 @@ MonoBehaviour:
     m_Key: promotionCavalierDescriptionKey
     m_Metadata:
       m_Items: []
+  - m_Id: 3581529784049664
+    m_Key: invertBunkerKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3581533521174528
+    m_Key: invertBunkerDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595651389054976
+    m_Key: combineChancellorKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595652848672768
+    m_Key: combineChancellorDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595715591266304
+    m_Key: combineGruKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595716467875840
+    m_Key: combineGruDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595791201984512
+    m_Key: constraintBalenciagaKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595792258949120
+    m_Key: constraintBalenciagaDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595905551294464
+    m_Key: constraintForceCaptureKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595906478235648
+    m_Key: constraintForceCaptureDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596005048573952
+    m_Key: invertDeserterKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596006562717696
+    m_Key: invertDeserterDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596054298091520
+    m_Key: combineEmperorKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596055120175104
+    m_Key: combineEmperorDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596223949299712
+    m_Key: combineEmpressKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596225056595968
+    m_Key: combineEmpressDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596319021588480
+    m_Key: invertCannonKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596319914975232
+    m_Key: invertCannonDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596367126061056
+    m_Key: invertMoonKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596368233357312
+    m_Key: invertMoonDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596454594076672
+    m_Key: invertNightriderKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596455458103296
+    m_Key: invertNightriderDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596530322235392
+    m_Key: ohioPawnHubKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596531064627200
+    m_Key: ohioPawnHubDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596632512258048
+    m_Key: promotionPaladinKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596633254649856
+    m_Key: promotionPaladinDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596680759336960
+    m_Key: promotionJuanKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596681501728768
+    m_Key: promotionJuanDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597166291968000
+    m_Key: promotionSpyKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597167248269312
+    m_Key: promotionSpyDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597405228883968
+    m_Key: promotionArchbishopKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597417698549760
+    m_Key: promotionArchbisopDescriptionKey
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
