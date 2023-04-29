@@ -37,6 +37,150 @@ MonoBehaviour:
       (once per turn).
     m_Metadata:
       m_Items: []
+  - m_Id: 3581529784049664
+    m_Localized: 'Invert: Bunker'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3581533521174528
+    m_Localized: Invert a [Rook]. Can castling even if there are pieces between.
+      Kill any pieces on the 2 castling tiles after castling. Both Bunker and King
+      must not moved yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597417698549760
+    m_Localized: Promote from [Bishop] after Bishop survived 30 turns. Can move like
+      a Knight and Bishop combined.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597405228883968
+    m_Localized: 'Promotion: Archbishop'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595652848672768
+    m_Localized: Combined from [Rook] and Knight. Can move like a Knight and Rook
+      combined.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595651389054976
+    m_Localized: 'Combine: Chancellor'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595715591266304
+    m_Localized: 'Combine: Gru'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595716467875840
+    m_Localized: Combined from [Moon] and a Pawn. Move in a circular pattern. After
+      this piece is moved, minify a random enemy piece for fun.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595791201984512
+    m_Localized: 'Balenciaga: Catwalk'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595792258949120
+    m_Localized: At the end of your turn, all pawns will move one tile up (if possible).
+      Pawns will finished their catwalk when reach the other side of board and go
+      home (they won't promote).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595905551294464
+    m_Localized: Chess but pieces are angry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3595906478235648
+    m_Localized: If your piece can capture another piece, it MUST do it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596005048573952
+    m_Localized: 'Invert: Deserter'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596006562717696
+    m_Localized: Invert a [Pawn]. Deserter can move backward, even on tile that already
+      has unit (and capture them in process). Ally included.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596054298091520
+    m_Localized: 'Combine: Emperor'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596055120175104
+    m_Localized: Combined from [King] and 2 Knights. Can move like King and Knight
+      combined. Can castling like King.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596223949299712
+    m_Localized: 'Combine: Empress'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596225056595968
+    m_Localized: Combined from [Queen] and King. Can move like Queen. Can jump over
+      units. End game if captured.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596319021588480
+    m_Localized: 'Invert: Cannon'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596319914975232
+    m_Localized: Invert a [Rook]. Can move like Rook. But when capture, it must jump
+      over another unit first, then capture the next unit, in an orthogonal  line.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596367126061056
+    m_Localized: 'Invert: Moon'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596368233357312
+    m_Localized: Invert a [Bishop]. Moon can move in a circular pattern.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596455458103296
+    m_Localized: Invert a [Knight]. Nightrider can move like a Knight in any number
+      of step in same direction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596454594076672
+    m_Localized: 'Invert: Nightrider'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596530322235392
+    m_Localized: Pawn Hub
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596531064627200
+    m_Localized: Every 7 turns, spawn a new pawn at your bottom row if there any
+      empty space. Prioritize from A to H.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596632512258048
+    m_Localized: 'Promotion: Paladin'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596633254649856
+    m_Localized: Promote from a [Cavalier] after reached enemy backline. Move like
+      Knight. Can move again after capture an unit (twice per turn).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596680759336960
+    m_Localized: 'Promotion: Juan'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3596681501728768
+    m_Localized: Promote from [Knight] after moving the piece 7 times. Juan throw
+      off his rider, so now he can move faster, twice per turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597166291968000
+    m_Localized: 'Promotion: Spy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3597167248269312
+    m_Localized: Promote from [Deserter] after captured an unit. Can move 2 tiles
+      forward or 1 tile in any other direction.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -40,6 +40,16 @@ MonoBehaviour:
       m\u1ED9t qu\xE2n (m\u1ED9t l\u1EA7n m\u1ED7i l\u01B0\u1EE3t)."
     m_Metadata:
       m_Items: []
+  - m_Id: 3581529784049664
+    m_Localized: "L\u1EADt ng\u01B0\u1EE3c: L\xF4 c\u1ED1t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3581533521174528
+    m_Localized: "L\u1EADt ng\u01B0\u1EE3c [Xe]. Di chuy\u1EC3n nh\u01B0 Xe. C\xF3
+      th\u1EC3 nh\u1EADp th\xE0nh k\u1EC3 c\u1EA3 khi c\xF3 qu\xE2n c\u1EDD \u1EDF
+      gi\u1EEFa."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
