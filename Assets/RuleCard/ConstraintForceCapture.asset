@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ruleName: Chess but pieces are angry
   description: If your piece can capture another piece, it MUST do it.
-  localizedNameKey: constraintBalenciagaKey
-  localizedDescriptionKey: constraintBalenciagaDescriptionKey
+  localizedNameKey: constraintForceCaptureKey
+  localizedDescriptionKey: constraintForceCaptureDescriptionKey
   type: 4
   sprite: {fileID: 21300000, guid: 72af56d556c97df4c9163ae07f4577c1, type: 3}
   unlockRules: []

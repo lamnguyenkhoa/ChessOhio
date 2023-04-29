@@ -125,7 +125,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 3596319914975232
     m_Localized: Invert a [Rook]. Can move like Rook. But when capture, it must jump
-      over another unit first, then capture the next unit, in an orthogonal  line.
+      over another unit first, then capture the next unit, in an orthogonal line.
     m_Metadata:
       m_Items: []
   - m_Id: 3596367126061056

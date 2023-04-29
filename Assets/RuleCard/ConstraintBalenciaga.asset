@@ -16,8 +16,8 @@ MonoBehaviour:
   description: At the end of your turn, all pawns will move one tile up (if possible).
     Pawns will finished their catwalk when reach the other side of board and go home
     (they won't promote).
-  localizedNameKey: constraintForceCaptureKey
-  localizedDescriptionKey: constraintForceCaptureDescriptionKey
+  localizedNameKey: constraintBalenciagaKey
+  localizedDescriptionKey: constraintBalenciagaDescriptionKey
   type: 4
   sprite: {fileID: 21300000, guid: e259ab2f6c113414c99e52484924c75c, type: 3}
   unlockRules: []
