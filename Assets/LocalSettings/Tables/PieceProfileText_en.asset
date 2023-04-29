@@ -84,6 +84,109 @@ MonoBehaviour:
     m_Localized: Move like Rook. Can castling even if there are pieces between.
     m_Metadata:
       m_Items: []
+  - m_Id: 4235451422990336
+    m_Localized: Also called "Pao". Can move like Rook. But when capture, it must
+      jump over another unit first, then capture the next unit, in an orthogonal 
+      line.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235448809938944
+    m_Localized: Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235749755445248
+    m_Localized: Cavalier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235751596744704
+    m_Localized: Move similar to Knight but only forward or sideway. If captured
+      enemy piece, can move again (once per turn).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236045034446848
+    m_Localized: Chancellor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236046296932352
+    m_Localized: Can move like Knight and Rook.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236280074854400
+    m_Localized: Deserter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236282960535552
+    m_Localized: Can only move backward. Capture pieces on path, include ally pieces.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236548187348992
+    m_Localized: Emperor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236550083174400
+    m_Localized: Can move like King and Knight combined. Can castling like King.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236727456096256
+    m_Localized: Empress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236728521449472
+    m_Localized: Move like Queen. Can jump over units. End game if captured.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237083112103936
+    m_Localized: Gru
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237086652096512
+    m_Localized: Move in a circular pattern. After this piece is moved, minify a
+      random piece for fun.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237363769761792
+    m_Localized: Juan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237365485232128
+    m_Localized: Juan can move like Knight. But because there is no Knight riding
+      Juan, it can move twice per turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237651448684544
+    m_Localized: Moon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237652644061184
+    m_Localized: Move in a circular pattern.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237785385394176
+    m_Localized: Can move any number of steps as a Knight in the same direction.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237784429092864
+    m_Localized: Nightrider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238057067241472
+    m_Localized: Paladin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238058321338368
+    m_Localized: Move like Knight. If captured enemy piece, can move again (twice
+      per turn).
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238845927743488
+    m_Localized: Spy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238847064399872
+    m_Localized: Can move 2 tiles forward or 1 tile in any other direction. Cannot
+      en passant. Can be promoted to Rook, Bishop or Knight after reached enemy backline.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Deserter
   m_EditorClassIdentifier: 
   pieceName: Deserter
-  description: Can only move backward. Capture piece straight ahead. Can capture
-    ally pieces.
+  description: Can only move backward. Capture pieces on path, include ally pieces.
+  localizedNameKey: 
+  localizedDescriptionKey: 
   type: 8
   sprite: {fileID: 21300000, guid: d75328b6f69176343a9e60a132975364, type: 3}
   possiblePromoProfiles: []

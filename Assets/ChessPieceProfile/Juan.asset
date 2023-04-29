@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieceName: Juan
   description: Juan can move like Knight. But because there is no Knight riding Juan,
-    he can move twice per turn.
+    it can move twice per turn.
+  localizedNameKey: 
+  localizedDescriptionKey: 
   type: 20
   sprite: {fileID: 21300000, guid: 53a49b7b687767e4d8d87f635cf3c452, type: 3}
   possiblePromoProfiles: []

@@ -79,6 +79,102 @@ MonoBehaviour:
     m_Key: bunkerDescriptionKey
     m_Metadata:
       m_Items: []
+  - m_Id: 4235448809938944
+    m_Key: cannonKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235451422990336
+    m_Key: cannonDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235749755445248
+    m_Key: cavalierKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235751596744704
+    m_Key: cavalierDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236045034446848
+    m_Key: chancellorKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236046296932352
+    m_Key: chancellorDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236280074854400
+    m_Key: deserterKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236282960535552
+    m_Key: deserterDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236548187348992
+    m_Key: emperorKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236550083174400
+    m_Key: emperorDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236727456096256
+    m_Key: empressKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236728521449472
+    m_Key: empressDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237083112103936
+    m_Key: gruKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237086652096512
+    m_Key: gruDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237363769761792
+    m_Key: juanKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237365485232128
+    m_Key: juanDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237651448684544
+    m_Key: moonKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237652644061184
+    m_Key: moonDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237784429092864
+    m_Key: nightriderKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237785385394176
+    m_Key: nightriderDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238057067241472
+    m_Key: paladinKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238058321338368
+    m_Key: paladinDescriptionKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238845927743488
+    m_Key: spyKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238847064399872
+    m_Key: speDescriptionKey
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

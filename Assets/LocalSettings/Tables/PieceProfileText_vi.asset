@@ -91,6 +91,120 @@ MonoBehaviour:
       c\u1EA3 khi c\xF3 qu\xE2n c\u1EDD \u1EDF gi\u1EEFa."
     m_Metadata:
       m_Items: []
+  - m_Id: 4235448809938944
+    m_Localized: "Ph\xE1o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235451422990336
+    m_Localized: "Gi\u1ED1ng nh\u01B0 qu\xE2n Ph\xE1o trong c\u1EDD t\u01B0\u1EDBng.
+      Di chuy\u1EC3n nh\u01B0 Xe, nh\u01B0ng \u0103n qu\xE2n \u0111\u1ECBch b\u1EB1ng
+      c\xE1ch nh\u1EA3y qua m\u1ED9t qu\xE2n kh\xE1c."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235749755445248
+    m_Localized: "K\u1ECB s\u0129"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4235751596744704
+    m_Localized: "Di chuy\u1EC3n nh\u01B0 hi\u1EC7p s\u0129 nh\u01B0ng ch\u1EC9 c\xF3
+      th\u1EC3 \u0111i h\u01B0\u1EDBng ngang ho\u1EB7c h\u01B0\u1EDBng t\u1EDBi.
+      N\u1EBFu \u0103n qu\xE2n \u0111\u1ECBch, c\xF3 th\u1EC3 \u0111i l\u1EA1i (m\u1ED9t
+      l\u1EA7n m\u1ED7i l\u01B0\u1EE3t)."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236045034446848
+    m_Localized: "T\u1EC3 t\u01B0\u1EDFng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236046296932352
+    m_Localized: "Di chuy\u1EC3n nh\u01B0 Hi\u1EC7p s\u0129 v\xE0 Xe."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236280074854400
+    m_Localized: "\u0110\xE0o ng\u0169"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236282960535552
+    m_Localized: "Ch\u1EC9 c\xF3 th\u1EC3 \u0111i l\xF9i. \u0102n qu\xE2n tr\xEAn
+      \u0111\u01B0\u1EDDng \u0111i, k\u1EC3 c\u1EA3 qu\xE2n m\xECnh."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236548187348992
+    m_Localized: "Ho\xE0ng \u0111\u1EBF"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236550083174400
+    m_Localized: "Di chuy\u1EC3n nh\u01B0 Vua v\xE0 Hi\u1EC7p s\u0129 k\u1EBFt h\u1EE3p.
+      C\xF3 th\u1EC3 Nh\u1EADp th\xE0nh nh\u01B0 Vua."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236727456096256
+    m_Localized: "N\u1EEF ho\xE0ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4236728521449472
+    m_Localized: "Di chuy\u1EC3n nh\u01B0 H\u1EADu. C\xF3 th\u1EC3 nh\u1EA3y qua
+      qu\xE2n kh\xE1c. K\u1EBFt th\xFAc tr\xF2 ch\u01A1i n\u1EBFu b\u1ECB chi\u1EC3u
+      t\u01B0\u1EDBng ho\u1EB7c b\u1ECB \u0103n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237083112103936
+    m_Localized: Gru
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237086652096512
+    m_Localized: "Di chuy\u1EC3n trong m\u1ED9t ph\u1EA1m vi h\xECnh tr\xF2n. Sau
+      khi qu\xE2n n\xE0y di chuy\u1EC3n, thu nh\u1ECF m\u1ED9t qu\xE2n \u0111\u1ECBch
+      cho vui."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237363769761792
+    m_Localized: Juan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237365485232128
+    m_Localized: "Juan di chuy\u1EC3n nh\u01B0 Hi\u1EC7p s\u0129. Nh\u01B0ng v\xEC
+      kh\xF4ng c\xF3 ai c\u01B0\u1EE1i Juan, n\xF3 c\xF3 th\u1EC3 di chuy\u1EC3n
+      hai l\u1EA7n m\u1ED7i l\u01B0\u1EE3t."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237651448684544
+    m_Localized: "Tr\u0103ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237652644061184
+    m_Localized: "Di chuy\u1EC3n trong m\u1ED9t ph\u1EA1m vi h\xECnh tr\xF2n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237784429092864
+    m_Localized: "H\u1EAFc hi\u1EC7p s\u0129"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4237785385394176
+    m_Localized: "C\xF3 th\u1EC3 di chuy\u1EC3n b\u1EA5t k\xEC s\u1ED1 b\u01B0\u1EDBc
+      n\xE0o nh\u01B0 Hi\u1EC7p s\u0129 theo c\xF9ng m\u1ED9t h\u01B0\u1EDBng."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238057067241472
+    m_Localized: "Th\xE1nh k\u1ECB s\u0129"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238058321338368
+    m_Localized: "Di chuy\u1EC3n nh\u01B0 hi\u1EC7p s\u0129. N\u1EBFu \u0103n qu\xE2n
+      \u0111\u1ECBch, di chuy\u1EC3n l\u1EA1i l\u1EA7n n\u1EEFa (hai l\u1EA7n m\u1ED7i
+      l\u01B0\u1EE3t)."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238845927743488
+    m_Localized: "Gi\xE1n \u0111i\u1EC7p"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4238847064399872
+    m_Localized: "Di chuy\u1EC3n 2 \xF4 t\u1EDBi ho\u1EB7c 1 \xF4 \u1EDF c\xE1c h\u01B0\u1EDBng
+      kh\xE1c. Kh\xF4ng th\u1EC3 B\u1EAFt t\u1ED1t qua \u0111\u01B0\u1EDDng. C\xF3
+      th\u1EC3 Phong c\u1EA5p th\xE0nh Xe, T\u01B0\u1EE3ng ho\u1EB7c Hi\u1EC7p s\u0129."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
