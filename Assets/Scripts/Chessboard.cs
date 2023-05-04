@@ -190,7 +190,7 @@ public class Chessboard : MonoBehaviour
                 if (GameSetting.instance.showToolTip)
                 {
                     ChessPiece hitCp = chessPieces[hitPosition.x, hitPosition.y];
-                    GameManager.instance.ShowTextToolTip(hitCp.profile.pieceName, hitCp.transform.position);
+                    GameManager.instance.ShowTextToolTip(hitCp.profile.GetLocalizedName(), hitCp.transform.position);
                 }
             }
             else

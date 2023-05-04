@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Localization.Settings;
 
 /// <summary>
 /// Currently it's act more like a LobbyManager than a GameSetting. Will do
@@ -41,7 +42,6 @@ public class GameSetting : NetworkBehaviour
     public bool showToolTip = false;
     public float bgmVol = 1f;
     public float soundVol = 1f;
-
     public GameObject settingMenu;
 
     [Header("Component")]
@@ -334,6 +334,11 @@ public class GameSetting : NetworkBehaviour
             }
         }
         settingMenu.SetActive(!settingMenu.activeSelf);
+    }
+
+    public void ChangeGameLanguage(int languageId)
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[languageId];
     }
 
 }

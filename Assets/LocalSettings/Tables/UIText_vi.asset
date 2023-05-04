@@ -222,6 +222,10 @@ MonoBehaviour:
     m_Localized: "Qu\xE2n \u0111en th\u1EAFng!"
     m_Metadata:
       m_Items: []
+  - m_Id: 6223175386390528
+    m_Localized: "Ng\xF4n ng\u1EEF"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

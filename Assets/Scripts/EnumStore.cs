@@ -4,6 +4,12 @@ public enum ClientID
     CLIENT
 }
 
+public enum GameLanguage
+{
+    ENGLISH,
+    VIETNAMESE
+}
+
 /// <summary>
 /// Stuff that can't be coded using variable and must be assessed 
 /// on a case-by-case basic
